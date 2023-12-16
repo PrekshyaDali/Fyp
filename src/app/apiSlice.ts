@@ -7,7 +7,7 @@ import {
 } from "@reduxjs/toolkit/query/react";
 
 const baseQuery = fetchBaseQuery({
-  baseUrl: "https://jsonplaceholder.typicode.com",
+  baseUrl: "http://localhost:3001",
   prepareHeaders: (headers) => {
     // if you need to add global headers, do it here
     return headers;
