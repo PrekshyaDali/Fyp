@@ -35,16 +35,13 @@ const AdminLayout = () => {
             <Outlet />
           </main>
         </div>
-        <div className="drawer-side">
+        <div className="drawer-side ">
           <label htmlFor="my-drawer-2" className="drawer-overlay"></label>
-          <ul className="menu p-4 w-80 bg-base-100 text-base-content">
+          <ul className="menu p-4 w-80  text-base-content bg-[#FAFAFF]">
             <li>
               <Link to="/">Dashboard</Link>
             </li>
-            <li>
-              <Link to="/posts">Posts</Link>
-            </li>
-            {/* logout button at bottom */}
+
             <div className="absolute bottom-0 w-full left-0 p-4">
               <button
                 className="btn btn-error w-full text-center text-white"
