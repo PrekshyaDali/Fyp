@@ -4,13 +4,16 @@ import React from "react";
 import { useForm } from "react-hook-form";
 import { useLoginMutation } from "@/feature/userApiSlice";
 import { toast } from "react-toastify";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useAppDispatch } from "@/app/store";
 import { setIsAuthenticated } from "@/app/authSlice";
+import { FaEye } from "react-icons/fa";
+import { FaEyeSlash } from "react-icons/fa";
 
 const Login = () => {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
+  const [isPasswordVisible, setIsPasswordVisible] = React.useState(false);
   const {
     register,
     handleSubmit,
@@ -20,6 +23,7 @@ const Login = () => {
   } = useForm<ILogin>();
   const [loginUser, { isLoading }] = useLoginMutation();
   const SubmitHandler = async (data: ILogin) => {
+
     // event.preventDefault();
     const data2 = {
       email: data.email,
@@ -56,9 +60,21 @@ const Login = () => {
                 <h2 className="text-xl font-bold my-4">Password</h2>
                 <input
                   className="inputfields relative"
-                  type="text"
+                  type={isPasswordVisible ? "text" : "password"}
                   {...register("password", {})}
                 />
+                {isPasswordVisible ? (
+                  <FaEyeSlash
+                    className="absolute right-3 top-[70px] cursor-pointer text-lg"
+                    onClick={() => setIsPasswordVisible(!isPasswordVisible)}
+                  />
+                ) : (
+                  <FaEye
+                    className="absolute right-3 top-[70px] cursor-pointer text-lg"
+                    onClick={() => setIsPasswordVisible(!isPasswordVisible)}
+                  />
+                )}
+                
                 <p className="underline_sign text-sm text-[#1E2749] underline absolute right-1 ">
                   Forget Password?
                 </p>
@@ -67,7 +83,10 @@ const Login = () => {
               <div className="flex flex-col items-center justify-center mt-2">
                 <button className="btn">Sign in</button>
                 <p className="text-[#c2c2c2] text-xs py-3">
-                  Don't have an account? <span className="underline_sign">Sign up</span>
+                  Don't have an account?{" "}
+                  <Link to="/Register" className="underline_sign">
+                    Sign Up
+                  </Link>
                 </p>
                 <p className="mb-3">Or</p>
               </div>
