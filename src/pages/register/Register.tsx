@@ -1,12 +1,14 @@
 import React from "react";
 import { set, useForm } from "react-hook-form";
+import { useEffect, useState } from "react";
 // import { useState, useEffect } from "react";
 import { IRegister } from "@/index";
 import { Link, useNavigate } from "react-router-dom";
-import { useRegisterMutation } from "@/feature/userApiSlice";
+import {  useRegisterMutation } from "@/feature/userApiSlice";
 import { toast } from "react-toastify";
 
 const Register = () => {
+  const [email, setEmail] = useState("");
   const navigate = useNavigate();
 
   const currentWidth = window.innerWidth;
@@ -18,6 +20,7 @@ const Register = () => {
     getValues,
   } = useForm<IRegister>();
   const [registerUser, { isLoading }] = useRegisterMutation();
+
   const SubmitHandler = async (data: IRegister) => {
     // event.preventDefault();
     const data1 = {
@@ -31,8 +34,10 @@ const Register = () => {
     try {
       const res = await registerUser(data1).unwrap();
       console.log(res, "res");
+      localStorage.setItem("email", data.email);
       toast.success("Registered Successfully");
-      navigate("/");
+     
+      navigate("/otp_button");
       reset();
     } catch (error: unknown) {
       console.log(error, "err");
@@ -40,7 +45,9 @@ const Register = () => {
       toast.error(data.message);
     }
   };
-  console.log(errors.password.message);
+
+
+
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 bg-[#FAFAFF]">
       <div className="p-1">
@@ -84,18 +91,22 @@ const Register = () => {
               })}
             />
             {errors.email && (
-              <span className="text-red-500 text-xs">{errors.email.message}</span>
+              <span className="text-red-500 text-md">{errors.email.message}</span>
             )}
             <input
               placeholder="Contact Number"
               className="inputfields"
               type="number"
               {...register("contactNumber", {
-                required: true,
+                required: {value:true, message: "Contact Number is required"},
+                pattern: {
+                  value: /^[0-9]{1,10}$/,
+                  message: "Number should be of 10 digits",
+                },
               })}
             />
-            {errors.contactNumber?.type === "required" && (
-              <span className="text-red-500">This field is required</span>
+            {errors.contactNumber && (
+              <span className="text-red-500">{errors.contactNumber.message}</span>
             )}
             <input
               placeholder="Password*"
@@ -103,10 +114,7 @@ const Register = () => {
               type="password"
               {...register("password", {
                 required: "Password is required",
-                minLength: {
-                  value: 8,
-                  message: "Password should be at least 8 characters",
-                },
+
                 pattern: {
                   value: /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[!@#$%^&*()-_+=]).{8,}$/,
                   message:
@@ -115,7 +123,7 @@ const Register = () => {
               })}
             />
 
-            {errors.password?.type === "required" && (
+            {errors.password && (
               <span className="text-red-500">{errors.password.message}</span>
             )}
             <input
@@ -124,10 +132,12 @@ const Register = () => {
               type="password"
               {...register("password_confirmation", {
                 required: true,
+                validate: (value) =>
+                  value === getValues("password") || "Passwords do not match",
               })}
             />
-            {errors.password_confirmation?.type === "required" && (
-              <span className="text-red-500">This field is required</span>
+            {errors.password_confirmation && (
+              <span className="text-red-500">{errors.password_confirmation.message}</span>
             )}
             <div className="flex flex-col items-center justify-center mt-2">
               <button
