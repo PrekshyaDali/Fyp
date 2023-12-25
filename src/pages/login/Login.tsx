@@ -23,7 +23,6 @@ const Login = () => {
   } = useForm<ILogin>();
   const [loginUser, { isLoading }] = useLoginMutation();
   const SubmitHandler = async (data: ILogin) => {
-
     // event.preventDefault();
     const data2 = {
       email: data.email,
@@ -74,14 +73,19 @@ const Login = () => {
                     onClick={() => setIsPasswordVisible(!isPasswordVisible)}
                   />
                 )}
-                
-                <p className="underline_sign text-sm text-[#1E2749] underline absolute right-1 ">
+
+                <Link
+                  to="/Forgetpassword"
+                  className="underline_sign text-sm text-[#1E2749] underline absolute right-1 top-28"
+                >
                   Forget Password?
-                </p>
+                </Link>
               </div>
 
               <div className="flex flex-col items-center justify-center mt-2">
-                <button className="btn">Sign in</button>
+                <button className="btn hover:bg-blue-800 hover:active:bg-[#1E2749]">
+                  Sign in
+                </button>
                 <p className="text-[#c2c2c2] text-xs py-3">
                   Don't have an account?{" "}
                   <Link to="/Register" className="underline_sign">

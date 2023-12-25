@@ -43,7 +43,7 @@ const Otpverification = () => {
         </p>
         <span>Enter verification code</span>
         <input
-          className="bg-white border-solid border-2"
+          className="bg-white border-solid border-2 h-8"
           type="text"
           {...register("verificationCode", {
             required: "Otp is required",
@@ -64,7 +64,7 @@ const Otpverification = () => {
 
         <div className="flex justify-center">
           <button
-            className="bg-[#1E2749] rounded-lg text-white w-40 h-10 mt-5 hover:bg-blue-800 hover:active:bg-[#1E2749]"
+            className="bg-[#1E2749] rounded-lg text-white w-40 h-10  hover:bg-blue-800 hover:active:bg-[#1E2749]"
             type="submit"
           >
             Verify
