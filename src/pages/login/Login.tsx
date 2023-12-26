@@ -33,14 +33,10 @@ const Login = () => {
 
       reset();
     } catch (error) {
-      if (error instanceof Error && error.response) {
-        // Handle errors with response (e.g., server error with a response)
-        const { message } = error.message.response;
-        toast.error(message);
-      } else {
-        // Handle other types of errors (e.g., network error, unexpected errors)
-        toast.error("Invalid credentials");
-      }
+      console.log(error, "err");
+
+      const { data } = error as { data: { error: string } };
+      toast.error(data.error);
     }
   };
 
@@ -60,7 +56,7 @@ const Login = () => {
                 <h2 className="text-xl font-bold my-4">Password</h2>
                 <input
                   className="inputfields relative"
-                  type="password"
+                  type="text"
                   {...register("password", {})}
                 />
                 <p className="underline_sign text-sm text-[#1E2749] underline absolute right-1 ">
