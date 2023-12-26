@@ -11,3 +11,12 @@ export interface ILogin{
     email: string;
     password: string;
 }
+export interface Iotp{
+    email: string;
+    // otp: number;
+}
+export interface IotpVerify{
+    email: string;
+    verificationCode: string;
+
+}

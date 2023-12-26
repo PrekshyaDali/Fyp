@@ -1,19 +1,15 @@
 import React from "react";
 import { set, useForm } from "react-hook-form";
-import { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
+// import { useState, useEffect } from "react";
 import { IRegister } from "@/index";
-import { useNavigate } from "react-router-dom";
-import { useRegisterMutation } from "@/feature/userApiSlice";
+import { Link, useNavigate } from "react-router-dom";
+import {  useRegisterMutation } from "@/feature/userApiSlice";
 import { toast } from "react-toastify";
 
 const Register = () => {
-  const [firstName, setFirstName] = useState<string>("");
-  const [lastName, setLastName] = useState<string>("");
-  const [email, setEmail] = useState<string>("");
-  const [contactNumber, setContactNumber] = useState<string>("");
-  const [password, setPassword] = useState<string>("");
+  const [email, setEmail] = useState("");
   const navigate = useNavigate();
-  const [password_confirmation, setPassword_confirmation] = useState<string>("");
 
   const currentWidth = window.innerWidth;
   const {
@@ -24,6 +20,7 @@ const Register = () => {
     getValues,
   } = useForm<IRegister>();
   const [registerUser, { isLoading }] = useRegisterMutation();
+
   const SubmitHandler = async (data: IRegister) => {
     // event.preventDefault();
     const data1 = {
@@ -34,24 +31,13 @@ const Register = () => {
       password: data.password,
     };
 
-    //   registerUser(data1).unwrap().then(response => {
-    //   if (!response.ok) {
-    //     throw new Error('Network response was not ok');
-    //   }
-    //   return response.json();
-    // })
-    // .then(data => {
-    //   // Handle the data
-    // })
-    // .catch(error => {
-    //   console.error('Error during fetch operation:', error);
-    // });
-
     try {
       const res = await registerUser(data1).unwrap();
       console.log(res, "res");
+      localStorage.setItem("email", data.email);
       toast.success("Registered Successfully");
-      navigate("/");
+     
+      navigate("/otp_button");
       reset();
     } catch (error: unknown) {
       console.log(error, "err");
@@ -59,6 +45,9 @@ const Register = () => {
       toast.error(data.message);
     }
   };
+
+
+
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 bg-[#FAFAFF]">
       <div className="p-1">
@@ -66,7 +55,6 @@ const Register = () => {
         <form onSubmit={handleSubmit(SubmitHandler)}>
           <div className="flex flex-col py-8 px-10 md:px-11 gap-3 ">
             <h1 className="text-3xl font-bold text-blue-950 mb-5">Signup</h1>
-
             <input
               placeholder="FirstName*"
               className="inputfields"
@@ -102,28 +90,41 @@ const Register = () => {
                 },
               })}
             />
-            {errors.email && <span className="text-red-500">{errors.email.message}</span>}
+            {errors.email && (
+              <span className="text-red-500 text-md">{errors.email.message}</span>
+            )}
             <input
               placeholder="Contact Number"
               className="inputfields"
               type="number"
               {...register("contactNumber", {
-                required: true,
+                required: {value:true, message: "Contact Number is required"},
+                pattern: {
+                  value: /^[0-9]{1,10}$/,
+                  message: "Number should be of 10 digits",
+                },
               })}
             />
-            {errors.contactNumber?.type === "required" && (
-              <span className="text-red-500">This field is required</span>
+            {errors.contactNumber && (
+              <span className="text-red-500">{errors.contactNumber.message}</span>
             )}
             <input
               placeholder="Password*"
               className="inputfields"
               type="password"
               {...register("password", {
-                required: true,
+                required: "Password is required",
+
+                pattern: {
+                  value: /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[!@#$%^&*()-_+=]).{8,}$/,
+                  message:
+                    "Password should contain at least one uppercase, one lowercase, one number, and one special character",
+                },
               })}
             />
-            {errors.contactNumber?.type === "required" && (
-              <span className="text-red-500">This field is required</span>
+
+            {errors.password && (
+              <span className="text-red-500">{errors.password.message}</span>
             )}
             <input
               placeholder="Confirm Password*"
@@ -131,10 +132,12 @@ const Register = () => {
               type="password"
               {...register("password_confirmation", {
                 required: true,
+                validate: (value) =>
+                  value === getValues("password") || "Passwords do not match",
               })}
             />
-            {errors.contactNumber?.type === "required" && (
-              <span className="text-red-500">This field is required</span>
+            {errors.password_confirmation && (
+              <span className="text-red-500">{errors.password_confirmation.message}</span>
             )}
             <div className="flex flex-col items-center justify-center mt-2">
               <button
@@ -144,10 +147,12 @@ const Register = () => {
                 Signup
               </button>
               <p className="text-xs">
-                Already have an account? <span className="underline_sign">Sign In</span>
+                Already have an account?{" "}
+                <Link to="/" className="underline_sign">
+                  Sign In
+                </Link>
               </p>
             </div>
-
             <p className="text-blue-900 text-xl font-bold text-center mt-2">
               "Empowering Journeys, One Lesson at a Time – Welcome to Your Driving
               Success!"
