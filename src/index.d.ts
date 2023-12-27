@@ -20,3 +20,6 @@ export interface IotpVerify{
     verificationCode: string;
 
 }
+export interface IForgetPassword{
+    email: string;
+}

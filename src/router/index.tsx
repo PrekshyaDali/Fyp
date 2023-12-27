@@ -7,6 +7,7 @@ import Register from "@/pages/register/Register";
 import Otpverification from "@/pages/Otpverification/Otpverification";
 import Otpbutton from "@/pages/Otpbutton/Otpbutton";
 import Forgetpassword from "@/pages/login/Forgetpassword";
+import Resetpassword from "@/pages/login/Resetpassword";
 
 // lazy import components
 // const PostList = lazy(() => import("@/pages/posts/list"));
@@ -76,7 +77,15 @@ const router = createBrowserRouter([
         <Forgetpassword />
         </Suspense>
     )
-  }
+  },
+  {
+  path: "/Resetpassword",
+    element:(
+      <Suspense fallback={<div>Loading...</div>}>
+        <Resetpassword />
+        </Suspense>
+    )
+  },
 ]);
 
 export default router;
