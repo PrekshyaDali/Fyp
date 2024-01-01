@@ -27,19 +27,30 @@ const Login = () => {
     const data2 = {
       email: data.email,
       password: data.password,
+      role: data.role,
     };
     try {
       const res = await loginUser(data2).unwrap();
       toast.success("LoggedIn Successfully");
       dispatch(setIsAuthenticated(true));
-      navigate("/");
+      localStorage.setItem("email", data.email);
+      localStorage.setItem("role", res.role);
+
+      navigate("/")
+
+      localStorage.removeItem("email");
+      // localStorage.removeItem("role");
 
       reset();
     } catch (error) {
       console.log(error, "err");
-
+      localStorage.setItem("email", data2.email);
       const { data } = error as { data: { error: string } };
       toast.error(data.error);
+      if(error.status === 404){
+        navigate("/otp")
+      }
+      
     }
   };
 
@@ -53,15 +64,33 @@ const Login = () => {
               <h1 className="font-bold text-3xl my-5">Login</h1>
               <div className="">
                 <h2 className="text-xl font-bold  my-4">Email</h2>
-                <input className="inputfields" type="text" {...register("email", {})} />
+                <input
+                  className="inputfields"
+                  type="text"
+                  {...register("email", {
+                    required: true,
+                  })}
+                />
+                {errors.email  && (
+                  <span className="text-red-500">This field is required</span>
+                )}
               </div>
               <div className="mb-10 relative">
                 <h2 className="text-xl font-bold my-4">Password</h2>
                 <input
                   className="inputfields relative"
                   type={isPasswordVisible ? "text" : "password"}
-                  {...register("password", {})}
+                  {...register(
+                    "password",
+
+                    {
+                      required: true,
+                    },
+                  )}
                 />
+                {errors.password && (
+                  <span className="text-red-500">This field is required</span>
+                )}
                 {isPasswordVisible ? (
                   <FaEyeSlash
                     className="absolute right-3 top-[70px] cursor-pointer text-lg"
