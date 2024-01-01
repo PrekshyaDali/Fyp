@@ -13,7 +13,9 @@ import router from "./router";
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
   <React.StrictMode>
     <Provider store={store}>
+        
       <RouterProvider router={router} />
+
       <ToastContainer />
     </Provider>
   </React.StrictMode>,

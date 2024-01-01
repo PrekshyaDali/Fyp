@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import { FieldValues, set, useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
-import { useOtpVerifyMutation } from "@/feature/userApiSlice";
+import { useOtpMutation, useOtpVerifyMutation } from "@/feature/userApiSlice";
 import { toast } from "react-toastify";
-import { IotpVerify } from "@/index";
+import { Iotp, IotpVerify } from "@/index";
 
 const Otpverification = () => {
   const navigate = useNavigate();
@@ -16,20 +16,28 @@ const Otpverification = () => {
   const [verifyOtp, { isLoading }] = useOtpVerifyMutation();
 
   const submitHandler = async (data: IotpVerify) => {
+    if(!isLoading){
     try {
       const res = await verifyOtp({
         email: localStorage.getItem("email"),
         verificationCode: data.verificationCode,
+        
       }).unwrap();
       console.log(res, "res");
       navigate("/");
-      toast.success("Otp verified successfully");
+      toast.success("Otp sent successfully");
+
       reset();
     } catch (error) {
       console.error("err", error);
-      toast.error(error.message);
+      const errorMessage = error.response?.data?.message || "Invalid otp";
+      toast.error(errorMessage);
     }
+  }
+
   };
+
+ 
 
   return (
     <div className="bg-[#FAFAFF] w-full h-[100vh] flex justify-center text-[#1E2749]">
@@ -43,7 +51,7 @@ const Otpverification = () => {
         </p>
         <span>Enter verification code</span>
         <input
-          className="bg-white border-solid border-2 h-8"
+          className="bg-white border-solid border-2 h-8 "
           type="text"
           {...register("verificationCode", {
             required: "Otp is required",
@@ -61,11 +69,19 @@ const Otpverification = () => {
         <span className="text-red-500">
           {errors.verificationCode && (errors.verificationCode as FieldValues).message}
         </span>
+        <span 
+        
+        className="underline_sign"
+    
+        
+        
+        >Resend Code</span>
 
         <div className="flex justify-center">
           <button
             className="bg-[#1E2749] rounded-lg text-white w-40 h-10  hover:bg-blue-800 hover:active:bg-[#1E2749]"
             type="submit"
+            disabled={isLoading}
           >
             Verify
           </button>

@@ -8,6 +8,7 @@ import Otpverification from "@/pages/Otpverification/Otpverification";
 import Otpbutton from "@/pages/Otpbutton/Otpbutton";
 import Forgetpassword from "@/pages/login/Forgetpassword";
 import Resetpassword from "@/pages/login/Resetpassword";
+import UserLayout from "@/layouts/UserLayout";
 
 // lazy import components
 // const PostList = lazy(() => import("@/pages/posts/list"));
@@ -26,65 +27,67 @@ const router = createBrowserRouter([
             index: true,
             element: <h1>Dashboard</h1>,
           },
+
           {
-            path: "posts",
+            path: "/posts",
             element: (
-              <Suspense fallback={<div>Loading...</div>}>
-                {/* <PostList /> */}
-              </Suspense>
+              <Suspense fallback={<div>Loading...</div>}>{/* <PostList /> */}</Suspense>
             ),
           },
           {
-            path: "posts/create",
+            path: "/posts/create",
             element: (
-              <Suspense fallback={<div>Loading...</div>}>
-                {/* <CreatePost /> */}
-              </Suspense>
+              <Suspense fallback={<div>Loading...</div>}>{/* <CreatePost /> */}</Suspense>
             ),
           },
         ],
       },
+      {
+        path: "/user",
+        element: <UserLayout />,
+      }
     ],
   },
+  
   {
     path: "/register",
-    element:(
+    element: (
       <Suspense fallback={<div>Loading...</div>}>
         <Register />
-        </Suspense>
-    )
+      </Suspense>
+    ),
   },
   {
     path: "/otp",
-    element:(
+    element: (
       <Suspense fallback={<div>Loading...</div>}>
         <Otpverification />
-        </Suspense>
-    )
+      </Suspense>
+    ),
   },
   {
     path: "/otp_button",
-    element:(
+    element: (
       <Suspense fallback={<div>Loading...</div>}>
         <Otpbutton />
-        </Suspense>
-    )
+      </Suspense>
+    ),
   },
   {
     path: "/Forgetpassword",
-    element:(
+    element: (
       <Suspense fallback={<div>Loading...</div>}>
         <Forgetpassword />
-        </Suspense>
-    )
+      </Suspense>
+    ),
   },
   {
-  path: "/Resetpassword",
-    element:(
+    path: "/Resetpassword",
+    element: (
       <Suspense fallback={<div>Loading...</div>}>
         <Resetpassword />
-        </Suspense>
-    )
+      </Suspense>
+    ),
   },
 ]);
 

@@ -53,7 +53,9 @@ const Forgetpassword = () => {
               },
             })}
             className="bg-white border-solid border-2 h-8 mt-3"
+            
           />
+         
           <span className="text-red-500">
             {errors.email && (errors.email as FieldValues).message}
           </span>
