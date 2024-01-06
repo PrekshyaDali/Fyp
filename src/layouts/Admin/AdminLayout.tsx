@@ -2,19 +2,19 @@ import { Link, Outlet } from "react-router-dom";
 
 import { logout } from "@/app/authSlice";
 import { useAppDispatch } from "@/app/store";
+import CreateInstructor from "@/layouts/Admin/CreateInstructor";
 
 const AdminLayout = () => {
   const dispatch = useAppDispatch();
   return (
-    <div>
+    <div className="text-[#1E2749]">
       <div className="drawer drawer-mobile">
         <input id="my-drawer-2" type="checkbox" className="drawer-toggle" />
         <div className="drawer-content bg-gray-100 p-8">
           <div>
-            Dashboard
             <label
               htmlFor="my-drawer-2"
-              className="btn btn-primary drawer-button lg:hidden"
+              className="btn btn-primary drawer-button lg:hidden w-14 sm:w-32"
             >
               <span className="sr-only">Open sidebar</span>
               <svg
@@ -32,13 +32,18 @@ const AdminLayout = () => {
               </svg>
             </label>
           </div>
+          <h1 className="text-4xl">Admin DashBoard</h1>
+          
+            <CreateInstructor></CreateInstructor>
+          
+
           <main>
             <Outlet />
           </main>
         </div>
         <div className="drawer-side ">
-          <label htmlFor="my-drawer-2" className="drawer-overlay"></label>
-          <ul className="menu p-4 w-80  text-base-content bg-[#FAFAFF]">
+          <label htmlFor="my-drawer-2" className="drawer-overlay "></label>
+          <ul className="menu p-4 w-52 sm:w-80  text-base-content bg-[#FAFAFF]">
             <li>
               <Link to="/">Dashboard</Link>
             </li>

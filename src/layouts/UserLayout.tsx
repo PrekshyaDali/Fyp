@@ -13,7 +13,7 @@ const UserLayout = () => {
         <div className="drawer-content bg-gray-100 p-8">
           
           <div>
-            Dashboard
+            User Dashboard
             <label
               htmlFor="my-drawer-2"
               className="btn btn-primary drawer-button lg:hidden"

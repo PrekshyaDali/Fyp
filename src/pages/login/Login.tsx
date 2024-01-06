@@ -9,6 +9,7 @@ import { useAppDispatch } from "@/app/store";
 import { setIsAuthenticated } from "@/app/authSlice";
 import { FaEye } from "react-icons/fa";
 import { FaEyeSlash } from "react-icons/fa";
+import Button from "../component/Button";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -36,7 +37,11 @@ const Login = () => {
       localStorage.setItem("email", data.email);
       localStorage.setItem("role", res.role);
 
-      navigate("/")
+      if (res.role === "admin") {
+        navigate("/admin");
+      } else {
+        navigate("/user");
+      }
 
       localStorage.removeItem("email");
       // localStorage.removeItem("role");
@@ -47,10 +52,10 @@ const Login = () => {
       localStorage.setItem("email", data2.email);
       const { data } = error as { data: { error: string } };
       toast.error(data.error);
-      if(error.status === 404){
-        navigate("/otp")
+
+      if (error.status === 404) {
+        navigate("/otp");
       }
-      
     }
   };
 
@@ -71,7 +76,7 @@ const Login = () => {
                     required: true,
                   })}
                 />
-                {errors.email  && (
+                {errors.email && (
                   <span className="text-red-500">This field is required</span>
                 )}
               </div>
@@ -112,9 +117,7 @@ const Login = () => {
               </div>
 
               <div className="flex flex-col items-center justify-center mt-2">
-                <button className="btn hover:bg-blue-800 hover:active:bg-[#1E2749]">
-                  Sign in
-                </button>
+                <Button isLoading={isLoading} name="Sign in"></Button>
                 <p className="text-[#c2c2c2] text-xs py-3">
                   Don't have an account?{" "}
                   <Link to="/Register" className="underline_sign">
