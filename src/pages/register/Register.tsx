@@ -4,8 +4,11 @@ import { useEffect, useState } from "react";
 // import { useState, useEffect } from "react";
 import { IRegister } from "@/index";
 import { Link, useNavigate } from "react-router-dom";
-import {  useRegisterMutation } from "@/feature/userApiSlice";
+import { useRegisterMutation } from "@/feature/userApiSlice";
 import { toast } from "react-toastify";
+import DriveSyncLogo from "../component/DriveSyncLogo";
+import Button from "../component/Button";
+import { useOtpMutation } from "@/feature/userApiSlice";
 
 const Register = () => {
   const [email, setEmail] = useState("");
@@ -20,6 +23,8 @@ const Register = () => {
     getValues,
   } = useForm<IRegister>();
   const [registerUser, { isLoading }] = useRegisterMutation();
+   const [send_otp, ] = useOtpMutation();
+   
 
   const SubmitHandler = async (data: IRegister) => {
     // event.preventDefault();
@@ -34,11 +39,16 @@ const Register = () => {
     try {
       const res = await registerUser(data1).unwrap();
       console.log(res, "res");
-      localStorage.setItem("email", data.email);
+      const storedEmail = data.email;
+      const otpResponse = await send_otp({email: storedEmail}).unwrap();
+      console.log(otpResponse, "otpResponse");
+      localStorage.setItem("email", storedEmail);
       toast.success("Registered Successfully");
-     
-      navigate("/otp_button");
+
+      navigate("/otp");
+
       reset();
+    
     } catch (error: unknown) {
       console.log(error, "err");
       const { data } = error as { data: { message: string } };
@@ -46,12 +56,10 @@ const Register = () => {
     }
   };
 
-
-
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 bg-[#FAFAFF]">
       <div className="p-1">
-        <img className="w-60 ml-10  mt-10" src="./logo.png" alt="" />
+        <DriveSyncLogo></DriveSyncLogo>
         <form onSubmit={handleSubmit(SubmitHandler)}>
           <div className="flex flex-col py-8 px-10 md:px-11 gap-3 ">
             <h1 className="text-3xl font-bold text-blue-950 mb-5">Signup</h1>
@@ -98,7 +106,7 @@ const Register = () => {
               className="inputfields"
               type="number"
               {...register("contactNumber", {
-                required: {value:true, message: "Contact Number is required"},
+                required: { value: true, message: "Contact Number is required" },
                 pattern: {
                   value: /^[0-9]{1,10}$/,
                   message: "Number should be of 10 digits",
@@ -140,12 +148,7 @@ const Register = () => {
               <span className="text-red-500">{errors.password_confirmation.message}</span>
             )}
             <div className="flex flex-col items-center justify-center mt-2">
-              <button
-                className="btn  mb-2 hover:bg-blue-800 hover:active:bg-blue-900"
-                type="submit"
-              >
-                Signup
-              </button>
+              <Button name="Sign Up" isLoading={isLoading}></Button>
               <p className="text-xs">
                 Already have an account?{" "}
                 <Link to="/" className="underline_sign">

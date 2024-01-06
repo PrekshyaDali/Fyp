@@ -4,8 +4,8 @@ import { FieldValues, set, useForm } from "react-hook-form";
 import { IForgetPassword } from "@/index";
 import { useForgetPasswordMutation } from "@/feature/userApiSlice";
 import { toast } from "react-toastify";
+import Button from "../component/Button";
 const Forgetpassword = () => {
-
   const {
     register,
     handleSubmit,
@@ -13,31 +13,30 @@ const Forgetpassword = () => {
     reset,
   } = useForm<IForgetPassword>();
   const [forgetPassword, { isLoading }] = useForgetPasswordMutation();
-  const SubmitHandler = async (data: IForgetPassword)=>{
-    try{
-    const res = await forgetPassword({
-      email: data.email,
-    }).unwrap();
-    console.log(res, "res");
-    toast.success("Email sent successfully");
-    reset();
+  const SubmitHandler = async (data: IForgetPassword) => {
+    if (!isLoading) {
+      try {
+        const res = await forgetPassword({
+          email: data.email,
+        }).unwrap();
+        console.log(res, "res");
+        toast.success("Email sent successfully");
+        reset();
+      } catch (error) {
+        console.log(error, "err");
+        toast.error(error.message);
+      }
+    }
+  };
 
-  }
-  catch(error){
-    console.log(error,"err");
-    toast.error(error.message);
-
-  }
-}
-  
   return (
-    <div className="bg-[#FAFAFF] w-full h-[100vh] flex justify-center text-[#1E2749] ">
+    <div className="bg-[#FAFAFF] w-full h-[100vh] flex justify-center text-[#1E2749] items-start p-2">
       <form
         onSubmit={handleSubmit(SubmitHandler)}
-        className="mt-5 border-1 p-5 flex flex-col w-96 pt-5 h-96 justify-between shadow-md relative"
+        className="mt-5 border-1 p-5 flex flex-col pt-5 max-h-80 shadow-md gap-5 relative"
       >
         <h1 className="text-4xl font-bold">Forgot Password</h1>
-        <p className="text-center">
+        <p className="text-center w-80">
           Enter your email address and we'll send you a link to reset your password
         </p>
         <div className="flex flex-col">
@@ -53,24 +52,22 @@ const Forgetpassword = () => {
               },
             })}
             className="bg-white border-solid border-2 h-8 mt-3"
-            
           />
-         
+
           <span className="text-red-500">
             {errors.email && (errors.email as FieldValues).message}
           </span>
         </div>
         <div className="flex justify-center">
-          <button
-            type="submit"
-            className="bg-[#1E2749] rounded-lg text-white w-40 h-10 mb-8 hover:bg-blue-800 hover:active:bg-[#1E2749]"
-          >
-            Send Email
-          </button>
+          <Button
+            name="Send Email"
+            isLoading={isLoading}
+            // className=" mb-8  w-40 h-10"
+          ></Button>
         </div>
         <Link
           to="/"
-          className="flex justify-center items-center h-8 w-full  bg-[#F7F7F7] absolute bottom-0 left-0 font-semibold cursor-pointer hover:bg-gray-200 hover:active:bg-[#F7F7F7]"
+          className="flex justify-center items-center h-8   bg-[#F7F7F7] absolute bottom-0 left-0 font-semibold cursor-pointer hover:bg-gray-200 hover:active:bg-[#F7F7F7]"
         >
           Back to Login
         </Link>

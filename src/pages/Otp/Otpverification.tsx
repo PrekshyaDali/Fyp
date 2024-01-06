@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { useOtpMutation, useOtpVerifyMutation } from "@/feature/userApiSlice";
 import { toast } from "react-toastify";
 import { Iotp, IotpVerify } from "@/index";
+import Button from "../component/Button";
 
 const Otpverification = () => {
   const navigate = useNavigate();
@@ -14,31 +15,40 @@ const Otpverification = () => {
     reset,
   } = useForm();
   const [verifyOtp, { isLoading }] = useOtpVerifyMutation();
+  const [send_otp] = useOtpMutation();
 
   const submitHandler = async (data: IotpVerify) => {
-    if(!isLoading){
-    try {
-      const res = await verifyOtp({
-        email: localStorage.getItem("email"),
-        verificationCode: data.verificationCode,
+    if (!isLoading) {
+      try {
+        const res = await verifyOtp({
+          email: localStorage.getItem("email"),
+          verificationCode: data.verificationCode,
+        }).unwrap();
+        console.log(res, "res")
         
-      }).unwrap();
-      console.log(res, "res");
-      navigate("/");
-      toast.success("Otp sent successfully");
 
-      reset();
-    } catch (error) {
-      console.error("err", error);
-      const errorMessage = error.response?.data?.message || "Invalid otp";
-      toast.error(errorMessage);
+        navigate("/");
+        toast.success("Otp verified successfully");
+
+        reset();
+      } catch (error) {
+        console.error("err", error);
+        const errorMessage = error.response?.data?.message || "Invalid otp";
+        toast.error(errorMessage);
+      }
     }
-  }
-
   };
-
- 
-
+  const ResendCodeHandler = async () => {
+    try {
+      const storedEmail = localStorage.getItem("email");
+      const otpResponse = await send_otp({ email: storedEmail }).unwrap();
+      console.log(otpResponse, "otpResponse");
+      toast.success("Otp sent successfully");
+  
+    } catch {
+      toast.error("Error in sending otp");
+    }
+  };
   return (
     <div className="bg-[#FAFAFF] w-full h-[100vh] flex justify-center text-[#1E2749]">
       <form
@@ -69,22 +79,14 @@ const Otpverification = () => {
         <span className="text-red-500">
           {errors.verificationCode && (errors.verificationCode as FieldValues).message}
         </span>
-        <span 
-        
-        className="underline_sign"
-    
-        
-        
-        >Resend Code</span>
+        <span onClick={ResendCodeHandler} className="underline_sign">
+          Resend Code
+        </span>
 
         <div className="flex justify-center">
-          <button
-            className="bg-[#1E2749] rounded-lg text-white w-40 h-10  hover:bg-blue-800 hover:active:bg-[#1E2749]"
-            type="submit"
-            disabled={isLoading}
-          >
-            Verify
-          </button>
+          <Button name="Verify" isLoading={isLoading}>
+            {" "}
+          </Button>
         </div>
       </form>
     </div>
