@@ -9,6 +9,13 @@ export const userApiSlice = apiSlice.injectEndpoints({
                 body,
             }),
         }),
+         registerInstructor: builder.mutation({
+            query: (body) => ({
+                url: "/registerInstructor",
+                method: "POST",
+                body,
+            }),
+        }),
         login: builder.mutation({
             query: (body) => ({
                 url: "/login",
@@ -46,3 +53,4 @@ export const userApiSlice = apiSlice.injectEndpoints({
     export const {useOtpMutation} = userApiSlice;
     export const {useOtpVerifyMutation} = userApiSlice;
     export const {useForgetPasswordMutation} = userApiSlice;
+    export const {useRegisterInstructorMutation} = userApiSlice;

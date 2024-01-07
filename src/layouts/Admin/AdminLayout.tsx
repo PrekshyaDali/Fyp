@@ -1,11 +1,13 @@
 import { Link, Outlet } from "react-router-dom";
-
+import { Route } from "react-router-dom";
 import { logout } from "@/app/authSlice";
+import {useState} from "react";
 import { useAppDispatch } from "@/app/store";
 import CreateInstructor from "@/layouts/Admin/CreateInstructor";
-
+import DriveSyncLogo from "@/pages/component/DriveSyncLogo";
 const AdminLayout = () => {
   const dispatch = useAppDispatch();
+
   return (
     <div className="text-[#1E2749]">
       <div className="drawer drawer-mobile">
@@ -33,19 +35,24 @@ const AdminLayout = () => {
             </label>
           </div>
           <h1 className="text-4xl">Admin DashBoard</h1>
-          
-            <CreateInstructor></CreateInstructor>
-          
+
+          <CreateInstructor></CreateInstructor>
 
           <main>
+
             <Outlet />
           </main>
         </div>
         <div className="drawer-side ">
           <label htmlFor="my-drawer-2" className="drawer-overlay "></label>
           <ul className="menu p-4 w-52 sm:w-80  text-base-content bg-[#FAFAFF]">
+            <DriveSyncLogo></DriveSyncLogo>
             <li>
-              <Link to="/">Dashboard</Link>
+              <Link to="/admin">Dashboard</Link>
+
+              
+              <Link to="/admin">Student Details</Link>
+              <Link to="/admin">Finances</Link>
             </li>
 
             <div className="absolute bottom-0 w-full left-0 p-4">

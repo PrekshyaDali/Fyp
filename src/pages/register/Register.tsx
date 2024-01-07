@@ -151,7 +151,7 @@ const Register = () => {
               <Button name="Sign Up" isLoading={isLoading}></Button>
               <p className="text-xs">
                 Already have an account?{" "}
-                <Link to="/" className="underline_sign">
+                <Link to="/login" className="underline_sign">
                   Sign In
                 </Link>
               </p>
