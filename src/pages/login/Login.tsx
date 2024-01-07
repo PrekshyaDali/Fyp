@@ -124,10 +124,10 @@ const Login = () => {
                     Sign Up
                   </Link>
                 </p>
-                <p className="mb-3">Or</p>
+                {/* <p className="mb-3">Or</p> */}
               </div>
 
-              <div className="flex items-center justify-center">
+              {/* <div className="flex items-center justify-center">
                 <button className="btn relative">
                   <img
                     className="h-5 absolute left-3 sm:left-11"
@@ -136,7 +136,7 @@ const Login = () => {
                   />
                   Sign in with Google
                 </button>
-              </div>
+              </div> */}
             </div>
           </form>
           {innerWidth > 768 && (

@@ -14,7 +14,8 @@ const Forgetpassword = () => {
   } = useForm<IForgetPassword>();
   const [forgetPassword, { isLoading }] = useForgetPasswordMutation();
   const SubmitHandler = async (data: IForgetPassword) => {
-    if (!isLoading) {
+    
+  
       try {
         const res = await forgetPassword({
           email: data.email,
@@ -26,7 +27,7 @@ const Forgetpassword = () => {
         console.log(error, "err");
         toast.error(error.message);
       }
-    }
+   
   };
 
   return (
@@ -75,4 +76,8 @@ const Forgetpassword = () => {
     </div>
   );
 };
+
+
+
+
 export default Forgetpassword;

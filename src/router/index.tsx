@@ -12,34 +12,31 @@ import Resetpassword from "@/pages/login/Resetpassword";
 import UserLayout from "@/layouts/UserLayout";
 import InstructorForm from "@/pages/component/InstructorForm";
 import Login from "@/pages/login/Login";
+import CreateInstuctor from "@/layouts/Admin/CreateInstructor";
 
 // lazy import components
 // const PostList = lazy(() => import("@/pages/posts/list"));
 // const CreatePost = lazy(() => import("@/pages/posts/create"));
 const AppRouter = ()=>{
-  return(
+  return (
     <Router>
       <Routes>
         <Route>
-          <Route element = {<ProtectedRoute/>} path = "/" >
-                <Route element = {<AdminLayout/>} path = "/admin" ></Route>
-                <Route element = {<UserLayout/>} path = "/user" ></Route>
-
+          <Route element={<ProtectedRoute />} path="/">
+            <Route element={<AdminLayout />} path="/admin"></Route>
+            <Route element={<UserLayout />} path="/user"></Route>
+            <Route element={<CreateInstuctor />} path="/admin/createInstructor"></Route>
           </Route>
-          <Route element = {<Register/>} path = "/register" ></Route>
-          <Route element = {<Login/>} path = "/login" ></Route>
-          <Route element = {<Otpverification/>} path = "/otp" ></Route>
-          <Route element = {<Forgetpassword/>} path = "/Forgetpassword" ></Route>
-          <Route element = {<Resetpassword/>} path = "/Resetpassword" ></Route>
-          <Route element = {<InstructorForm/>} path = "/InstructorForm" />
-
-
+          <Route element={<Register />} path="/register"></Route>
+          <Route element={<Login />} path="/login"></Route>
+          <Route element={<Otpverification />} path="/otp"></Route>
+          <Route element={<Forgetpassword />} path="/Forgetpassword"></Route>
+          <Route element={<Resetpassword />} path="/Resetpassword"></Route>
+          <Route element={<InstructorForm />} path="/InstructorForm" />
         </Route>
       </Routes>
     </Router>
-
-
-  )
+  );
 }
 
 
