@@ -36,10 +36,8 @@ const AdminLayout = () => {
           </div>
           <h1 className="text-4xl">Admin DashBoard</h1>
 
-          <CreateInstructor></CreateInstructor>
 
           <main>
-
             <Outlet />
           </main>
         </div>
@@ -49,8 +47,8 @@ const AdminLayout = () => {
             <DriveSyncLogo></DriveSyncLogo>
             <li>
               <Link to="/admin">Dashboard</Link>
+              <Link to="/admin/createInstructor">Create Instructor</Link>
 
-              
               <Link to="/admin">Student Details</Link>
               <Link to="/admin">Finances</Link>
             </li>

@@ -1,6 +1,6 @@
 import { lazy, Suspense } from "react";
 import { createBrowserRouter } from "react-router-dom";
-import {BrowserRouter as Router, Routes, Route} from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
 import AdminLayout from "@/layouts/Admin/AdminLayout";
 import ProtectedRoute from "@/layouts/ProtectedRoute";
@@ -17,13 +17,16 @@ import CreateInstuctor from "@/layouts/Admin/CreateInstructor";
 // lazy import components
 // const PostList = lazy(() => import("@/pages/posts/list"));
 // const CreatePost = lazy(() => import("@/pages/posts/create"));
-const AppRouter = ()=>{
+const AppRouter = () => {
   return (
     <Router>
       <Routes>
         <Route>
           <Route element={<ProtectedRoute />} path="/">
-            <Route element={<AdminLayout />} path="/admin"></Route>
+            <Route element={<AdminLayout />} path="/admin">
+              <Route path="/admin/CreateInstructor" element={<CreateInstuctor />}></Route>
+              <Route path = "Finances"> element = {}</Route>
+            </Route>
             <Route element={<UserLayout />} path="/user"></Route>
             <Route element={<CreateInstuctor />} path="/admin/createInstructor"></Route>
           </Route>
@@ -37,35 +40,9 @@ const AppRouter = ()=>{
       </Routes>
     </Router>
   );
-}
-
-
-
+};
 
 export default AppRouter;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 // const router = createBrowserRouter([
 //   {
@@ -118,7 +95,7 @@ export default AppRouter;
 //       </Suspense>
 //     ),
 //   },
- 
+
 //   {
 //     path: "/Forgetpassword",
 //     element: (
