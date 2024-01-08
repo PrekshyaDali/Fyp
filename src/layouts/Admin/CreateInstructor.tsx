@@ -1,8 +1,9 @@
 import React from "react";
 import Button from "@/pages/component/Button";
 import { useForm } from "react-hook-form";
-import {  IRegisterInstructor } from "@/index";
+import { IRegisterInstructor } from "@/index";
 import { useRegisterInstructorMutation } from "@/feature/userApiSlice";
+import { useSendPasswordMutation } from "@/feature/userApiSlice";
 import { toast } from "react-toastify";
 const CreateInstuctor = () => {
   const {
@@ -13,6 +14,7 @@ const CreateInstuctor = () => {
     reset,
   } = useForm<IRegisterInstructor>();
   const [registerInstructor, { isLoading }] = useRegisterInstructorMutation();
+  const [SendPassword, ] = useSendPasswordMutation();
 
   const SubmitHandler = async (data: IRegisterInstructor) => {
     const data1 = {
@@ -26,8 +28,10 @@ const CreateInstuctor = () => {
     try {
       const res = await registerInstructor(data1).unwrap();
       console.log(res, "res");
-      reset();
+      const PasswordResponse = await SendPassword(data1).unwrap();
+      console.log(PasswordResponse);
       toast.success("Registered Successfully");
+      reset();
     } catch (error: unknown) {
       console.log(error, "err");
       const { data } = error as { data: { message: string } };
@@ -36,7 +40,7 @@ const CreateInstuctor = () => {
   };
   return (
     <div className="h-full border-2 border-solid border-gray p-10 flex flex-col shadow-md">
-      <form className = "flex flex-col space-y-5"onSubmit={handleSubmit(SubmitHandler)}>
+      <form className="flex flex-col space-y-5" onSubmit={handleSubmit(SubmitHandler)}>
         <div className="flex space-x-10 ">
           <div>
             <label htmlFor="FirstName">FirstName</label>
@@ -145,7 +149,6 @@ const CreateInstuctor = () => {
         </div>
         <Button name="Create Instructor" isLoading={isLoading}></Button>
         <p>Use the address where the Instructor can receive email</p>
-    
       </form>
     </div>
   );

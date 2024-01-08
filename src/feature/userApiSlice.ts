@@ -44,6 +44,13 @@ export const userApiSlice = apiSlice.injectEndpoints({
                 body,
             }),
         }),
+        SendPassword : builder.mutation({
+            query: (body) =>({
+                url: "/SendPassword",
+                method: "POST",
+                body,
+            })
+        })
     }),
     });
 
@@ -54,3 +61,4 @@ export const userApiSlice = apiSlice.injectEndpoints({
     export const {useOtpVerifyMutation} = userApiSlice;
     export const {useForgetPasswordMutation} = userApiSlice;
     export const {useRegisterInstructorMutation} = userApiSlice;
+    export const {useSendPasswordMutation}= userApiSlice;
