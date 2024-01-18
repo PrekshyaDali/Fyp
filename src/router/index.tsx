@@ -9,10 +9,20 @@ import Otpverification from "@/pages/Otp/Otpverification";
 
 import Forgetpassword from "@/pages/login/Forgetpassword";
 import Resetpassword from "@/pages/login/Resetpassword";
-import UserLayout from "@/layouts/UserLayout";
+import UserLayout from "@/layouts/Student/UserLayout";
 import InstructorForm from "@/pages/component/InstructorForm";
 import Login from "@/pages/login/Login";
 import CreateInstuctor from "@/layouts/Admin/CreateInstructor";
+import AdminDashboard from "@/layouts/Admin/AdminDashboard";
+import StudentDetails from "@/pages/component/StudentDetails";
+import StudentTable from "@/layouts/Admin/StudentTable";
+import Finances from "@/layouts/Admin/Finances";
+import Courses from "@/layouts/Student/Courses";
+import StudentDashboard from "@/layouts/Student/StudentDashboard";
+import ScooterDetails from "@/layouts/Student/ScooterDetails";
+import BikeDetails from "@/layouts/Student/BikeDetails";
+import CarDetails from "@/layouts/Student/CarDetails";
+
 
 // lazy import components
 // const PostList = lazy(() => import("@/pages/posts/list"));
@@ -25,10 +35,22 @@ const AppRouter = () => {
           <Route element={<ProtectedRoute />} path="/">
             <Route element={<AdminLayout />} path="/admin">
               <Route path="/admin/CreateInstructor" element={<CreateInstuctor />}></Route>
-              <Route path = "Finances"> element = {}</Route>
+              <Route path="/admin/adminDashboard" element={<AdminDashboard />}></Route>
+              <Route path="/admin/studentDetails" element={<StudentTable />}></Route>
+              <Route path="/admin/Finances" element={<Finances></Finances>}></Route>
             </Route>
-            <Route element={<UserLayout />} path="/user"></Route>
-            <Route element={<CreateInstuctor />} path="/admin/createInstructor"></Route>
+            <Route path="/user" element={<UserLayout />}>
+              <Route path="/user/StudentDashboard" element={<StudentDashboard />} />
+              <Route path="/user/courses" element={<Courses />} />
+              <Route path="userPayments" />
+              <Route path="userSettings" />
+              <Route
+                path="/user/ScooterDetails"
+                element={<ScooterDetails></ScooterDetails>}
+              />
+              <Route path="/user/BikeDetails" element={<BikeDetails></BikeDetails>} />
+              <Route path="/user/CarDetails" element={<CarDetails></CarDetails>} />
+            </Route>
           </Route>
           <Route element={<Register />} path="/register"></Route>
           <Route element={<Login />} path="/login"></Route>
@@ -43,83 +65,3 @@ const AppRouter = () => {
 };
 
 export default AppRouter;
-
-// const router = createBrowserRouter([
-//   {
-//     path: "/",
-//     element: <ProtectedRoute />,
-//     children: [
-//       {
-//         path: "/",
-//         element: <AdminLayout />,
-//         children: [
-//           {
-//             index: true,
-//             element: <h1>Dashboard</h1>,
-//           },
-
-//           {
-//             path: "/posts",
-//             element: (
-//               <Suspense fallback={<div>Loading...</div>}>{/* <PostList /> */}</Suspense>
-//             ),
-//           },
-//           {
-//             path: "/posts/create",
-//             element: (
-//               <Suspense fallback={<div>Loading...</div>}>{/* <CreatePost /> */}</Suspense>
-//             ),
-//           },
-//         ],
-//       },
-//       {
-//         path: "/user",
-//         element: <UserLayout />,
-//       },
-//     ],
-//   },
-
-//   {
-//     path: "/register",
-//     element: (
-//       <Suspense fallback={<div>Loading...</div>}>
-//         <Register />
-//       </Suspense>
-//     ),
-//   },
-//   {
-//     path: "/otp",
-//     element: (
-//       <Suspense fallback={<div>Loading...</div>}>
-//         <Otpverification />
-//       </Suspense>
-//     ),
-//   },
-
-//   {
-//     path: "/Forgetpassword",
-//     element: (
-//       <Suspense fallback={<div>Loading...</div>}>
-//         <Forgetpassword />
-//       </Suspense>
-//     ),
-//   },
-//   {
-//     path: "/Resetpassword",
-//     element: (
-//       <Suspense fallback={<div>Loading...</div>}>
-//         <Resetpassword />
-//       </Suspense>
-//     ),
-//   },
-//   {
-//     path: "/InstructorForm",
-//     element: (
-//       <Suspense fallback={<div>Loading...</div>}>
-//         <InstructorForm />
-//       </Suspense>
-//     ),
-//   },
-// ]);
-
-// export default router;

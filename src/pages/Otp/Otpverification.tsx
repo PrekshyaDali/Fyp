@@ -27,7 +27,7 @@ const Otpverification = () => {
         console.log(res, "res")
         
 
-        navigate("/");
+        navigate("/login");
         toast.success("Otp verified successfully");
 
         reset();
