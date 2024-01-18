@@ -1,7 +1,8 @@
 @tailwind base;
 @tailwind components;
 .btn {
-    @apply border-2 bg-[#1E2749] text-white font-bold w-52 sm:w-[300px] text-xs sm:text-sm h-10 rounded-2xl;
+    @apply  bg-[#1E2749] text-white font-bold w-52 sm:w-[300px] text-xs sm:text-sm h-10 rounded-2xl
+     hover:bg-blue-800 hover:active:bg-[#1E2749];
   }
  
   

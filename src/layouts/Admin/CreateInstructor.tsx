@@ -39,7 +39,7 @@ const CreateInstuctor = () => {
     }
   };
   return (
-    <div className="h-full border-2 border-solid border-gray p-10 flex flex-col shadow-md">
+    <div className="h-full  p-10 flex flex-col ">
       <form className="flex flex-col space-y-5" onSubmit={handleSubmit(SubmitHandler)}>
         <div className="flex space-x-10 ">
           <div>
