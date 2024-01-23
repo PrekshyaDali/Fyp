@@ -1,12 +1,27 @@
 import { useGetUsersQuery } from '@/feature/userApiSlice'
 import StudentDetails from '@/pages/component/StudentDetails'
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 
 export default function StudentTable() {
     const {data, isLoading} = useGetUsersQuery({})
+    const [input, setInput] = useState<string>("")
+    const [filteredData, setFilteredData] = useState([])
+    const filteredDatas = data?.filter((item) => {
+        return item.firstname.toLowerCase().includes(input.toLowerCase()) 
+        || item.lastname.toLowerCase().includes(input.toLowerCase())
+        || item.email.toLowerCase().includes(input.toLowerCase()) || item.contactnumber.toString().toLowerCase().includes(input.toLowerCase())  
+    }
+    )
+
+
+    useEffect(() => {
+        setFilteredData(filteredDatas)
+    }, [input, data])
+
   return (
     <StudentDetails
-        data = {data}
+        data = {filteredData}
+        setInput = {setInput}
     />
   )
 }
