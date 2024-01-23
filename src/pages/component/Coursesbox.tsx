@@ -1,20 +1,19 @@
 import React from "react";
 const Coursesbox = (props) => {
   return (
-    <div className="bg-white  rounded-lg shadow-md relative ">
-      <div className="flex items-center justify-center h-32">
-        <img className="w-36" src={props.img} alt="" />
+    <div className="flex flex-col bg-white  rounded-xl shadow-md relative justify-items-start gap-2 items-center p-1 ">
+      <div className="h-48 w-full">
+        <img className="rounded-t-xl object-cover w-full h-full" src={props.img} alt="" />
       </div>
-      <h2 className="text-xl font-semibold mb-2 text-center text-[#273469]">
-        {props.courseName}
-      </h2>
-      <p className=" mb-4 text-sm px-5 text-gray-600">{props.description}</p>
-
-      <button className="w-full h-8 absolute bottom-0 bg-[#E4D9FF] text-[#273469] hover:bg-purple-300 hover:active:bg-[#E4D9FF]">
-        {props.ViewDetails}
-      </button>
-      <div className= "flex justify-end">
-        <img className="absolute bottom-2 right-4 h-5" src="/img/rightarrow.png" alt="" />
+      <div className="flex flex-col gap-2 p-4 relative ">
+        <h2 className="text-xl font-semibold text-[#273469]">{props.courseName}</h2>
+        <p className=" mb-4 text-sm text-gray-600">{props.description}</p>
+        <div className="flex  gap-2 justify-end items-center">
+          <button className="bg-[#273469] text-white rounded-lg p-2">
+            {props.ViewDetails}
+          </button>
+          <button className="bg-[#273469] text-white rounded-lg p-2">Enroll Now</button>
+        </div>
       </div>
     </div>
   );

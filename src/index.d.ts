@@ -7,6 +7,7 @@ export interface IRegister{
     password: string;
     password_confirmation: string;
 }
+
 export interface IRegisterInstructor{
     
     firstName: string;

@@ -1,9 +1,10 @@
-import DashboardCount from "@/pages/component/Dashboardcount";
+import Dashboardcount from "@/pages/component/Dashboardcount";
+import React from "react";
 import { useEffect, useState } from "react";
 import { useGetDashboardCountQuery } from "@/feature/userApiSlice";
 
 const AdminDashboard = () => {
-  const { data } = useGetDashboardCountQuery();
+  const { data } = useGetDashboardCountQuery({},{refetchOnMountOrArgChange:true});
   const [dashboardData, setDashboardData] = useState(null);
 
   useEffect(() => {
@@ -20,12 +21,17 @@ const AdminDashboard = () => {
   return (
     <>
       <div className="grid gap-10 m-10 lg:grid-cols-3 sm:grid-cols-2 text-[#1E2749]">
-        <DashboardCount title="Total Students" count={dashboardData?.user || 0} />
-        <DashboardCount
+        <Dashboardcount
+          title="Total Students"
+          img="/img/TotalStudents.png "
+          count={dashboardData?.user || 0}
+        />
+        <Dashboardcount
           title="Total Instructors"
+          img="/img/TotalInstructor.png"
           count={dashboardData?.instructor || 0}
         />
-        <DashboardCount title="Courses Enrolled" count={10} />
+        <Dashboardcount title="Courses Enrolled" img= "/img/CoursesEnrolled.png" count={10} />
       </div>
     </>
   );

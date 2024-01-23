@@ -8,6 +8,7 @@ export const userApiSlice = apiSlice.injectEndpoints({
         method: "POST",
         body,
       }),
+      invalidatesTags: [{ type: "Instructor", id: "LIST" }],
     }),
     registerInstructor: builder.mutation({
       query: (body) => ({
@@ -15,6 +16,7 @@ export const userApiSlice = apiSlice.injectEndpoints({
         method: "POST",
         body,
       }),
+      invalidatesTags: [{ type: "Instructor", id: "LIST" }],
     }),
     login: builder.mutation({
       query: (body) => ({
@@ -56,12 +58,21 @@ export const userApiSlice = apiSlice.injectEndpoints({
       query: () => ({
         url: "/DashboardCount",
         method: "GET",
+        
       }),
+      providesTags: (result) => [{ type: "Instructor", id: "LIST" }]
     }),
     getUsers: builder.query({
       query: () => ({
         url: "/users",
         method: "GET",
+      }),
+    }),
+    getSearch: builder.query({
+      query: (body) => ({
+        url: "/register",
+        method: "GET",
+        body,
       }),
     }),
   }),
@@ -75,7 +86,10 @@ export const {
   useForgetPasswordMutation,
   useSendPasswordMutation,
 
+
+
   useGetUsersQuery,
   useRegisterInstructorMutation,
   useGetDashboardCountQuery,
+  useGetSearchQuery
 } = userApiSlice;

@@ -13,6 +13,7 @@ export default {
           200: "#888883",
         },
       },
+      
     },
   },
   plugins: [require("@tailwindcss/typography"), require("daisyui")],

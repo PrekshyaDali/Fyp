@@ -1,5 +1,6 @@
 import { Link, Outlet, useNavigate } from "react-router-dom";
 import { Route } from "react-router-dom";
+import React from "react";
 import { logout } from "@/app/authSlice";
 import { useState } from "react";
 import { useAppDispatch } from "@/app/store";
@@ -56,13 +57,21 @@ const AdminLayout = () => {
 
             <li className="mt-16 text-sm sm:text-base text-[#273469] space-y-3 font-bold">
               <Link to="/admin/adminDashboard">
-                <img src="" alt="" />
+                <img className="h-6" src="/img/dashboard.png" alt="" />
                 Dashboard
-              
               </Link>
-              <Link to="/admin/createInstructor">Create Instructor</Link>
-              <Link to="/admin/studentDetails">Student Details</Link>
-              <Link to="/admin/Finances">Finances</Link>
+              <Link to="/admin/createInstructor">
+                <img className="h-6" src="/img/Instructor.png" alt="" />
+                Create Instructor
+              </Link>
+              <Link to="/admin/studentDetails">
+                <img className="h-6" src="/img/student.png" alt="" />
+                Student Details
+              </Link>
+              <Link to="/admin/Finances">
+                <img className="h-6" src="/img/Finance.png" alt="" />
+                Finances
+              </Link>
             </li>
 
             <div className="absolute bottom-0 w-full left-0 p-4">

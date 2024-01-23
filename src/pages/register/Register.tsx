@@ -165,7 +165,7 @@ const Register = () => {
       </div>
       {innerWidth > 768 && (
         <div className="w-full  max-h-[100vh]  ">
-          <img className="  w-full h-full object-cover" src="DrivingPic1.png" alt="" />
+          <img className="  w-full h-full object-cover" src="/img/DrivingPic1.png" alt="" />
         </div>
       )}
     </div>

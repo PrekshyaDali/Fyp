@@ -143,7 +143,7 @@ const Login = () => {
             <div className="w-full  max-h-[100vh]  ">
               <img
                 className="  w-full h-full object-cover"
-                src="./DrivingPic1.png"
+                src="/img/DrivingPic1.png"
                 alt=""
               />
             </div>
