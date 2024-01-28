@@ -12,7 +12,11 @@ import Finances from "./Finances";
 const AdminLayout = () => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
+  const [ShowSubMenu, setShowSubMenu] = useState(false);
 
+  const toggleSubMenu = () => {
+    setShowSubMenu(!ShowSubMenu);
+  };
   return (
     <div className="text-[#1E2749]">
       <div className="drawer drawer-mobile">
@@ -68,8 +72,38 @@ const AdminLayout = () => {
                 <img className="h-6" src="/img/student.png" alt="" />
                 Student Details
               </Link>
+              <div className="relative" onClick={toggleSubMenu}>
+                <img className="h-6" src="/img/student.png" alt="" />
+                Courses
+                <img
+                  className="h-6 absolute top-3 right-3"
+                  src="/img/submenu.png"
+                  alt=""
+                />
+              </div>
+              {ShowSubMenu && (
+                <div>
+                  <li>
+                    <Link to="/admin/AddCourse">
+                      <img className="h-6" src="/img/student.png" alt="" />
+                      Add Course
+                    </Link>
+
+                    <Link to="/admin/EditCourse">
+                      <img className="h-6" src="/img/student.png" alt="" />
+                      Edit Course
+                    </Link>
+
+                    <Link to="/admin/DeleteCourse">
+                      <img className="h-6" src="/img/student.png" alt="" />
+                      Delete Course
+                    </Link>
+                  </li>
+                </div>
+              )}
+
               <Link to="/admin/Finances">
-                <img className="h-6" src="/img/Finance.png" alt="" />
+                <img className="h-6 " src="/img/Finance.png" alt="" />
                 Finances
               </Link>
             </li>
