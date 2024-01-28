@@ -1,6 +1,7 @@
 import { lazy, Suspense } from "react";
 import { createBrowserRouter } from "react-router-dom";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import React from 'react';
 
 import AdminLayout from "@/layouts/Admin/AdminLayout";
 import ProtectedRoute from "@/layouts/ProtectedRoute";
@@ -22,6 +23,8 @@ import StudentDashboard from "@/layouts/Student/StudentDashboard";
 import ScooterDetails from "@/layouts/Student/ScooterDetails";
 import BikeDetails from "@/layouts/Student/BikeDetails";
 import CarDetails from "@/layouts/Student/CarDetails";
+import AddCourse from "@/layouts/Admin/Course/AddCourse";
+import EditCourse from "@/layouts/Admin/Course/EditCourse";
 
 
 // lazy import components
@@ -38,6 +41,9 @@ const AppRouter = () => {
               <Route path="/admin/adminDashboard" element={<AdminDashboard />}></Route>
               <Route path="/admin/studentDetails" element={<StudentTable />}></Route>
               <Route path="/admin/Finances" element={<Finances></Finances>}></Route>
+              <Route path="/admin/AddCourse" element={<AddCourse/>}></Route>
+              <Route path="/admin/EditCourse" element={<EditCourse/>}></Route>
+              <Route path="/admin/AddCourse" element={<AddCourse></AddCourse>}></Route>
             </Route>
             <Route path="/user" element={<UserLayout />}>
               <Route path="/user/StudentDashboard" element={<StudentDashboard />} />
