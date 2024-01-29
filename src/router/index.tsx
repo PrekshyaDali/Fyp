@@ -25,6 +25,7 @@ import BikeDetails from "@/layouts/Student/BikeDetails";
 import CarDetails from "@/layouts/Student/CarDetails";
 import AddCourse from "@/layouts/Admin/Course/AddCourse";
 import EditCourse from "@/layouts/Admin/Course/EditCourse";
+import CourseButton from "@/layouts/Admin/Course/CourseButton";
 
 
 // lazy import components
@@ -41,7 +42,8 @@ const AppRouter = () => {
               <Route path="/admin/adminDashboard" element={<AdminDashboard />}></Route>
               <Route path="/admin/studentDetails" element={<StudentTable />}></Route>
               <Route path="/admin/Finances" element={<Finances></Finances>}></Route>
-              <Route path="/admin/AddCourse" element={<AddCourse/>}></Route>
+              <Route path="/admin/CourseButton" element={<AddCourse/>}></Route>
+              <Route path="/admin/AddCourse" element={<CourseButton/>}></Route>
               <Route path="/admin/EditCourse" element={<EditCourse/>}></Route>
               <Route path="/admin/AddCourse" element={<AddCourse></AddCourse>}></Route>
             </Route>

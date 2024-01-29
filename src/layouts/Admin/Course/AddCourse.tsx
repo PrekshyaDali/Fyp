@@ -1,7 +1,9 @@
 import Button from "@/pages/component/Button";
 import React, { useState } from "react";
+import CourseButton from "./CourseButton";
 
 export default function AddCourse() {
+
   const [courseFields, setCourseFields] = useState([
     { id: 1, title: "", description: "" },
   ]);
@@ -29,6 +31,7 @@ export default function AddCourse() {
 
   return (
     <div className="relative">
+      <CourseButton />;
       {courseFields.map((field, index) => (
         <div
           key={field.id}

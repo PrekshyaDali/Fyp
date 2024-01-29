@@ -84,7 +84,7 @@ const AdminLayout = () => {
               {ShowSubMenu && (
                 <div>
                   <li>
-                    <Link to="/admin/AddCourse">
+                    <Link to="/admin/CourseButton">
                       <img className="h-6" src="/img/student.png" alt="" />
                       Add Course
                     </Link>
@@ -94,7 +94,7 @@ const AdminLayout = () => {
                       Edit Course
                     </Link>
 
-                    <Link to="/admin/DeleteCourse">
+                    <Link to="/admin/AddCourse">
                       <img className="h-6" src="/img/student.png" alt="" />
                       Delete Course
                     </Link>
