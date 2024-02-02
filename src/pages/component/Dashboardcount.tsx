@@ -1,10 +1,10 @@
 import React from "react";
 const Dashboardcount = (props) => {
   return (
-    <div className=" shadow-lg p-5  text-center flex flex-col items-center space-y-5 bg-purple-100 bg- rounded-md">
-      <h1 className="text-2xl font-bold text-center">{props.title}</h1>
-      <img className="w-16" src={props.img} alt="" />
-      <span className="text-6xl font-semibold">{props.count}</span>
+    <div className=" shadow-lg p-5   flex flex-col space-y-5 relative  bg- rounded-md">
+      <span className="text-3xl  font-semibold">{props.count}</span>
+      <img className="w-8 absolute right-5" src={props.img} alt="" />
+      <h1 className="text-xl text-gray-500 font-bold ">{props.title}</h1>
     </div>
   );
 };

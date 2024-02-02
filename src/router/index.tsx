@@ -1,7 +1,7 @@
 import { lazy, Suspense } from "react";
 import { createBrowserRouter } from "react-router-dom";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import React from 'react';
+import React from "react";
 
 import AdminLayout from "@/layouts/Admin/AdminLayout";
 import ProtectedRoute from "@/layouts/ProtectedRoute";
@@ -20,13 +20,11 @@ import StudentTable from "@/layouts/Admin/StudentTable";
 import Finances from "@/layouts/Admin/Finances";
 import Courses from "@/layouts/Student/Courses";
 import StudentDashboard from "@/layouts/Student/StudentDashboard";
-import ScooterDetails from "@/layouts/Student/ScooterDetails";
-import BikeDetails from "@/layouts/Student/BikeDetails";
-import CarDetails from "@/layouts/Student/CarDetails";
 import AddCourse from "@/layouts/Admin/Course/AddCourse";
-import EditCourse from "@/layouts/Admin/Course/EditCourse";
-import CourseButton from "@/layouts/Admin/Course/CourseButton";
 
+import EditCourse from "@/layouts/Admin/Course/AddCourse";
+import CourseButton from "@/layouts/Admin/Course/CourseButton";
+import Details from "@/layouts/Student/Detail";
 
 // lazy import components
 // const PostList = lazy(() => import("@/pages/posts/list"));
@@ -42,23 +40,24 @@ const AppRouter = () => {
               <Route path="/admin/adminDashboard" element={<AdminDashboard />}></Route>
               <Route path="/admin/studentDetails" element={<StudentTable />}></Route>
               <Route path="/admin/Finances" element={<Finances></Finances>}></Route>
-              <Route path="/admin/CourseButton" element={<AddCourse/>}></Route>
-              <Route path="/admin/AddCourse" element={<CourseButton/>}></Route>
-              <Route path="/admin/EditCourse" element={<EditCourse/>}></Route>
-              <Route path="/admin/AddCourse" element={<AddCourse></AddCourse>}></Route>
+              <Route path="/admin/CourseButton" element={<CourseButton />}></Route>
+              <Route path="/admin/AddCourse" element={<AddCourse />}></Route>
             </Route>
+
+
+
             <Route path="/user" element={<UserLayout />}>
               <Route path="/user/StudentDashboard" element={<StudentDashboard />} />
               <Route path="/user/courses" element={<Courses />} />
+              <Route path="/user/courses/:id" element={<Details />} />
+
               <Route path="userPayments" />
               <Route path="userSettings" />
-              <Route
-                path="/user/ScooterDetails"
-                element={<ScooterDetails></ScooterDetails>}
-              />
-              <Route path="/user/BikeDetails" element={<BikeDetails></BikeDetails>} />
-              <Route path="/user/CarDetails" element={<CarDetails></CarDetails>} />
+
+              <Route path="/user/BikeDetails" element={<Details></Details>} />
             </Route>
+
+            
           </Route>
           <Route element={<Register />} path="/register"></Route>
           <Route element={<Login />} path="/login"></Route>

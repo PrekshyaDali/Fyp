@@ -39,6 +39,13 @@ export const userApiSlice = apiSlice.injectEndpoints({
         body,
       }),
     }),
+    deleteUser: builder.mutation({
+      query: (id) => ({
+        url: `/user/${id}`,
+        method: "DELETE"
+            }),
+      invalidatesTags: [{ type: "Instructor", id: "LIST" }],
+    }),
     ForgetPassword: builder.mutation({
       query: (body) => ({
         url: "/ForgetPassword",
@@ -67,6 +74,7 @@ export const userApiSlice = apiSlice.injectEndpoints({
         url: "/users",
         method: "GET",
       }),
+      providesTags: (result) => [{ type: "Instructor", id: "LIST" }]
     }),
     getSearch: builder.query({
       query: (body) => ({
@@ -75,6 +83,29 @@ export const userApiSlice = apiSlice.injectEndpoints({
         body,
       }),
     }),
+    addCourse: builder.mutation({
+      query: (body) => ({
+        url: "/addCourses",
+        method: "POST",
+        body,
+      }),
+
+    }),
+    getCourses: builder.query({
+      query: () => ({
+        url: "/courses",
+        method: "GET",
+      }),
+      providesTags: (result) => [{ type: "Course", id: "LIST" }]
+    }),
+    getCourse: builder.query({
+      query: (id) => ({
+        url: `/course/${id}`,
+        method: "GET",
+      }),
+      providesTags: (result) => [{ type: "Course", id: "LIST" }]
+    }),
+    
   }),
 });
 
@@ -85,6 +116,10 @@ export const {
   useOtpVerifyMutation,
   useForgetPasswordMutation,
   useSendPasswordMutation,
+  useAddCourseMutation,
+  useDeleteUserMutation,
+  useGetCourseQuery,
+  useGetCoursesQuery,
 
 
 

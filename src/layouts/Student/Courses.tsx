@@ -2,28 +2,24 @@ import React from "react";
 
 import Coursesbox from "@/pages/component/Coursesbox";
 import { Link } from "react-router-dom";
+import { useGetCoursesQuery } from "@/feature/userApiSlice";
 
 const Courses = () => {
+  const {data} = useGetCoursesQuery({},{refetchOnMountOrArgChange:true});
+
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 text-[#30343f] p-4">
-      <Coursesbox
-        courseName="Scooter Course"
-        description="Dive into the world of scooters and learn everything from basic riding skills to advanced maneuvering techniques. This course covers scooter maintenance, safety tips, and city riding strategies."
-        img="/img/scooter.jpg"
-        ViewDetails={<Link to="/user/ScooterDetails">View Details</Link>}
-      />
-      <Coursesbox
-        courseName="Motorcycle Course"
-        description="Learn the basics of motorcycle riding, including how to operate the clutch and throttle, how to shift gears, how to stop, and how to turn. This course also covers motorcycle maintenance, safety tips, and city riding strategies."
-        img="/img/motercycle.jpg"
-        ViewDetails={<Link to="/user/BikeDetails">View Details</Link>}
-      />
-      <Coursesbox
-        courseName="Car Course"
-        description="Learn the basics of motorcycle riding, including how to operate the clutch and throttle, how to shift gears, how to stop, and how to turn. This course also covers motorcycle maintenance, safety tips, and city riding strategies."
-        img="/img/car.jpg"
-        ViewDetails={<Link to="/user/CarDetails">View Details</Link>}
-      />
+      {data?.map((item, index) => {
+        return (
+          <Link to={`/user/courses/${item._id}`} key={index}>
+            <Coursesbox
+              title={item.courseOverview}
+              description={item.courseDuration}
+              image={'/img/Car1.png'}
+            />
+          </Link>
+        );
+      })}
     </div>
   );
 };

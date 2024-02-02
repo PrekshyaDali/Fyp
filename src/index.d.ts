@@ -35,4 +35,11 @@ export interface IotpVerify{
 export interface IForgetPassword{
     email: string;
 }
+export interface IAddCourse{
+    CourseOverview: string;
+    CourseDuration: string;
+    type: string;
+    certification: string;
+    price: string;
+}
 
