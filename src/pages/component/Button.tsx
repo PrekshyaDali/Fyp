@@ -15,6 +15,7 @@ const Button = (props) => {
               }`}
           type="submit"
           disabled={props.isLoading}
+          onClick={props.onClick}
         >
           <span className={`flex items-center`}>
             {props.name}

@@ -10,6 +10,7 @@ import { setIsAuthenticated } from "@/app/authSlice";
 import { FaEye } from "react-icons/fa";
 import { FaEyeSlash } from "react-icons/fa";
 import Button from "../component/Button";
+import DriveSyncLogo from "../component/DriveSyncLogo";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -62,6 +63,7 @@ const Login = () => {
   return (
     <>
       <main className="bg-[#FAFAFF] h-[100vh] ">
+        <DriveSyncLogo></DriveSyncLogo>
         <div className="grid grid-cols-1 md:grid-cols-2 bg-[#FAFAFF] ">
           <form onSubmit={handleSubmit(SubmitHandler)}>
             <div className="text-[#1E2749] flex flex-col   px-10 md:px-11 ">
@@ -126,17 +128,6 @@ const Login = () => {
                 </p>
                 {/* <p className="mb-3">Or</p> */}
               </div>
-
-              {/* <div className="flex items-center justify-center">
-                <button className="btn relative">
-                  <img
-                    className="h-5 absolute left-3 sm:left-11"
-                    src="./Google.png"
-                    alt="Google Icon"
-                  />
-                  Sign in with Google
-                </button>
-              </div> */}
             </div>
           </form>
           {innerWidth > 768 && (

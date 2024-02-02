@@ -1,8 +1,27 @@
 import React from "react";
 import Search from "./Search";
+import {useState} from 'react'
+import { useDeleteUserMutation } from "@/feature/userApiSlice";
+import { toast } from "react-toastify";
 
 const StudentDetails = (props) => {
+  const [studentDetails, setStudentDetails] = useState([])
+
+  const [deleteUser] = useDeleteUserMutation();
+
+const handleDelete = async (id) => {
+  try {
+    const res = await deleteUser(id).unwrap();
+    toast.success("User Deleted Successfully");
+    setStudentDetails(res);
+  } catch (error) {
+    console.log(error, "err");
+    const { data } = error as { data: { error: string } };
+    toast.error(data.error);
+  }
+}
   
+
   return (
     <div className="flex flex-col">
       <div className="overflow-x-auto sm:-mx-6 lg:-mx-8">
@@ -47,8 +66,17 @@ const StudentDetails = (props) => {
                         {item.contactnumber}
                       </td>
                       <td className="flex gap-2">
-                        <button className="bg-green-500 p-2 rounded-lg text-white">Edit</button>
-                        <button className="bg-red-500 p-2 rounded-lg text-white">Delete</button>
+                        <button className="bg-green-500 p-2 rounded-lg text-white">
+                          Edit
+                        </button>
+                        <button
+                          className="bg-red-500 p-2 rounded-lg text-white"
+                          onClick={() => {
+                            handleDelete(item._id);
+                          }}
+                        >
+                          Delete
+                        </button>
                       </td>
                     </tr>
                   );
