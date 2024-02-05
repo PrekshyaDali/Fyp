@@ -9,6 +9,7 @@ import DriveSyncLogo from "@/pages/component/DriveSyncLogo";
 import Adminprofile from "./Adminprofile";
 import AdminDashboard from "./AdminDashboard";
 import Finances from "./Finances";
+import Button from "@/pages/component/Button";
 const AdminLayout = () => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
@@ -21,7 +22,7 @@ const AdminLayout = () => {
     <div className="text-[#1E2749]">
       <div className="drawer drawer-mobile">
         <input id="my-drawer-2" type="checkbox" className="drawer-toggle" />
-        <div className="drawer-content bg-[#F7FAFC]">
+        <div className="drawer-content bg-[#FAFAFF]">
           <div className="h-16 bg-[#FAFAFF] border-b-2 relative flex justify-end">
             <Adminprofile></Adminprofile>
           </div>
@@ -29,7 +30,7 @@ const AdminLayout = () => {
           <div>
             <label
               htmlFor="my-drawer-2"
-              className="bg-[#E4D9FF] h-10 rounded-lg lg:hidden w-14  absolute top-3 flex justify-center items-center"
+              className="bg-[#CBE3EF] h-10 rounded-lg lg:hidden w-14  absolute top-3 flex justify-center items-center"
             >
               <span className="sr-only">Open sidebar</span>
               <svg
@@ -54,13 +55,13 @@ const AdminLayout = () => {
         </div>
         <div className="drawer-side ">
           <label htmlFor="my-drawer-2" className="drawer-overlay "></label>
-          <ul className="menu p-4 w-52 sm:w-80  text-base-content bg-[#FAFAFF] border-r-2">
+          <ul className="menu p-4 w-52 sm:w-80  text-base-content bg-[#5584B0] border-r-2">
             <div className="fixed z-10 ">
               <DriveSyncLogo></DriveSyncLogo>
             </div>
 
-            <li className="mt-16 text-sm sm:text-base text-[#273469] space-y-3 font-bold">
-              <Link to="/admin/adminDashboard">
+            <li className="mt-20 text-sm sm:text-base text-white space-y-3 font-bold">
+              <Link className="" to="/admin/adminDashboard">
                 <img className="h-6" src="/img/dashboard.png" alt="" />
                 Dashboard
               </Link>
@@ -84,8 +85,6 @@ const AdminLayout = () => {
               {ShowSubMenu && (
                 <div>
                   <li>
-                  
-
                     <Link to="/admin/AddCourse">
                       <img className="h-6" src="/img/student.png" alt="" />
                       Adding Course Details
@@ -101,15 +100,15 @@ const AdminLayout = () => {
             </li>
 
             <div className="absolute bottom-0 w-full left-0 p-4">
-              <button
-                className="btn w-full text-center text-white"
+              <Button
+                name="Logout"
                 onClick={() => {
                   navigate("/login");
                   dispatch(logout());
                 }}
               >
                 Logout
-              </button>
+              </Button>
             </div>
           </ul>
         </div>

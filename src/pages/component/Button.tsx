@@ -7,11 +7,11 @@ const Button = (props) => {
     return (
       <div>
         <button
-          className={`bg-[#1E2749] rounded-lg text-white w-40 h-10 flex items-center justify-center 
+          className={`bg-[#365486] rounded-lg text-white w-56 h-10 flex items-center justify-center 
               ${
                 props.isLoading
                   ? "opacity-50 cursor-not-allowed"
-                  : "hover:bg-blue-800 hover:active:bg-[#1E2749]"
+                  : "hover:bg-[#82C2E6] hover:active:bg-[#365486]"
               }`}
           type="submit"
           disabled={props.isLoading}
