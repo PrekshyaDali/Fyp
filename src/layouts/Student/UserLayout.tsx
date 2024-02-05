@@ -5,6 +5,7 @@ import { useAppDispatch } from "@/app/store";
 import DriveSyncLogo from "@/pages/component/DriveSyncLogo";
 import Adminprofile from "../Admin/Adminprofile";
 import StudentDashboard from "./StudentDashboard";
+import Button from "@/pages/component/Button";
 const UserLayout = () => {
   const dispatch = useAppDispatch();
   return (
@@ -44,13 +45,12 @@ const UserLayout = () => {
         </div>
         <div className="drawer-side ">
           <label htmlFor="my-drawer-2" className="drawer-overlay "></label>
-          <ul className="menu p-2 sm:p-4 w-56 sm:w-80  text-base-content bg-[#FAFAFF] border-r-2">
+          <ul className="menu p-2 sm:p-4 w-56 sm:w-80  text-base-content bg-[#5584B0] border-r-2">
             <div className="fixed z-10 ml-6 ">
               <DriveSyncLogo></DriveSyncLogo>
             </div>
 
             <li className=" mt-16 text-sm sm:text-base text-[#273469] space-y-3 font-bold">
-              
               <Link to="/user/StudentDashboard">
                 <img className="h-5" src="/img/home.png" alt="" />
                 Home
@@ -78,12 +78,11 @@ const UserLayout = () => {
             </li>
 
             <div className="absolute bottom-0 w-full left-0 p-4">
-              <button
-                className="btn w-full text-center text-white"
+              <Button name = "Logout"
                 onClick={() => dispatch(logout())}
               >
                 Logout
-              </button>
+              </Button>
             </div>
           </ul>
         </div>

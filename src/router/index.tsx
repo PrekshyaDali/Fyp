@@ -25,6 +25,7 @@ import AddCourse from "@/layouts/Admin/Course/AddCourse";
 import EditCourse from "@/layouts/Admin/Course/AddCourse";
 import CourseButton from "@/layouts/Admin/Course/CourseButton";
 import Details from "@/layouts/Student/Detail";
+import ProfileDetails from "@/layouts/Admin/ProfileDetails";
 
 // lazy import components
 // const PostList = lazy(() => import("@/pages/posts/list"));
@@ -42,6 +43,7 @@ const AppRouter = () => {
               <Route path="/admin/Finances" element={<Finances></Finances>}></Route>
               <Route path="/admin/CourseButton" element={<CourseButton />}></Route>
               <Route path="/admin/AddCourse" element={<AddCourse />}></Route>
+              <Route path = "/admin/profile" element={<ProfileDetails/>}></Route>
             </Route>
 
 

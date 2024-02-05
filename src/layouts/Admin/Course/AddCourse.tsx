@@ -1,4 +1,3 @@
-
 import React, { useState } from "react";
 import Button from "@/pages/component/Button";
 import { useForm } from "react-hook-form";
@@ -24,7 +23,7 @@ export default function AddCourse() {
         courseDuration: data.CourseDuration,
         certification: data.certification,
         price: data.price,
-       type: data.type,
+        type: data.type,
       };
       const res = await addCourse(data1).unwrap();
       console.log(res, "res");
@@ -106,12 +105,10 @@ export default function AddCourse() {
             className="h-10 w-44 bg-white rounded-md border-2 border-gray-300"
             name=""
             id=""
-            {...register("vehicleType", {
+            {...register("type", {
               required: "This field is required",
             })}
           >
-
-
             <option value="scooter">Scooter</option>
             <option value="bike">Bike</option>
             <option value="car">Car</option>
