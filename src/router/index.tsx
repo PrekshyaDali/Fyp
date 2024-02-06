@@ -11,7 +11,7 @@ import Otpverification from "@/pages/Otp/Otpverification";
 import Forgetpassword from "@/pages/login/Forgetpassword";
 import Resetpassword from "@/pages/login/Resetpassword";
 import UserLayout from "@/layouts/Student/UserLayout";
-import InstructorForm from "@/pages/component/InstructorForm";
+
 import Login from "@/pages/login/Login";
 import CreateInstuctor from "@/layouts/Admin/CreateInstructor";
 import AdminDashboard from "@/layouts/Admin/AdminDashboard";
@@ -25,7 +25,11 @@ import AddCourse from "@/layouts/Admin/Course/AddCourse";
 import EditCourse from "@/layouts/Admin/Course/AddCourse";
 import CourseButton from "@/layouts/Admin/Course/CourseButton";
 import Details from "@/layouts/Student/Detail";
-import ProfileDetails from "@/layouts/Admin/ProfileDetails";
+import ProfileDetails from "@/layouts/Admin/Profile/ProfileDetails";
+import StudentProfile from "@/layouts/Student/Profile/StudentProfile";
+import StudentProfileDetails from "@/layouts/Student/Profile/StudentProfileDetails";
+import InstructorLayout from "@/layouts/Instructor/Instructorlayout";
+import InstructorDashboard from "@/layouts/Instructor/InstructorDashboard";
 
 // lazy import components
 // const PostList = lazy(() => import("@/pages/posts/list"));
@@ -43,30 +47,36 @@ const AppRouter = () => {
               <Route path="/admin/Finances" element={<Finances></Finances>}></Route>
               <Route path="/admin/CourseButton" element={<CourseButton />}></Route>
               <Route path="/admin/AddCourse" element={<AddCourse />}></Route>
-              <Route path = "/admin/profile" element={<ProfileDetails/>}></Route>
+              <Route path="/admin/profile" element={<ProfileDetails />}></Route>
             </Route>
-
-
 
             <Route path="/user" element={<UserLayout />}>
               <Route path="/user/StudentDashboard" element={<StudentDashboard />} />
               <Route path="/user/courses" element={<Courses />} />
               <Route path="/user/courses/:id" element={<Details />} />
-
+              <Route path="/user/profile" element={<StudentProfileDetails />} />
               <Route path="userPayments" />
               <Route path="userSettings" />
 
               <Route path="/user/BikeDetails" element={<Details></Details>} />
             </Route>
 
+            <Route path="/instructor" element={<InstructorLayout />} >
+            <Route path="/instructor/InstructorDashboard" element={<InstructorDashboard />} />
+
             
+            
+            
+            
+            </Route>
+
           </Route>
           <Route element={<Register />} path="/register"></Route>
           <Route element={<Login />} path="/login"></Route>
           <Route element={<Otpverification />} path="/otp"></Route>
           <Route element={<Forgetpassword />} path="/Forgetpassword"></Route>
           <Route element={<Resetpassword />} path="/Resetpassword"></Route>
-          <Route element={<InstructorForm />} path="/InstructorForm" />
+
         </Route>
       </Routes>
     </Router>

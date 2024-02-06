@@ -1,61 +1,63 @@
 import React from "react";
 import Search from "./Search";
-import {useState} from 'react'
+import { useState } from "react";
 import { useDeleteUserMutation } from "@/feature/userApiSlice";
 import { toast } from "react-toastify";
+import StudentEdit from "@/layouts/Admin/StudentEdit";
 
 const StudentDetails = (props) => {
-  const [studentDetails, setStudentDetails] = useState([])
+  const [studentDetails, setStudentDetails] = useState([]);
+  // const [showEditMenu, setShowEditMenu] = useState(false);
 
   const [deleteUser] = useDeleteUserMutation();
 
-const handleDelete = async (id) => {
-  try {
-    const res = await deleteUser(id).unwrap();
-    toast.success("User Deleted Successfully");
-    setStudentDetails(res);
-  } catch (error) {
-    console.log(error, "err");
-    const { data } = error as { data: { error: string } };
-    toast.error(data.error);
-  }
-}
-  
+  const editHandler = () => {
+    
+    <StudentEdit />;
+  };
+  const handleDelete = async (id) => {
+    try {
+      const res = await deleteUser(id).unwrap();
+      toast.success("User Deleted Successfully");
+      setStudentDetails(res);
+    } catch (error) {
+      console.log(error, "err");
+      const { data } = error as { data: { error: string } };
+      toast.error(data.error);
+    }
+  };
 
   return (
     <div className="flex flex-col">
       <div className="overflow-x-auto sm:-mx-6 lg:-mx-8">
         <div className="inline-block min-w-full py-2 sm:px-6 lg:px-8">
           <div className="overflow-hidden">
-           <Search
-            setInput = {props.setInput}
-           ></Search>
+            <Search setInput={props.setInput}></Search>
             <table className="min-w-full text-left text-sm font-light">
               <thead className="border-b font-medium dark:border-neutral-500">
                 <tr>
                   <th scope="col" className="px-6 py-4">
-                    S.no
+                    {props.SN}
                   </th>
                   <th scope="col" className="px-6 py-4">
-                    FirstName
+                    {props.FirstName}
                   </th>
                   <th scope="col" className="px-6 py-4">
-                    LastName
+                    {props.LastName}
                   </th>
                   <th scope="col" className="px-6 py-4">
-                    Email
+                    {props.Email}
                   </th>
                   <th scope="col" className="px-6 py-4">
-                    Contact Number
+                    {props.ContactNumber}
                   </th>
                   <th scope="col" className="px-6 py-4">
-                    Action
+                    {props.Action}
                   </th>
                 </tr>
               </thead>
               <tbody>
-               {
-                props?.data?.map((item, index) => {
+                {props?.data?.map((item, index) => {
                   return (
                     <tr key={index}>
                       <td className="px-6 py-4 whitespace-nowrap">{index + 1}</td>
@@ -66,7 +68,10 @@ const handleDelete = async (id) => {
                         {item.contactnumber}
                       </td>
                       <td className="flex gap-2">
-                        <button className="bg-green-500 p-2 rounded-lg text-white">
+                        <button
+                          onClick={editHandler}
+                          className="bg-green-500 p-2 rounded-lg text-white"
+                        >
                           Edit
                         </button>
                         <button
@@ -80,9 +85,7 @@ const handleDelete = async (id) => {
                       </td>
                     </tr>
                   );
-                }
-                )
-               }
+                })}
               </tbody>
             </table>
           </div>

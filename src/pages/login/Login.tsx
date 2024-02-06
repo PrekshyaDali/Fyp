@@ -38,11 +38,15 @@ const Login = () => {
       dispatch(setIsAuthenticated(true));
       localStorage.setItem("email", data.email);
       localStorage.setItem("role", res.role);
+      localStorage.setItem("accessToken", res.accessToken);
 
       if (res.role === "admin") {
         navigate("/admin");
-      } else {
+      } else if (res.role === "user"){
         navigate("/user");
+      }
+      else{
+        navigate("/instructor");
       }
 
       localStorage.removeItem("email");

@@ -6,10 +6,11 @@ import { useState } from "react";
 import { useAppDispatch } from "@/app/store";
 import CreateInstructor from "@/layouts/Admin/CreateInstructor";
 import DriveSyncLogo from "@/pages/component/DriveSyncLogo";
-import Adminprofile from "./Adminprofile";
+import Adminprofile from "../../pages/component/ProfileLogo";
 import AdminDashboard from "./AdminDashboard";
 import Finances from "./Finances";
 import Button from "@/pages/component/Button";
+import ProfileLogo from "../../pages/component/ProfileLogo";
 const AdminLayout = () => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
@@ -24,7 +25,7 @@ const AdminLayout = () => {
         <input id="my-drawer-2" type="checkbox" className="drawer-toggle" />
         <div className="drawer-content bg-[#FAFAFF]">
           <div className="h-16 bg-[#FAFAFF] border-b-2 relative flex justify-end">
-            <Adminprofile></Adminprofile>
+            <ProfileLogo></ProfileLogo>
           </div>
 
           <div>

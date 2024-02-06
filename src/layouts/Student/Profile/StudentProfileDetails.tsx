@@ -1,7 +1,13 @@
 import React from "react";
 import Button from "@/pages/component/Button";
+import { useGetProfileQuery, userApiSlice } from "@/feature/userApiSlice";
 
-export default function ProfileDetails() {
+export default function StudentProfileDetails() {
+  const { data } = useGetProfileQuery({}, { refetchOnMountOrArgChange: true ,
+  
+  
+});
+console.log(data)
   return (
     <div className="flex flex-col space-y-5 p-3 text-[#254E7A]">
       {/* Profile Card */}
@@ -20,8 +26,11 @@ export default function ProfileDetails() {
 
           {/* User Information */}
           <div className="mt-16">
-            <h1 className="font-semibold text-lg ">Sijan Lamichhane</h1>
-            <span className="text-sm text-gray-500">sijan@gmail.com</span>
+            <div className="flex space-x-2">
+              <h1 className="font-semibold text-lg ">{data?.user.firstname}</h1>
+              <h1 className="font-semibold text-lg ">{data?.user.lastname}</h1>
+            </div>
+            <span className="text-sm text-gray-500">{data?.user.email}</span>
           </div>
           <div className="flex justify-end relative">
             <img
@@ -45,7 +54,7 @@ export default function ProfileDetails() {
           {/* Contact Info Items */}
           <div className="flex items-center space-x-4">
             <img className="h-4" src="/img/number.png" alt="" />
-            <span>9861696707</span>
+            <span>{data?.user.contactnumber}</span>
           </div>
           <div className="flex items-center space-x-4">
             <img className="h-4" src="/img/location.png" alt="" />
@@ -53,11 +62,11 @@ export default function ProfileDetails() {
           </div>
           <div className="flex items-center space-x-4">
             <img className="h-4" src="/img/email.png" alt="" />
-            <span>sijan@gmail.com</span>
+            <span>{data?.user.email}</span>
           </div>
           <div className="flex items-center space-x-4">
             <img className="h-4" src="/img/role.png" alt="" />
-            <span>User</span>
+            <span>{data?.user.role}</span>
           </div>
         </div>
       </div>
