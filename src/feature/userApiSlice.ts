@@ -42,8 +42,8 @@ export const userApiSlice = apiSlice.injectEndpoints({
     deleteUser: builder.mutation({
       query: (id) => ({
         url: `/user/${id}`,
-        method: "DELETE"
-            }),
+        method: "DELETE",
+      }),
       invalidatesTags: [{ type: "Instructor", id: "LIST" }],
     }),
     ForgetPassword: builder.mutation({
@@ -65,17 +65,25 @@ export const userApiSlice = apiSlice.injectEndpoints({
       query: () => ({
         url: "/DashboardCount",
         method: "GET",
-        
       }),
-      providesTags: (result) => [{ type: "Instructor", id: "LIST" }]
+      providesTags: (result) => [{ type: "Instructor", id: "LIST" }],
     }),
+
     getUsers: builder.query({
       query: () => ({
         url: "/users",
         method: "GET",
       }),
-      providesTags: (result) => [{ type: "Instructor", id: "LIST" }]
+      providesTags: (result) => [{ type: "Instructor", id: "LIST" }],
     }),
+
+    getProfile: builder.query({
+      query: () => ({
+        url: "/getUsers",
+        method: "GET",
+      }),
+    }),
+
     getSearch: builder.query({
       query: (body) => ({
         url: "/register",
@@ -89,23 +97,21 @@ export const userApiSlice = apiSlice.injectEndpoints({
         method: "POST",
         body,
       }),
-
     }),
     getCourses: builder.query({
       query: () => ({
         url: "/courses",
         method: "GET",
       }),
-      providesTags: (result) => [{ type: "Course", id: "LIST" }]
+      providesTags: (result) => [{ type: "Course", id: "LIST" }],
     }),
     getCourse: builder.query({
       query: (id) => ({
         url: `/course/${id}`,
         method: "GET",
       }),
-      providesTags: (result) => [{ type: "Course", id: "LIST" }]
+      providesTags: (result) => [{ type: "Course", id: "LIST" }],
     }),
-    
   }),
 });
 
@@ -119,12 +125,10 @@ export const {
   useAddCourseMutation,
   useDeleteUserMutation,
   useGetCourseQuery,
-  useGetCoursesQuery,
-
-
 
   useGetUsersQuery,
   useRegisterInstructorMutation,
   useGetDashboardCountQuery,
-  useGetSearchQuery
+  useGetSearchQuery,
+  useGetProfileQuery,
 } = userApiSlice;

@@ -1,6 +1,7 @@
 import { useGetUsersQuery } from '@/feature/userApiSlice'
 import StudentDetails from '@/pages/component/StudentDetails'
 import React, { useEffect, useState } from 'react'
+import StudentEdit from './StudentEdit'
 
 export default function StudentTable() {
     const {data, isLoading} = useGetUsersQuery({})
@@ -19,9 +20,18 @@ export default function StudentTable() {
     }, [input, data])
 
   return (
-    <StudentDetails
-        data = {filteredData}
-        setInput = {setInput}
-    />
-  )
+    <>
+      <StudentDetails
+        data={filteredData}
+        setInput={setInput}
+        SN={"SN"}
+        FirstName={"First Name"}
+        LastName={"Last Name"}
+        Email={"Email"}
+        ContactNumber={"Contact Number"}
+        Action={"Action"}
+      />
+   
+    </>
+  );
 }

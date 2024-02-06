@@ -4,10 +4,10 @@ import { logout } from "@/app/authSlice";
 import { useAppDispatch } from "@/app/store";
 import DriveSyncLogo from "@/pages/component/DriveSyncLogo";
 import Adminprofile from "../../pages/component/ProfileLogo";
-import StudentDashboard from "./StudentDashboard";
+
 import Button from "@/pages/component/Button";
 import ProfileLogo from "../../pages/component/ProfileLogo";
-const UserLayout = () => {
+const InstructorLayout = () => {
   const dispatch = useAppDispatch();
   return (
     <div className="text-[#1E2749]">
@@ -52,30 +52,11 @@ const UserLayout = () => {
             </div>
 
             <li className=" mt-16 text-sm sm:text-base text-[#FAFAFF] space-y-3 font-bold">
-              <Link to="/user/StudentDashboard">
+              <Link to="/instructor/InstructorDashboard">
                 <img className="h-5" src="/img/home.png" alt="" />
                 Home
               </Link>
-              <Link to="/user/courses">
-                <img className="h-5" src="/img/Enrollment.png" alt="" />
-                Courses/Enrollment
-              </Link>
-              <Link to="/user/">
-                <img className="h-5" src="/img/transaction.png" alt="" />
-                Finance/Transactions
-              </Link>
-              <Link to="/user/">
-                <img className="h-5" src="/img/Attendance.png" alt="" />
-                Attendance Tracking
-              </Link>
-              <Link to="/user/">
-                <img className="h-5" src="/img/notification.png" alt="" />
-                Notifications
-              </Link>
-              <Link to="/user/">
-                <img className="h-5" src="/img/settings.png" alt="" />
-                Settings
-              </Link>
+              
             </li>
 
             <div className="absolute bottom-0 w-full left-0 p-4">
@@ -90,4 +71,4 @@ const UserLayout = () => {
   );
 };
 
-export default UserLayout;
+export default InstructorLayout;
