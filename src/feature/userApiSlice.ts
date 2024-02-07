@@ -125,6 +125,7 @@ export const {
   useAddCourseMutation,
   useDeleteUserMutation,
   useGetCourseQuery,
+  useGetCoursesQuery,
 
   useGetUsersQuery,
   useRegisterInstructorMutation,

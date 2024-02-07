@@ -1,14 +1,31 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 
 import AdminProfile from "@/layouts/Admin/Profile/AdminProfile";
 import StudentProfile from "@/layouts/Student/Profile/StudentProfile";
-const ProfileLogo = () => {
-  const [profileClick, setProfileClick] = React.useState(false);
-  const profileClickHandler = () => {
-  setProfileClick(prevProfileClick => !prevProfileClick);
-  console.log(localStorage.getItem("role"));
-};
 
+const ProfileLogo = () => {
+  const [profileClick, setProfileClick] = useState(false);
+
+  const profileClickHandler = () => {
+    setProfileClick((prevProfileClick) => !prevProfileClick);
+    console.log(localStorage.getItem("role"));
+  };
+
+  useEffect(() => {
+    const clickHandlerOutsideProfile = (event) => {
+      if (event.target.closest(".mr-2") || event.target.closest(".w-10")) {
+        return;
+      }
+      setProfileClick(false);
+    };
+
+    document.body.style.minHeight = "100vh";
+    document.body.addEventListener("click", clickHandlerOutsideProfile);
+
+    return () => {
+      document.body.removeEventListener("click", clickHandlerOutsideProfile);
+    };
+  }, [profileClick]);
 
   return (
     <>
