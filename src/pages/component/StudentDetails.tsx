@@ -7,14 +7,15 @@ import StudentEdit from "@/layouts/Admin/StudentEdit";
 
 const StudentDetails = (props) => {
   const [studentDetails, setStudentDetails] = useState([]);
-  // const [showEditMenu, setShowEditMenu] = useState(false);
+    const [crossHandler, setCrossHandler] = useState(false);
+  const [showModal, setShowModal] = useState(false);
 
   const [deleteUser] = useDeleteUserMutation();
 
-  const editHandler = () => {
-    
-    <StudentEdit />;
-  };
+  // const editHandler = async(id) => {
+
+  //   <StudentEdit />;
+  // };
   const handleDelete = async (id) => {
     try {
       const res = await deleteUser(id).unwrap();
@@ -69,11 +70,14 @@ const StudentDetails = (props) => {
                       </td>
                       <td className="flex gap-2">
                         <button
-                          onClick={editHandler}
+                          onClick={() => {
+                            setShowModal(!showModal);
+                          }}
                           className="bg-green-500 p-2 rounded-lg text-white"
                         >
                           Edit
                         </button>
+                        {showModal && <StudentEdit setShowModal ={setShowModal} />}
                         <button
                           className="bg-red-500 p-2 rounded-lg text-white"
                           onClick={() => {

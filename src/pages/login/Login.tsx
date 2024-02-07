@@ -42,10 +42,9 @@ const Login = () => {
 
       if (res.role === "admin") {
         navigate("/admin");
-      } else if (res.role === "user"){
+      } else if (res.role === "user") {
         navigate("/user");
-      }
-      else{
+      } else {
         navigate("/instructor");
       }
 
@@ -67,9 +66,19 @@ const Login = () => {
 
   return (
     <>
-      <main className="flex justify-center items-center bg-[#FAFAFF] h-[100vh] ">
+      <main
+        className="flex justify-center items-center 
+        bg-white
+      h-[100vh] "
+        style={{
+          background: `url('/img/background.jpg')`,
+          backgroundSize: "cover",
+          backgroundImage: "center",
+          backgroundRepeat: "no-repeat",
+        }}
+      >
         <form className="w-96" onSubmit={handleSubmit(SubmitHandler)}>
-          <div className="text-[#1E2749]  flex flex-col px-10 md:px-11 shadow-md space-y-5">
+          <div className="text-[#1E2749]   flex flex-col py-5 px-10 md:px-11 shadow-md space-y-5 bg-white rounded-md ">
             <DriveSyncLogo></DriveSyncLogo>
             <h1 className="font-bold text-3xl my-5">Login</h1>
             <div className="">
