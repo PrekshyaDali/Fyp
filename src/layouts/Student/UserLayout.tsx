@@ -13,12 +13,12 @@ const UserLayout = () => {
     <div className="text-[#1E2749]">
       <div className="drawer drawer-mobile">
         <input id="my-drawer-2" type="checkbox" className="drawer-toggle" />
-        <div className="drawer-content bg-[#F7FAFC]">
+        <div className="drawer-content bg-[#F7FAFC] ">
           <div className="h-16 bg-[#FAFAFF] border-b-2 relative flex justify-end">
             <ProfileLogo />
           </div>
 
-          <div>
+          <div >
             <label
               htmlFor="my-drawer-2"
               className="bg-[#E4D9FF] h-10 rounded-lg lg:hidden w-14  absolute top-3 flex justify-center items-center"
@@ -40,7 +40,7 @@ const UserLayout = () => {
             </label>
           </div>
 
-          <main>
+          <main >
             <Outlet />
           </main>
         </div>
@@ -60,7 +60,7 @@ const UserLayout = () => {
                 <img className="h-5" src="/img/Enrollment.png" alt="" />
                 Courses/Enrollment
               </Link>
-              <Link to="/user/">
+              <Link to="/user/finances">
                 <img className="h-5" src="/img/transaction.png" alt="" />
                 Finance/Transactions
               </Link>

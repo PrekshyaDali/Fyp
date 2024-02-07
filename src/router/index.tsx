@@ -30,6 +30,8 @@ import StudentProfile from "@/layouts/Student/Profile/StudentProfile";
 import StudentProfileDetails from "@/layouts/Student/Profile/StudentProfileDetails";
 import InstructorLayout from "@/layouts/Instructor/Instructorlayout";
 import InstructorDashboard from "@/layouts/Instructor/InstructorDashboard";
+import ChangePassword from "@/pages/login/ChangePassword";
+
 
 // lazy import components
 // const PostList = lazy(() => import("@/pages/posts/list"));
@@ -55,7 +57,7 @@ const AppRouter = () => {
               <Route path="/user/courses" element={<Courses />} />
               <Route path="/user/courses/:id" element={<Details />} />
               <Route path="/user/profile" element={<StudentProfileDetails />} />
-              <Route path="userPayments" />
+              <Route path="user/finances" element = {<Finances/>} />
               <Route path="userSettings" />
 
               <Route path="/user/BikeDetails" element={<Details></Details>} />
@@ -76,6 +78,7 @@ const AppRouter = () => {
           <Route element={<Otpverification />} path="/otp"></Route>
           <Route element={<Forgetpassword />} path="/Forgetpassword"></Route>
           <Route element={<Resetpassword />} path="/Resetpassword"></Route>
+          <Route element={<ChangePassword />} path="/Changepassword"></Route>
 
         </Route>
       </Routes>
