@@ -60,6 +60,22 @@ export const userApiSlice = apiSlice.injectEndpoints({
         body,
       }),
     }),
+    ChangePassword: builder.mutation({
+      query: (body) =>({
+        url: "/getinstructors",
+        method: "POST",
+        body,
+
+      })
+
+    }),
+
+
+
+
+
+
+
 
     getDashboardCount: builder.query({
       query: () => ({
@@ -126,6 +142,12 @@ export const {
   useDeleteUserMutation,
   useGetCourseQuery,
   useGetCoursesQuery,
+  useChangePasswordMutation,
+
+
+
+
+
 
   useGetUsersQuery,
   useRegisterInstructorMutation,
