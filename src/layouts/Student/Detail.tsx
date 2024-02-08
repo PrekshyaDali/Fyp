@@ -7,14 +7,17 @@ import { useParams } from "react-router-dom";
 const Details = () => {
   const {id} = useParams<{id:string}>();
   const {data} = useGetCourseQuery(id,{refetchOnMountOrArgChange:true});
-  
+  // console.log(data.courseDescription,"data")
+  console.log(data);
   return (
     <DetailComponent
       DetailName={data?.type?.toString().toUpperCase() + " DETAIL"}
+      description = {data?.courseDescription}  
       paragraph={data?.courseOverview}
       certification={data?.certification}
       price={data?.price}
       customizationfee="Rs 1000"
+      
     ></DetailComponent>
   );
 };

@@ -1,7 +1,7 @@
 import React from "react";
 import Button from "@/pages/component/Button";
 import { useGetProfileQuery, userApiSlice } from "@/feature/userApiSlice";
-
+import { Link } from "react-router-dom";
 export default function StudentProfileDetails() {
   const { data } = useGetProfileQuery({}, { refetchOnMountOrArgChange: true ,
   
@@ -74,9 +74,11 @@ console.log(data)
       <div className="p-3 shadow-md bg-[#F6F7F2] h-12 flex items-center rounded-md justify-between">
         <h1 className="font-bold">Change Password</h1>
         {/* Add your button here */}
-        <button className="h-10  rounded-md text-[#254E7A] border-2 w-36 hover:bg-[#82C2E6] hover:active:bg-[#254E7A]">
+        <Link to = "/Changepassword" >
+          <button className="h-10  rounded-md text-[#254E7A] border-2 w-36 hover:bg-[#82C2E6] hover:active:bg-[#254E7A]">
           Change
         </button>
+        </Link>
       </div>
     </div>
   );

@@ -1,30 +1,32 @@
 import React from "react";
 import Button from "@/pages/component/Button";
 import { useState } from "react";
+import { useGetUsersQuery } from "@/feature/userApiSlice";
 
 export default function StudentEdit(props) {
   const [showModal, setShowModal] = useState(false);
-  const [crossHandler, setCrossHandler] = useState(false);
- const closeHandler = () => {
-    setShowModal(false);
-  }
+
+  const closeHandler = () => {
+    props.setShowModal(false);
+  };
+
   return (
     <div className="fixed inset-0 flex items-center justify-center bg-gray-800 bg-opacity-50 text-[#254E7A]">
       <div className="bg-white h-80 p-8 rounded-lg ">
         <div className="flex justify-end">
-          <img
-            onClick={closeHandler}
-            className="h-4"
-            src="/img/Cross.png"
-            alt=""
-          />
+          <img onClick={closeHandler} className="h-4" src="/img/Cross.png" alt="" />
         </div>
         <h2 className="text-xl font-semibold mb-4">Edit Student</h2>
         <div className="flex flex-col space-y-4">
           <div className="flex items-center space-x-5">
             <div className="flex flex-col ">
               <label htmlFor="firstName">First Name</label>
-              <input type="text" id="firstName" className="inputfields" />
+              <input
+                type="text"
+                id="firstName"
+                className="inputfields"
+                // value={data?.firstname}
+              />
             </div>
             <div className="flex flex-col max-w-32">
               <label htmlFor="lastName">Last Name</label>

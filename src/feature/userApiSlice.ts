@@ -61,21 +61,12 @@ export const userApiSlice = apiSlice.injectEndpoints({
       }),
     }),
     ChangePassword: builder.mutation({
-      query: (body) =>({
+      query: (body) => ({
         url: "/getinstructors",
         method: "POST",
         body,
-
-      })
-
+      }),
     }),
-
-
-
-
-
-
-
 
     getDashboardCount: builder.query({
       query: () => ({
@@ -91,6 +82,21 @@ export const userApiSlice = apiSlice.injectEndpoints({
         method: "GET",
       }),
       providesTags: (result) => [{ type: "Instructor", id: "LIST" }],
+    }),
+
+    getInstructors: builder.query({
+      query: () => ({
+        url: "/instructors",
+        method: "GET",
+      }),
+      providesTags: (result) => [{ type: "Instructor", id: "LIST" }],
+    }),
+
+    editUsers: builder.query({
+      query: (id) => ({
+        url: `/user/${id}`,
+        method: "GET",
+      }),
     }),
 
     getProfile: builder.query({
@@ -121,6 +127,7 @@ export const userApiSlice = apiSlice.injectEndpoints({
       }),
       providesTags: (result) => [{ type: "Course", id: "LIST" }],
     }),
+
     getCourse: builder.query({
       query: (id) => ({
         url: `/course/${id}`,
@@ -154,4 +161,5 @@ export const {
   useGetDashboardCountQuery,
   useGetSearchQuery,
   useGetProfileQuery,
+  useGetInstructorsQuery,
 } = userApiSlice;

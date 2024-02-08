@@ -24,7 +24,9 @@ export default function AddCourse() {
         certification: data.certification,
         price: data.price,
         type: data.type,
+        courseDescription: data.CourseDescription,
       };
+      console.log(data1)
       const res = await addCourse(data1).unwrap();
       console.log(res, "res");
       toast.success("Course Added Successfully");
@@ -60,6 +62,22 @@ export default function AddCourse() {
             <span className="text-red-500">"This field is required</span>
           )}
         </div>
+
+        <div>
+          <label htmlFor="CourseDescription">Course Description</label>
+          <input
+            {...register("CourseDescription", {
+              required: "This field is required",
+            })}
+            type="text"
+            id="CourseDescription"
+            className="inputfields"
+          />
+          {errors.CourseOverview && (
+            <span className="text-red-500">"This field is required</span>
+          )}
+        </div>
+
         <div>
           <label htmlFor="Course Duration">Course Duration</label>
           <input
