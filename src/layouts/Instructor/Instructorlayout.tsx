@@ -15,7 +15,7 @@ const InstructorLayout = () => {
         <input id="my-drawer-2" type="checkbox" className="drawer-toggle" />
         <div className="drawer-content bg-[#F7FAFC]">
           <div className="h-16 bg-[#FAFAFF] border-b-2 relative flex justify-end">
-            <ProfileLogo />
+            {/* <ProfileLogo /> */}
           </div>
 
           <div>

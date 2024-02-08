@@ -40,14 +40,20 @@ const Login = () => {
       localStorage.setItem("role", res.role);
       localStorage.setItem("accessToken", res.accessToken);
 
+
+      //role based routing to dashboard
+
       if (res.role === "admin") {
         navigate("/admin");
       } else if (res.role === "user") {
         navigate("/user");
-      } else {
+      }
+      else if (res.role === "instructor" && res.isFirstLogin === false) {
+        navigate("/Changepassword");
+      } else if (res.isFirstLogin === true) {
         navigate("/instructor");
       }
-
+  
       localStorage.removeItem("email");
       // localStorage.removeItem("role");
 
