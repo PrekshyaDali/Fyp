@@ -31,7 +31,8 @@ import StudentProfileDetails from "@/layouts/Student/Profile/StudentProfileDetai
 import InstructorLayout from "@/layouts/Instructor/Instructorlayout";
 import InstructorDashboard from "@/layouts/Instructor/InstructorDashboard";
 import ChangePassword from "@/pages/login/ChangePassword";
-
+import EnrollmentForms from "@/layouts/Student/Profile/EnrollmentForms";
+import InstructorTable from "@/layouts/Admin/InstructorTable";
 
 // lazy import components
 // const PostList = lazy(() => import("@/pages/posts/list"));
@@ -46,6 +47,7 @@ const AppRouter = () => {
               <Route path="/admin/CreateInstructor" element={<CreateInstuctor />}></Route>
               <Route path="/admin/adminDashboard" element={<AdminDashboard />}></Route>
               <Route path="/admin/studentDetails" element={<StudentTable />}></Route>
+              <Route path="/admin/instructorDetails" element={<InstructorTable />}></Route>
               <Route path="/admin/Finances" element={<Finances></Finances>}></Route>
               <Route path="/admin/CourseButton" element={<CourseButton />}></Route>
               <Route path="/admin/AddCourse" element={<AddCourse />}></Route>
@@ -57,21 +59,18 @@ const AppRouter = () => {
               <Route path="/user/courses" element={<Courses />} />
               <Route path="/user/courses/:id" element={<Details />} />
               <Route path="/user/profile" element={<StudentProfileDetails />} />
-              <Route path="user/finances" element = {<Finances/>} />
-              <Route path="userSettings" />
+              <Route path="/user/finances" element={<Finances />} />
+              <Route path="/user/enrollmentForms" element={<EnrollmentForms />} />
 
               <Route path="/user/BikeDetails" element={<Details></Details>} />
             </Route>
 
-            <Route path="/instructor" element={<InstructorLayout />} >
-            <Route path="/instructor/InstructorDashboard" element={<InstructorDashboard />} />
-
-            
-            
-            
-            
+            <Route path="/instructor" element={<InstructorLayout />}>
+              <Route
+                path="/instructor/InstructorDashboard"
+                element={<InstructorDashboard />}
+              />
             </Route>
-
           </Route>
           <Route element={<Register />} path="/register"></Route>
           <Route element={<Login />} path="/login"></Route>
@@ -79,7 +78,6 @@ const AppRouter = () => {
           <Route element={<Forgetpassword />} path="/Forgetpassword"></Route>
           <Route element={<Resetpassword />} path="/Resetpassword"></Route>
           <Route element={<ChangePassword />} path="/Changepassword"></Route>
-
         </Route>
       </Routes>
     </Router>

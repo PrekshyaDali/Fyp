@@ -4,18 +4,18 @@ import { useState } from "react";
 import { useDeleteUserMutation } from "@/feature/userApiSlice";
 import { toast } from "react-toastify";
 import StudentEdit from "@/layouts/Admin/StudentEdit";
+import { useGetUsersQuery } from "@/feature/userApiSlice";
 
 const StudentDetails = (props) => {
+  const { data } = useGetUsersQuery({});
   const [studentDetails, setStudentDetails] = useState([]);
-    const [crossHandler, setCrossHandler] = useState(false);
+  
+  // const [selectedUserId, setSelectedUserId] = useState("");
+
   const [showModal, setShowModal] = useState(false);
 
   const [deleteUser] = useDeleteUserMutation();
 
-  // const editHandler = async(id) => {
-
-  //   <StudentEdit />;
-  // };
   const handleDelete = async (id) => {
     try {
       const res = await deleteUser(id).unwrap();
@@ -26,6 +26,12 @@ const StudentDetails = (props) => {
       const { data } = error as { data: { error: string } };
       toast.error(data.error);
     }
+  };
+
+  const handleEdit = (id) => {
+    setShowModal(!showModal);
+    // setSelectedUserId(id);
+    
   };
 
   return (
@@ -71,13 +77,13 @@ const StudentDetails = (props) => {
                       <td className="flex gap-2">
                         <button
                           onClick={() => {
-                            setShowModal(!showModal);
+                            handleEdit(item._id);
                           }}
                           className="bg-green-500 p-2 rounded-lg text-white"
                         >
                           Edit
                         </button>
-                        {showModal && <StudentEdit setShowModal ={setShowModal} />}
+                        {showModal && <StudentEdit setShowModal={setShowModal} />}
                         <button
                           className="bg-red-500 p-2 rounded-lg text-white"
                           onClick={() => {

@@ -74,6 +74,10 @@ const AdminLayout = () => {
                 <img className="h-6" src="/img/student.png" alt="" />
                 Student Details
               </Link>
+              <Link to="/admin/instructorDetails">
+                <img className="h-6" src="/img/student.png" alt="" />
+                Instructor Details
+              </Link>
               <div className="relative" onClick={toggleSubMenu}>
                 <img className="h-6" src="/img/student.png" alt="" />
                 Courses

@@ -41,6 +41,7 @@ export interface IAddCourse{
     type: string;
     certification: string;
     price: string;
+    CourseDescription: string;
 }
 
 
