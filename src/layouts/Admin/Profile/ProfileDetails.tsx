@@ -1,6 +1,7 @@
 import React from "react";
 import Button from "@/pages/component/Button";
 import { useGetProfileQuery, userApiSlice } from "@/feature/userApiSlice";
+import { Link } from "react-router-dom";
 
 export default function ProfileDetails() {
   const { data } = useGetProfileQuery({}, { refetchOnMountOrArgChange: true });
@@ -29,15 +30,19 @@ export default function ProfileDetails() {
             </div>
             <span className="text-sm text-gray-500">{data?.user.email}</span>
           </div>
-          <div className="flex justify-end relative">
-            <img
-              className="h-4 absolute right-28 top-3 mr-2"
-              src="/img/edit.png"
-              alt=""
-            />
-            <button className="h-10 bg-[#254E7A] rounded-md text-white border-2 w-36 hover:bg-[#82C2E6] hover:active:bg-[#254E7A]">
-              Edit Profile
+          {/* Edit and Change Password Buttons */}
+          <div className="flex justify-end ">
+            <div className="relative">
+              <img className="h-4 absolute left-2 " src="/img/edit.png" alt="" />
+            </div>
+            <button className="h-10 text-sm bg-[#892506] rounded-md text-white border-2 p-2 hover:bg-[#82C2E6] hover:active:bg-[#254E7A]">
+              Edit
             </button>
+            <Link to="/Changepassword">
+              <button className="h-10 text-sm rounded-md bg-[#892506] text-[#FAFAFF] border-2 p-2 hover:bg-[#82C2E6] hover:active:bg-[#254E7A]">
+                Change Password
+              </button>
+            </Link>
           </div>
         </div>
       </div>
@@ -68,13 +73,7 @@ export default function ProfileDetails() {
         </div>
       </div>
 
-      <div className="p-3 shadow-md bg-[#F6F7F2] h-12 flex items-center rounded-md justify-between">
-        <h1 className="font-bold">Change Password</h1>
-        {/* Add your button here */}
-        <button className="h-10  rounded-md text-[#254E7A] border-2 w-36 hover:bg-[#82C2E6] hover:active:bg-[#254E7A]">
-          Change
-        </button>
-      </div>
+    
     </div>
   );
 }
