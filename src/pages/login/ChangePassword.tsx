@@ -4,6 +4,7 @@ import { useForm } from "react-hook-form";
 import { useChangePasswordMutation } from "@/feature/userApiSlice";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
+import BackButton from "../component/BackButton";
 
 export default function ChangePassword() {4
   const navigate = useNavigate();
@@ -43,6 +44,9 @@ export default function ChangePassword() {4
 
       <div className="flex justify-center w-full bg-[#FAFAFF] text-[#1E2749]">
         <div className="bg-[#FAFAFF] max-w-sm flex flex-col p-8 rounded-md shadow-lg">
+          <div className = "flex justify-end mb-2">
+            <BackButton></BackButton>
+          </div>
           <h1 className="text-3xl font-semibold text-center mb-5">Change Password</h1>
           <span className="text-center text-sm text-gray-500">
             Please be informed that in order to access your dashboard or account, you are

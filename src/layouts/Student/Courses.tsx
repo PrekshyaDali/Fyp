@@ -14,8 +14,8 @@ const Courses = () => {
           <Coursesbox
             id={item?._id}
             key={index}
-            title={item.courseOverview}
-            description={item.courseDuration}
+            title={item.type.toUpperCase() + " COURSE"}
+            description={item.courseDescription}
             image={"/img/Car1.png"}
           />
         );
