@@ -12,6 +12,7 @@ const Details = () => {
   return (
     <DetailComponent
       DetailName={data?.type?.toString().toUpperCase() + " DETAIL"}
+      courseDuration={data?.courseDuration + "DAYS"}
       description = {data?.courseDescription}  
       paragraph={data?.courseOverview}
       certification={data?.certification}

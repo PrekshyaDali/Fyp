@@ -42,6 +42,19 @@ export interface IAddCourse{
     certification: string;
     price: string;
     CourseDescription: string;
-}
 
+}
+export interface IEnrollment{
+    email: string;
+    category: string;
+    address: string
+    firstname: string;
+    lastname: string;
+    contactnumber: number;
+    duration: number;
+    price: number;
+    address: string;
+    gender: string;
+    emergencycontact: number;
+}
 

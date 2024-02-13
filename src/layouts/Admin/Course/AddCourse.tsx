@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import Button from "@/pages/component/Button";
 import { useForm } from "react-hook-form";
-import { useAddCourseMutation } from "@/feature/userApiSlice";
+import { useAddCourseMutation, useUploadImgMutation } from "@/feature/userApiSlice";
 import { IAddCourse } from "@/index";
 import { toast } from "react-toastify";
 
@@ -16,6 +16,7 @@ export default function AddCourse() {
   } = useForm();
 
   const [addCourse, { isLoading }] = useAddCourseMutation();
+  // const[uploadImg] = useUploadImgMutation();
   const SubmitHandler = async (data: IAddCourse) => {
     try {
       const data1 = {
@@ -26,8 +27,10 @@ export default function AddCourse() {
         type: data.type,
         courseDescription: data.CourseDescription,
       };
+    
       console.log(data1);
       const res = await addCourse(data1).unwrap();
+      
       console.log(res, "res");
       toast.success("Course Added Successfully");
       reset();
@@ -46,12 +49,12 @@ export default function AddCourse() {
   //   setSelectedFile(file);
 
   return (
-    <form onSubmit={handleSubmit(SubmitHandler)}>
+    <form action = "/upload" method= "POST" encType = "multipart/form-data" onSubmit={handleSubmit(SubmitHandler)}>
       <div className="m-5 flex flex-col space-y-5">
         <div className="relative">
           <label htmlFor="CourseOverview">Course Overview</label>
           <textarea
-            className="bg-[#FAFAFF] border-2 w-full rounded-md pt-8"
+            className="bg-[#FAFAFF] border-2 w-full rounded-md p-2"
             {...register("CourseOverview", {
               required: "This field is required",
             })}
@@ -71,7 +74,7 @@ export default function AddCourse() {
         <div className="relative">
           <label htmlFor="CourseDescription">Course Description</label>
           <textarea
-            className="bg-[#FAFAFF] border-2 w-full rounded-md"
+            className="bg-[#FAFAFF] border-2 w-full rounded-md p-2"
             {...register("CourseDescription", {
               required: "This field is required",
             })}
@@ -154,7 +157,7 @@ export default function AddCourse() {
           </div>
 
           <div className="flex flex-col">
-            <label htmlFor="Upload file">Upload file</label>
+            <label htmlFor="Upload file">Upload image</label>
             <input
               type="file"
               accept="image/*" // Allow only image files

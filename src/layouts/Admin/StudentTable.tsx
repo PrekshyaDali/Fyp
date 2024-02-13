@@ -1,7 +1,7 @@
 import { useGetUsersQuery } from "@/feature/userApiSlice";
 import StudentDetails from "@/pages/component/StudentDetails";
 import React, { useEffect, useState } from "react";
-import StudentEdit from "./StudentEdit";
+
 
 export default function StudentTable() {
   const { data, isLoading } = useGetUsersQuery({});

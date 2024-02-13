@@ -29,6 +29,7 @@ export default function StudentEdit() {
 
    if (!isDataChanged) {
      console.log("No changes detected. User details not updated.");
+     toast.error("No changes detected..")
      return;
    }
 
@@ -53,11 +54,11 @@ export default function StudentEdit() {
   }, [userData, setValue]);
 
   return (
-    <div className="space-y-5 p-3">
+    <div className="">
       {isUserDataLoading ? (
         <div>Loading...</div>
       ) : (
-        <form onSubmit={handleSubmit(onSubmit)}>
+        <form className="space-y-5 p-3" onSubmit={handleSubmit(onSubmit)}>
           <div className="max-w-xs">
             <label htmlFor="FirstName">First Name</label>
             <input
@@ -101,7 +102,7 @@ export default function StudentEdit() {
               <span className="text-red-600 text-sm">{String(errors.email.message)}</span>
             )}
           </div>
-          <div className="max-w-xs mb-5">
+          <div className="max-w-xs ">
             <label htmlFor="ContactNumber">Contact Number</label>
             <input
               type="text"
