@@ -40,12 +40,14 @@ export const userApiSlice = apiSlice.injectEndpoints({
       }),
     }),
     deleteUser: builder.mutation({
+      // delete from admin table
       query: (id) => ({
         url: `/user/${id}`,
         method: "DELETE",
       }),
       invalidatesTags: [{ type: "Instructor", id: "LIST" }],
     }),
+
     ForgetPassword: builder.mutation({
       query: (body) => ({
         url: "/ForgetPassword",
@@ -67,18 +69,49 @@ export const userApiSlice = apiSlice.injectEndpoints({
         body,
       }),
     }),
+    addCourse: builder.mutation({
+      query: (body) => ({
+        url: "/addCourses",
+        method: "POST",
+        body,
+      }),
+    }),
 
-    getDashboardCount: builder.query({
+
+
+
+    getUsers: builder.query({
+      // get the users to admin table
       query: () => ({
-        url: "/DashboardCount",
+        url: "/users",
         method: "GET",
       }),
       providesTags: (result) => [{ type: "Instructor", id: "LIST" }],
     }),
 
-    getUsers: builder.query({
+    editUsers: builder.query({
+      // show the edit information of the users from admin table
+      query: (id) => ({
+        url: `/users/${id}`,
+        method: "GET",
+      }),
+      providesTags: (result) => [{ type: "Instructor", id: "LIST" }],
+    }),
+
+    editDetails: builder.mutation({
+      // update the information of the users from admin table
+      query: ({id, ...rest}) => ({
+        url: `/edit/${id}`,
+        method: "PUT",
+        body: rest,
+        
+      }),
+      invalidatesTags: [{ type: "Instructor", id: "LIST" }],
+    }),
+
+    getDashboardCount: builder.query({
       query: () => ({
-        url: "/users",
+        url: "/DashboardCount",
         method: "GET",
       }),
       providesTags: (result) => [{ type: "Instructor", id: "LIST" }],
@@ -90,13 +123,6 @@ export const userApiSlice = apiSlice.injectEndpoints({
         method: "GET",
       }),
       providesTags: (result) => [{ type: "Instructor", id: "LIST" }],
-    }),
-
-    editUsers: builder.query({
-      query: (id) => ({
-        url: `/user/${id}`,
-        method: "GET",
-      }),
     }),
 
     getProfile: builder.query({
@@ -113,13 +139,7 @@ export const userApiSlice = apiSlice.injectEndpoints({
         body,
       }),
     }),
-    addCourse: builder.mutation({
-      query: (body) => ({
-        url: "/addCourses",
-        method: "POST",
-        body,
-      }),
-    }),
+
     getCourses: builder.query({
       query: () => ({
         url: "/courses",
@@ -147,16 +167,14 @@ export const {
   useSendPasswordMutation,
   useAddCourseMutation,
   useDeleteUserMutation,
+  useChangePasswordMutation,
+  useEditDetailsMutation,
+
+
   useGetCourseQuery,
   useGetCoursesQuery,
-  useChangePasswordMutation,
-
-
-
-
-
-
   useGetUsersQuery,
+  useEditUsersQuery,
   useRegisterInstructorMutation,
   useGetDashboardCountQuery,
   useGetSearchQuery,

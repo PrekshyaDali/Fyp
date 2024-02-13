@@ -5,10 +5,14 @@ import { useDeleteUserMutation } from "@/feature/userApiSlice";
 import { toast } from "react-toastify";
 import StudentEdit from "@/layouts/Admin/StudentEdit";
 import { useGetUsersQuery } from "@/feature/userApiSlice";
+import { Link } from "react-router-dom";
+
+
 
 const StudentDetails = (props) => {
   const { data } = useGetUsersQuery({});
   const [studentDetails, setStudentDetails] = useState([]);
+
   
   // const [selectedUserId, setSelectedUserId] = useState("");
 
@@ -29,7 +33,7 @@ const StudentDetails = (props) => {
   };
 
   const handleEdit = (id) => {
-    setShowModal(!showModal);
+    
     // setSelectedUserId(id);
     
   };
@@ -75,15 +79,10 @@ const StudentDetails = (props) => {
                         {item.contactnumber}
                       </td>
                       <td className="flex gap-2">
-                        <button
-                          onClick={() => {
-                            handleEdit(item._id);
-                          }}
-                          className="bg-green-500 p-2 rounded-lg text-white"
-                        >
-                          Edit
-                        </button>
-                        {showModal && <StudentEdit setShowModal={setShowModal} />}
+                        <Link to = {`/admin/studentDetails/${item._id}`}>
+                          <button className = "bg-green-500 p-2 rounded-lg text-white">Edit</button>
+                        </Link>
+                      
                         <button
                           className="bg-red-500 p-2 rounded-lg text-white"
                           onClick={() => {
