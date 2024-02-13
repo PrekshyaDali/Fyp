@@ -47,7 +47,7 @@ export const userApiSlice = apiSlice.injectEndpoints({
       }),
       invalidatesTags: [{ type: "Instructor", id: "LIST" }],
     }),
-
+    
     ForgetPassword: builder.mutation({
       query: (body) => ({
         url: "/ForgetPassword",
@@ -72,6 +72,21 @@ export const userApiSlice = apiSlice.injectEndpoints({
     addCourse: builder.mutation({
       query: (body) => ({
         url: "/addCourses",
+        method: "POST",
+        body,
+      }),
+    }),
+    uploadImg: builder.mutation({
+      query: (body) => ({
+        url: "/upload",
+        method: "POST",
+        body,
+      }),
+    }),
+
+    enrollment: builder.mutation({
+      query: (body) => ({
+        url: "/enrollment",
         method: "POST",
         body,
       }),
@@ -169,6 +184,8 @@ export const {
   useDeleteUserMutation,
   useChangePasswordMutation,
   useEditDetailsMutation,
+  useUploadImgMutation,
+  useEnrollmentMutation,
 
 
   useGetCourseQuery,

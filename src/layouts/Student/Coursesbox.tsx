@@ -14,7 +14,12 @@ const Coursesbox = (props) => {
       </div>
 
       <div className="flex flex-col gap-2 p-4">
-        <h2 className="text-xl font-semibold text-[#273469]">{props.title}</h2>
+        <div className = "flex space-x-5">
+          <h2 className="text-xl font-semibold text-[#273469]">{props.title}</h2>
+          <span className="py-1 px-6 rounded-md text-[#694DCA] font-semibold bg-opacity-10  bg-pink-500 shadow-md shadow-pink-500">
+            {props.courseDuration}
+          </span>
+        </div>
         <p className="mb-4 text-sm text-gray-600 max-w-xs truncate overflow-hidden sm:max-w-xs sm:overflow-hidden sm:truncate sm:min-h-[2.5em]">
           {props.description}
         </p>
@@ -24,7 +29,7 @@ const Coursesbox = (props) => {
         <Link to={`/user/courses/${props.id}`}>
           <button className="bg-[#273469] text-white rounded-lg p-2">View Details</button>
         </Link>
-        <Link to="/user/Enrollmentforms">
+        <Link to={`/user/Enrollmentforms/${props.id}`}>
           <button className="bg-[#273469] text-white rounded-lg p-2">Enroll Now</button>
         </Link>
       </div>

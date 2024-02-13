@@ -18,7 +18,7 @@ const DetailComponent = (props) => {
       <div className="mb-8">
         <h2 className="text-xl font-semibold mb-2">Course Duration</h2>
         <p className="text-gray-700">
-          Default Duration: 30 weeks
+          Default Duration: {props.courseDuration}
           <br />
           Customization Options: Up to 15 days or 1 week
         </p>
