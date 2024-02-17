@@ -16,9 +16,14 @@ export default function AddCourse() {
   } = useForm();
 
   const [addCourse, { isLoading }] = useAddCourseMutation();
-  // const[uploadImg] = useUploadImgMutation();
+  const [uploadImg] = useUploadImgMutation();
+
   const SubmitHandler = async (data: IAddCourse) => {
     try {
+      const image = new FormData();
+      image.append("image", data.image[0]);
+      const img = await uploadImg(image).unwrap();
+      console.log(img, "img");
       const data1 = {
         courseOverview: data.CourseOverview,
         courseDuration: data.CourseDuration,
@@ -26,11 +31,12 @@ export default function AddCourse() {
         price: data.price,
         type: data.type,
         courseDescription: data.CourseDescription,
+        image: img,
       };
-    
+
       console.log(data1);
       const res = await addCourse(data1).unwrap();
-      
+
       console.log(res, "res");
       toast.success("Course Added Successfully");
       reset();
@@ -41,15 +47,13 @@ export default function AddCourse() {
     }
   };
 
-  // const handleFileChange = (event) => {
-  //   // Get the selected file
-  //   const file = event.target.files[0];
-
-  //   // Set the selected file to the state
-  //   setSelectedFile(file);
-
   return (
-    <form action = "/upload" method= "POST" encType = "multipart/form-data" onSubmit={handleSubmit(SubmitHandler)}>
+    <form
+      action="/upload"
+      method="post"
+      encType="multipart/form-data"
+      onSubmit={handleSubmit(SubmitHandler)}
+    >
       <div className="m-5 flex flex-col space-y-5">
         <div className="relative">
           <label htmlFor="CourseOverview">Course Overview</label>
@@ -163,7 +167,11 @@ export default function AddCourse() {
               accept="image/*" // Allow only image files
               // onChange={handleFileChange}
               className="inputfields w-64"
+              {...register("image", {
+                required: "This field is required",
+              })}
             />
+            {errors.image && <span className="text-red-500">{String(errors.message)}</span>}
             <span className="text-sm text-gray-400">
               Only .png or .jpg files are accepted
             </span>
