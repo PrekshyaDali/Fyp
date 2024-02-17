@@ -8,7 +8,7 @@ const Coursesbox = (props) => {
       <div className="h-48 w-full">
         <img
           className="rounded-t-xl object-cover w-full h-full"
-          src={"/img/car.jpg"}
+          src={props.img}
           alt=""
         />
       </div>

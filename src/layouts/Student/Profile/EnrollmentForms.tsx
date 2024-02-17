@@ -52,7 +52,7 @@ export default function EnrollmentForms() {
   console.log(data, "data");
   console.log(courseData, "courseData")
   return (
-    <form onSubmit={handleSubmit(SubmitHandler)}>
+    <form  onSubmit={handleSubmit(SubmitHandler)}>
       <div className="border-2 border-gray-300 m-3 rounded-md p-5 space-y-8 max-h-[80]">
         <div className="h-44 rounded-md bg-[#5584B0] border-2 relative p-5">
           <img
@@ -221,7 +221,7 @@ export default function EnrollmentForms() {
             <div className="w-full sm:w-1/2">
               <label htmlFor="Price">Price</label>
               <input
-                value={courseData?.price}
+                value={"Rs" + " " + courseData?.price}
                 type="text"
                 id="Price"
                 className="inputfields"
@@ -234,7 +234,7 @@ export default function EnrollmentForms() {
             <input
               type="checkbox"
               id="Category"
-              className="w-5 h-5 mr-4 text-blue-white bg-[#FAFAFF] border-gray-300 rounded focus:ring-white dark:focus:ring-white "
+              className="w-5 h-5 mr-4 text-blue-white bg-white border-gray-300 rounded focus:ring-white dark:focus:ring-white "
             />
             <label htmlFor="Category" className="text-sm">
               I have read and agree to all the terms and conditions. Once submitted, it
