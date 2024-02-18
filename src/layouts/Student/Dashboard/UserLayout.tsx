@@ -3,10 +3,10 @@ import React from "react";
 import { logout } from "@/app/authSlice";
 import { useAppDispatch } from "@/app/store";
 import DriveSyncLogo from "@/pages/component/DriveSyncLogo";
-import Adminprofile from "../../pages/component/ProfileLogo";
+import Adminprofile from "../../../pages/component/ProfileLogo";
 import StudentDashboard from "./StudentDashboard";
 import Button from "@/pages/component/Button";
-import ProfileLogo from "../../pages/component/ProfileLogo";
+import ProfileLogo from "../../../pages/component/ProfileLogo";
 const UserLayout = () => {
   const dispatch = useAppDispatch();
   return (
@@ -18,7 +18,7 @@ const UserLayout = () => {
             <ProfileLogo />
           </div>
 
-          <div >
+          <div>
             <label
               htmlFor="my-drawer-2"
               className="bg-[#E4D9FF] h-10 rounded-lg lg:hidden w-14  absolute top-3 flex justify-center items-center"
@@ -40,7 +40,7 @@ const UserLayout = () => {
             </label>
           </div>
 
-          <main >
+          <main>
             <Outlet />
           </main>
         </div>

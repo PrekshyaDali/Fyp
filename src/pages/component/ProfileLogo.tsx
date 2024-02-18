@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 
 import AdminProfile from "@/layouts/Admin/Profile/AdminProfile";
-import StudentProfile from "@/layouts/Student/Profile/StudentProfile";
+import StudentProfile from "@/layouts/Student/StudentProfile/StudentProfile";
 
 const ProfileLogo = () => {
   const [profileClick, setProfileClick] = useState(false);

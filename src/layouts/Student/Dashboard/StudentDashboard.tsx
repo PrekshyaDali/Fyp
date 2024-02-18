@@ -1,5 +1,5 @@
 import React from "react";
-import Coursesbox from "@/layouts/Student/Coursesbox";
+import Coursesbox from "@/layouts/Student/StudentCourses/Coursesbox";
 import { useGetProfileQuery } from "@/feature/userApiSlice";
 
 const StudentDashboard = () => {
@@ -15,10 +15,6 @@ const StudentDashboard = () => {
             Check out your dashboard for personalized information and features.
           </p>
         </div>
-
-
-
-        
 
         {/* Dashboard Overview */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">

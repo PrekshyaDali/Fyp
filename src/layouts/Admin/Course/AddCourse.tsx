@@ -31,7 +31,7 @@ export default function AddCourse() {
         price: data.price,
         type: data.type,
         courseDescription: data.CourseDescription,
-        image: img,
+        image: img.url,
       };
 
       console.log(data1);
@@ -101,7 +101,7 @@ export default function AddCourse() {
           <input
             {...register("CourseDuration", {
               required: "This field is required",
-              pattern: { value: /^[1-9]+$/, message: "Please enter a valid number" },
+              pattern: { value: /^[1-9]\d*$/, message: "Please enter a valid number" },
             })}
             type="number"
             className="inputfields"
@@ -171,7 +171,9 @@ export default function AddCourse() {
                 required: "This field is required",
               })}
             />
-            {errors.image && <span className="text-red-500">{String(errors.message)}</span>}
+            {errors.image && (
+              <span className="text-red-500">{String(errors.message)}</span>
+            )}
             <span className="text-sm text-gray-400">
               Only .png or .jpg files are accepted
             </span>
