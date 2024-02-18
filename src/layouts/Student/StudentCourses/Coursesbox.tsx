@@ -7,20 +7,20 @@ const Coursesbox = (props) => {
     <div className="flex flex-col bg-white rounded-xl shadow-md justify-items-start gap-2 items-center p-1 max-w-64 sm:max-w-full h-auto">
       <div className="h-48 w-full">
         <img
-          className="rounded-t-xl object-cover w-full h-full"
+          className="rounded-t-xl  object-cover  w-full h-full"
           src={props.img}
           alt=""
         />
       </div>
 
       <div className="flex flex-col gap-2 p-4">
-        <div className = "flex space-x-5">
+        <div className="flex space-x-5">
           <h2 className="text-xl font-semibold text-[#273469]">{props.title}</h2>
-          <span className="py-1 px-6 rounded-md text-[#694DCA] font-semibold bg-opacity-10  bg-pink-500 shadow-md shadow-pink-500">
+          <span className="py-1 px-6 rounded-md text-[#694DCA] font-semibold  shadow-md shadow-blue-500 ">
             {props.courseDuration}
           </span>
         </div>
-        <p className="mb-4 text-sm text-gray-600 max-w-xs truncate overflow-hidden sm:max-w-xs sm:overflow-hidden sm:truncate sm:min-h-[2.5em]">
+        <p className="mb-4 text-sm text-gray-600 max-w-xs line-clamp-2">
           {props.description}
         </p>
       </div>

@@ -4,13 +4,13 @@ import React from "react";
 import { logout } from "@/app/authSlice";
 import { useState } from "react";
 import { useAppDispatch } from "@/app/store";
-import CreateInstructor from "@/layouts/Admin/CreateInstructor";
+import CreateInstructor from "@/layouts/Admin/CRUD/CreateInstructor";
 import DriveSyncLogo from "@/pages/component/DriveSyncLogo";
-import Adminprofile from "../../pages/component/ProfileLogo";
+import Adminprofile from "../../../pages/component/ProfileLogo";
 import AdminDashboard from "./AdminDashboard";
 import Finances from "./Finances";
 import Button from "@/pages/component/Button";
-import ProfileLogo from "../../pages/component/ProfileLogo";
+import ProfileLogo from "../../../pages/component/ProfileLogo";
 const AdminLayout = () => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();

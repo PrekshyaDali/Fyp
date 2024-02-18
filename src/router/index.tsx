@@ -3,37 +3,38 @@ import { createBrowserRouter } from "react-router-dom";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import React from "react";
 
-import AdminLayout from "@/layouts/Admin/AdminLayout";
+import AdminLayout from "@/layouts/Admin/Dashboard/AdminLayout";
 import ProtectedRoute from "@/layouts/ProtectedRoute";
 import Register from "@/pages/register/Register";
 import Otpverification from "@/pages/Otp/Otpverification";
 
 import Forgetpassword from "@/pages/login/Forgetpassword";
 import Resetpassword from "@/pages/login/Resetpassword";
-import UserLayout from "@/layouts/Student/UserLayout";
+import UserLayout from "@/layouts/Student/Dashboard/UserLayout";
 
 import Login from "@/pages/login/Login";
-import CreateInstuctor from "@/layouts/Admin/CreateInstructor";
-import AdminDashboard from "@/layouts/Admin/AdminDashboard";
+import CreateInstuctor from "@/layouts/Admin/CRUD/CreateInstructor";
+import AdminDashboard from "@/layouts/Admin/Dashboard/AdminDashboard";
 import StudentDetails from "@/pages/component/StudentDetails";
-import StudentTable from "@/layouts/Admin/StudentTable";
-import Finances from "@/layouts/Admin/Finances";
-import Courses from "@/layouts/Student/Courses";
-import StudentDashboard from "@/layouts/Student/StudentDashboard";
+import StudentTable from "@/layouts/Admin/CRUD/StudentTable";
+import Finances from "@/layouts/Admin/Dashboard/Finances";
+import Courses from "@/layouts/Student/StudentCourses/Courses";
+import StudentDashboard from "@/layouts/Student/Dashboard/StudentDashboard";
 import AddCourse from "@/layouts/Admin/Course/AddCourse";
 
 import EditCourse from "@/layouts/Admin/Course/AddCourse";
 import CourseButton from "@/layouts/Admin/Course/CourseButton";
-import Details from "@/layouts/Student/Detail";
+import Details from "@/layouts/Student/StudentCourses/Detail";
 import ProfileDetails from "@/layouts/Admin/Profile/ProfileDetails";
-import StudentProfile from "@/layouts/Student/Profile/StudentProfile";
-import StudentProfileDetails from "@/layouts/Student/Profile/StudentProfileDetails";
+import StudentProfile from "@/layouts/Student/StudentProfile/StudentProfile";
+import StudentProfileDetails from "@/layouts/Student/StudentProfile/StudentProfileDetails";
 import InstructorLayout from "@/layouts/Instructor/Instructorlayout";
 import InstructorDashboard from "@/layouts/Instructor/InstructorDashboard";
 import ChangePassword from "@/pages/login/ChangePassword";
-import EnrollmentForms from "@/layouts/Student/Profile/EnrollmentForms";
-import InstructorTable from "@/layouts/Admin/InstructorTable";
-import StudentEdit from "@/layouts/Admin/StudentEdit";
+import EnrollmentForms from "@/layouts/Student/StudentCourses/EnrollmentForms";
+import InstructorTable from "@/layouts/Admin/CRUD/InstructorTable";
+import StudentEdit from "@/layouts/Admin/CRUD/StudentEdit";
+import EditProfile from "@/layouts/Admin/Profile/EditProfile";
 
 // lazy import components
 // const PostList = lazy(() => import("@/pages/posts/list"));
@@ -48,7 +49,7 @@ const AppRouter = () => {
               <Route path="/admin/CreateInstructor" element={<CreateInstuctor />}></Route>
               <Route path="/admin/adminDashboard" element={<AdminDashboard />}></Route>
               <Route path="/admin/studentDetails" element={<StudentTable />}></Route>
-              <Route path = "/admin/studentDetails/:id" element = {<StudentEdit/>}></Route>
+              <Route path="/admin/studentDetails/:id" element={<StudentEdit />}></Route>
               <Route
                 path="/admin/instructorDetails"
                 element={<InstructorTable />}
@@ -57,6 +58,7 @@ const AppRouter = () => {
               <Route path="/admin/CourseButton" element={<CourseButton />}></Route>
               <Route path="/admin/AddCourse" element={<AddCourse />}></Route>
               <Route path="/admin/profile" element={<ProfileDetails />}></Route>
+              <Route path="/admin/profile/:id" element={<EditProfile />}></Route>
             </Route>
 
             <Route path="/user" element={<UserLayout />}>

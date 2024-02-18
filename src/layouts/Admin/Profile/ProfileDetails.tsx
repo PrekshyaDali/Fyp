@@ -3,9 +3,16 @@ import Button from "@/pages/component/Button";
 import { useGetProfileQuery, userApiSlice } from "@/feature/userApiSlice";
 import { Link } from "react-router-dom";
 
+
 export default function ProfileDetails() {
   const { data } = useGetProfileQuery({}, { refetchOnMountOrArgChange: true });
+  
+  //  const { id } = useParams<{ id: string }>();
+  //  const { data: userData, isLoading: isUserDataLoading } = useEditUsersQuery(id, {
+  //    refetchOnMountOrArgChange: true,
+  //  });
   console.log(data);
+console.log(data?.user._id)
   return (
     <div className="flex flex-col space-y-5 p-3 text-[#254E7A]">
       {/* Profile Card */}
@@ -25,19 +32,21 @@ export default function ProfileDetails() {
           {/* User Information */}
           <div className="mt-16">
             <div className="flex space-x-2">
-              <h1 className="font-semibold text-lg ">{data?.user.firstname}</h1>
-              <h1 className="font-semibold text-lg ">{data?.user.lastname}</h1>
+              <h1 className="font-semibold text-lg ">{data?.user?.firstname}</h1>
+              <h1 className="font-semibold text-lg ">{data?.user?.lastname}</h1>
             </div>
-            <span className="text-sm text-gray-500">{data?.user.email}</span>
+            <span className="text-sm text-gray-500">{data?.user?.email}</span>
           </div>
           {/* Edit and Change Password Buttons */}
           <div className="flex justify-end ">
             <div className="relative">
               <img className="h-4 absolute left-2 " src="/img/edit.png" alt="" />
             </div>
-            <button className="h-10 text-sm bg-[#892506] rounded-md text-white border-2 p-2 hover:bg-[#82C2E6] hover:active:bg-[#254E7A]">
-              Edit
-            </button>
+            <Link to= {`/admin/profile/${data?.user._id}`}>
+              <button className="h-10 text-sm bg-[#892506] rounded-md text-white border-2 p-2 hover:bg-[#82C2E6] hover:active:bg-[#254E7A]">
+                Edit
+              </button>
+            </Link>
             <Link to="/Changepassword">
               <button className="h-10 text-sm rounded-md bg-[#892506] text-[#FAFAFF] border-2 p-2 hover:bg-[#82C2E6] hover:active:bg-[#254E7A]">
                 Change Password
@@ -72,8 +81,6 @@ export default function ProfileDetails() {
           </div>
         </div>
       </div>
-
-    
     </div>
   );
 }
