@@ -65,7 +65,9 @@ const AppRouter = () => {
               <Route path="/user/StudentDashboard" element={<StudentDashboard />} />
               <Route path="/user/courses" element={<Courses />} />
               <Route path="/user/courses/:id" element={<Details />} />
+
               <Route path="/user/profile" element={<StudentProfileDetails />} />
+              <Route path="/user/profile/:id" element={<EditProfile />} />
               <Route path="/user/finances" element={<Finances />} />
               <Route path="/user/enrollmentForms/:id" element={<EnrollmentForms />} />
 
@@ -79,6 +81,7 @@ const AppRouter = () => {
               />
             </Route>
           </Route>
+
           <Route element={<Register />} path="/register"></Route>
           <Route element={<Login />} path="/login"></Route>
           <Route element={<Otpverification />} path="/otp"></Route>

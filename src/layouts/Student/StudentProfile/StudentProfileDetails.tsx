@@ -38,17 +38,17 @@ console.log(data)
             <div className="relative">
               <img className="h-4 absolute left-2 " src="/img/edit.png" alt="" />
             </div>
-            <button className="h-10 text-sm bg-[#892506] rounded-md text-white border-2 p-2 hover:bg-[#82C2E6] hover:active:bg-[#254E7A]">
-              Edit
-            </button>
+            <Link to= {`/user/profile/${data?.user._id}`}>
+              <button className="h-10 text-sm bg-[#892506] rounded-md text-white border-2 p-2 hover:bg-[#82C2E6] hover:active:bg-[#254E7A]">
+                Edit
+              </button>
+            </Link>
             <Link to="/Changepassword">
               <button className="h-10 text-sm rounded-md bg-[#892506] text-[#FAFAFF] border-2 p-2 hover:bg-[#82C2E6] hover:active:bg-[#254E7A]">
                 Change Password
               </button>
             </Link>
           </div>
-
-
         </div>
       </div>
 
