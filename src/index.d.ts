@@ -53,3 +53,14 @@ export interface IEnrollment {
   gender: string;
   emergencycontact: number;
 }
+
+export interface IEditProfile {
+  firstname: string;
+  lastname: string;
+  email: string;
+  contactnumber: number;
+  dob: Date;
+  emergencycontactnumber: number;
+  address: string;
+  gender: string;
+}
