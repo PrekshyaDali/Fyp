@@ -23,7 +23,8 @@ import StudentDashboard from "@/layouts/Student/Dashboard/StudentDashboard";
 import AddCourse from "@/layouts/Admin/Course/AddCourse";
 
 import EditCourse from "@/layouts/Admin/Course/AddCourse";
-import CourseButton from "@/layouts/Admin/Course/CourseButton";
+// import CourseButton from "@/layouts/Admin/Course/CourseButton";
+
 import Details from "@/layouts/Student/StudentCourses/Detail";
 import ProfileDetails from "@/layouts/Admin/Profile/ProfileDetails";
 import StudentProfile from "@/layouts/Student/StudentProfile/StudentProfile";
@@ -55,7 +56,7 @@ const AppRouter = () => {
                 element={<InstructorTable />}
               ></Route>
               <Route path="/admin/Finances" element={<Finances></Finances>}></Route>
-              <Route path="/admin/CourseButton" element={<CourseButton />}></Route>
+
               <Route path="/admin/AddCourse" element={<AddCourse />}></Route>
               <Route path="/admin/profile" element={<ProfileDetails />}></Route>
               <Route path="/admin/profile/:id" element={<EditProfile />}></Route>

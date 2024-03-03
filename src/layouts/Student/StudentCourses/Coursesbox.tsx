@@ -4,7 +4,7 @@ import { useGetCoursesQuery } from "@/feature/userApiSlice";
 
 const Coursesbox = (props) => {
   return (
-    <div className="flex flex-col bg-white rounded-xl shadow-md justify-items-start gap-2 items-center p-1 max-w-64 sm:max-w-full h-auto">
+    <div className="flex flex-col bg-white rounded-xl shadow-md justify-items-start gap-2 items-center p-1 max-w-64 sm:max-w-full  h-auto">
       <div className="h-48 w-full">
         <img
           className="rounded-t-xl  object-cover  w-full h-full"
@@ -13,7 +13,7 @@ const Coursesbox = (props) => {
         />
       </div>
 
-      <div className="flex flex-col gap-2 p-4">
+      <div className="flex flex-col gap-2 sm:p-4">
         <div className="flex space-x-5">
           <h2 className="text-xl font-semibold text-[#273469]">{props.title}</h2>
           <span className="py-1 px-6 rounded-md text-[#694DCA] font-semibold  shadow-md shadow-blue-500 ">

@@ -52,6 +52,7 @@ export interface IEnrollment {
   address: string;
   gender: string;
   emergencycontact: number;
+  termsandcondition: boolean;
 }
 
 export interface IEditProfile {
@@ -63,4 +64,5 @@ export interface IEditProfile {
   emergencycontactnumber: number;
   address: string;
   gender: string;
+  image: File;
 }
