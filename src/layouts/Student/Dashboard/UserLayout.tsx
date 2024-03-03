@@ -21,7 +21,7 @@ const UserLayout = () => {
           <div>
             <label
               htmlFor="my-drawer-2"
-              className="bg-[#E4D9FF] h-10 rounded-lg lg:hidden w-14  absolute top-3 flex justify-center items-center"
+              className="bg-[#CBE3EF] h-10 rounded-lg lg:hidden w-14  absolute top-3 flex justify-center items-center"
             >
               <span className="sr-only">Open sidebar</span>
               <svg
@@ -46,12 +46,12 @@ const UserLayout = () => {
         </div>
         <div className="drawer-side ">
           <label htmlFor="my-drawer-2" className="drawer-overlay "></label>
-          <ul className="menu p-2 sm:p-4 w-56 sm:w-80  text-base-content bg-[#5584B0] border-r-2">
-            <div className="fixed z-10 ml-6 ">
+          <ul className="menu p-2 sm:p-4 w-56 sm:w-72  text-base-content bg-[#5584B0] ">
+            <div className="fixed z-10 ">
               <DriveSyncLogo></DriveSyncLogo>
             </div>
 
-            <li className=" mt-16 text-sm sm:text-base text-[#FAFAFF] space-y-3 font-bold">
+            <li className=" mt-16 text-sm sm:text-base text-[#FAFAFF] space-y-2 font-bold">
               <Link to="/user/StudentDashboard">
                 <img className="h-5" src="/img/home.png" alt="" />
                 Home

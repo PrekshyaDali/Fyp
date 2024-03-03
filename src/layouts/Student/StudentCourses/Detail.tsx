@@ -11,6 +11,7 @@ const Details = () => {
   console.log(data);
   return (
     <DetailComponent
+      id = {data?._id}
       DetailName={data?.type?.toString().toUpperCase() + " DETAIL"}
       courseDuration={data?.courseDuration + "DAYS"}
       description = {data?.courseDescription}  

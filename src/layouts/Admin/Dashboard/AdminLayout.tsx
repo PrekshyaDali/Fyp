@@ -56,12 +56,12 @@ const AdminLayout = () => {
         </div>
         <div className="drawer-side ">
           <label htmlFor="my-drawer-2" className="drawer-overlay "></label>
-          <ul className="menu p-4 w-52 sm:w-80  text-base-content bg-[#5584B0] border-r-2">
+          <ul className="menu p-4 w-52 sm:w-72  text-base-content bg-[#5584B0] ">
             <div className="fixed z-10 ">
               <DriveSyncLogo></DriveSyncLogo>
             </div>
 
-            <li className="mt-20 text-sm sm:text-base text-white space-y-3 font-bold">
+            <li className="mt-16 text-sm sm:text-base text-white space-y-2 font-bold">
               <Link className="" to="/admin/adminDashboard">
                 <img className="h-6" src="/img/dashboard.png" alt="" />
                 Dashboard

@@ -83,6 +83,12 @@ export const userApiSlice = apiSlice.injectEndpoints({
         body,
       }),
     }),
+    getImg: builder.query({
+      query: (filename) => ({
+        url: `/uploads/${filename}`,
+        method: "GET",
+      }),
+    }),
 
     enrollment: builder.mutation({
       query: (body) => ({
@@ -111,10 +117,10 @@ export const userApiSlice = apiSlice.injectEndpoints({
     }),
     editProfileDetails: builder.mutation({
       // update the information of the users from admin table
-      query: ({id, ...rest}) => ({
+      query: ({ id, formData }) => ({
         url: `/editProfile/${id}`,
         method: "PUT",
-        body: rest,
+        body: formData,
       }),
       invalidatesTags: [{ type: "Instructor", id: "LIST" }],
     }),
@@ -175,12 +181,12 @@ export const userApiSlice = apiSlice.injectEndpoints({
       }),
       providesTags: (result) => [{ type: "Course", id: "LIST" }],
     }),
-    getImage: builder.query({
-      query: () => ({
-        url: "/getImage",
-        method: "GET",
-      }),
-    }),
+    // getImage: builder.query({
+    //   query: () => ({
+    //     url: "/getImage",
+    //     method: "GET",
+    //   }),
+    // }),
   }),
 });
 
@@ -198,7 +204,7 @@ export const {
   useUploadImgMutation,
   useEnrollmentMutation,
   useEditProfileDetailsMutation,
-
+  useGetImgQuery,
   useGetCourseQuery,
   useGetCoursesQuery,
   useGetUsersQuery,
@@ -208,5 +214,5 @@ export const {
   useGetSearchQuery,
   useGetProfileQuery,
   useGetInstructorsQuery,
-  useGetImageQuery,
+  // useGetImageQuery,
 } = userApiSlice;

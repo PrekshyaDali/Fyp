@@ -6,7 +6,6 @@ import { IAddCourse } from "@/index";
 import { toast } from "react-toastify";
 
 export default function AddCourse() {
-  // const [selectedFile, setSelectedFile] = useState(null);
 
   const {
     register,
