@@ -36,6 +36,9 @@ import EnrollmentForms from "@/layouts/Student/StudentCourses/EnrollmentForms";
 import InstructorTable from "@/layouts/Admin/CRUD/InstructorTable";
 import StudentEdit from "@/layouts/Admin/CRUD/StudentEdit";
 import EditProfile from "@/layouts/Admin/Profile/EditProfile";
+import CustomizeForm from "@/layouts/Student/StudentCourses/CustomizeForm";
+import CustomizeCourse from "@/layouts/Admin/Course/CustomizeCourse";
+import ViewStudent from "@/layouts/Admin/CRUD/ViewStudent";
 
 // lazy import components
 // const PostList = lazy(() => import("@/pages/posts/list"));
@@ -51,6 +54,7 @@ const AppRouter = () => {
               <Route path="/admin/adminDashboard" element={<AdminDashboard />}></Route>
               <Route path="/admin/studentDetails" element={<StudentTable />}></Route>
               <Route path="/admin/studentDetails/:id" element={<StudentEdit />}></Route>
+              <Route path="/admin/studentView/:id" element={<ViewStudent />}></Route>
               <Route
                 path="/admin/instructorDetails"
                 element={<InstructorTable />}
@@ -58,6 +62,7 @@ const AppRouter = () => {
               <Route path="/admin/Finances" element={<Finances></Finances>}></Route>
 
               <Route path="/admin/AddCourse" element={<AddCourse />}></Route>
+              <Route path="/admin/customizeCourse" element={<CustomizeCourse />}></Route>
               <Route path="/admin/profile" element={<ProfileDetails />}></Route>
               <Route path="/admin/profile/:id" element={<EditProfile />}></Route>
             </Route>
@@ -66,6 +71,7 @@ const AppRouter = () => {
               <Route path="/user/StudentDashboard" element={<StudentDashboard />} />
               <Route path="/user/courses" element={<Courses />} />
               <Route path="/user/courses/:id" element={<Details />} />
+              <Route path="/user/courses/customizeCourse" element={<CustomizeForm />} />
 
               <Route path="/user/profile" element={<StudentProfileDetails />} />
               <Route path="/user/profile/:id" element={<EditProfile />} />

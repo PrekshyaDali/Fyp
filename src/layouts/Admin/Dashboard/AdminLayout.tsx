@@ -14,7 +14,7 @@ import ProfileLogo from "../../../pages/component/ProfileLogo";
 const AdminLayout = () => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
-  const [ShowSubMenu, setShowSubMenu] = useState(false);
+  const [ShowSubMenu, setShowSubMenu] = React.useState(false);
 
   const toggleSubMenu = () => {
     setShowSubMenu(!ShowSubMenu);
@@ -61,7 +61,7 @@ const AdminLayout = () => {
               <DriveSyncLogo></DriveSyncLogo>
             </div>
 
-            <li className="mt-16 text-sm sm:text-base text-white space-y-2 font-bold">
+            <li className="mt-16 text-sm sm:text-sm text-white space-y-2 font-bold">
               <Link className="" to="/admin/adminDashboard">
                 <img className="h-6" src="/img/dashboard.png" alt="" />
                 Dashboard
@@ -88,11 +88,17 @@ const AdminLayout = () => {
                 />
               </div>
               {ShowSubMenu && (
-                <div>
+                <div className = "flex flex-col">
                   <li>
                     <Link to="/admin/AddCourse">
                       <img className="h-6" src="/img/student.png" alt="" />
                       Adding Course Details
+                    </Link>
+                  </li>
+                  <li>
+                    <Link to = "/admin/customizeCourse">
+                      <img className="h-6" src="/img/student.png" alt="" />
+                      Customize Course
                     </Link>
                   </li>
                 </div>

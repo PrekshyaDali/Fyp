@@ -19,7 +19,7 @@ console.log(data)
           <div className="h-24 w-24 border-2 border-white rounded-full overflow-hidden absolute top-10">
             <img
               className="w-full h-full object-cover"
-              src="/img/People.png"
+              src={data?.user?.image}
               alt="Profile"
             />
           </div>
@@ -38,7 +38,7 @@ console.log(data)
             <div className="relative">
               <img className="h-4 absolute left-2 " src="/img/edit.png" alt="" />
             </div>
-            <Link to= {`/user/profile/${data?.user._id}`}>
+            <Link to= {`/user/profile/${data?.user?._id}`}>
               <button className="h-10 text-sm bg-[#892506] rounded-md text-white border-2 p-2 hover:bg-[#82C2E6] hover:active:bg-[#254E7A]">
                 Edit
               </button>
@@ -61,19 +61,19 @@ console.log(data)
           {/* Contact Info Items */}
           <div className="flex items-center space-x-4">
             <img className="h-4" src="/img/number.png" alt="" />
-            <span>{data?.user.contactnumber}</span>
+            <span>{data?.user?.contactnumber}</span>
           </div>
           <div className="flex items-center space-x-4">
             <img className="h-4" src="/img/location.png" alt="" />
-            <span>Add location</span>
+            <span>{data?.user?.address}</span>
           </div>
           <div className="flex items-center space-x-4">
             <img className="h-4" src="/img/email.png" alt="" />
-            <span>{data?.user.email}</span>
+            <span>{data?.user?.email}</span>
           </div>
           <div className="flex items-center space-x-4">
             <img className="h-4" src="/img/role.png" alt="" />
-            <span>{data?.user.role}</span>
+            <span>{data?.user?.role}</span>
           </div>
         </div>
       </div>

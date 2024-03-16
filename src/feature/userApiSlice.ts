@@ -173,6 +173,19 @@ export const userApiSlice = apiSlice.injectEndpoints({
       }),
       providesTags: (result) => [{ type: "Course", id: "LIST" }],
     }),
+    getEnrollment: builder.query({
+      query: () => ({
+        url: "/getEnrollment",
+        method: "GET",
+      }),
+    }),
+    updateEnrollment: builder.mutation({
+      query: ({id, body}) => ({
+        url: `/enrollment/${id}`,
+        method: "PATCH",
+        body,
+      }),
+    }),
 
     getCourse: builder.query({
       query: (id) => ({
@@ -204,6 +217,10 @@ export const {
   useUploadImgMutation,
   useEnrollmentMutation,
   useEditProfileDetailsMutation,
+  useUpdateEnrollmentMutation,
+
+
+
   useGetImgQuery,
   useGetCourseQuery,
   useGetCoursesQuery,
@@ -214,5 +231,6 @@ export const {
   useGetSearchQuery,
   useGetProfileQuery,
   useGetInstructorsQuery,
+  useGetEnrollmentQuery,
   // useGetImageQuery,
 } = userApiSlice;

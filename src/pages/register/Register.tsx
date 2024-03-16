@@ -57,7 +57,7 @@ const Register = () => {
   return (
     <div className="flex justify-center items-center bg-[#FAFAFF] p-5">
       <form className = "max-w-lg" onSubmit={handleSubmit(SubmitHandler)}>
-        <div className="  flex flex-col py-8 px-10 md:px-11 gap-3 shadow-md ">
+        <div className="  flex flex-col py-8 px-10 md:px-11 gap-3 shadow-md  ">
           <DriveSyncLogo></DriveSyncLogo>
           <h1 className="text-3xl font-bold text-[#0F1035] mb-5">Signup</h1>
           <input

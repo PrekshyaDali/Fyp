@@ -24,7 +24,7 @@ console.log(data?.user._id)
           <div className="h-24 w-24 border-2 border-white rounded-full overflow-hidden absolute top-10">
             <img
               className="w-full h-full object-cover"
-              src="/img/People.png"
+              src={data?.user?.image}
               alt="Profile"
             />
           </div>
@@ -69,7 +69,7 @@ console.log(data?.user._id)
           </div>
           <div className="flex items-center space-x-4">
             <img className="h-4" src="/img/location.png" alt="" />
-            <span>Add location</span>
+            <span>{data?.user?.address}</span>
           </div>
           <div className="flex items-center space-x-4">
             <img className="h-4" src="/img/email.png" alt="" />
