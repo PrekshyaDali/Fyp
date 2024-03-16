@@ -3,18 +3,14 @@ import Search from "./Search";
 import { useState } from "react";
 import { useDeleteUserMutation } from "@/feature/userApiSlice";
 import { toast } from "react-toastify";
+import { Link } from "react-router-dom";
 import StudentEdit from "@/layouts/Admin/CRUD/StudentEdit";
 import { useGetUsersQuery } from "@/feature/userApiSlice";
-import { Link } from "react-router-dom";
 
 const StudentDetails = (props) => {
   const { data } = useGetUsersQuery({});
   const [studentDetails, setStudentDetails] = useState([]);
-
-  // const [selectedUserId, setSelectedUserId] = useState("");
-
   const [showModal, setShowModal] = useState(false);
-
   const [deleteUser] = useDeleteUserMutation();
 
   const handleDelete = async (id) => {
@@ -58,6 +54,12 @@ const StudentDetails = (props) => {
                     {props.ContactNumber}
                   </th>
                   <th scope="col" className="px-6 py-4">
+                    {props.CourseEnrolled}
+                  </th>
+                  <th scope="col" className="px-6 py-4">
+                    {props.Status}
+                  </th>
+                  <th scope="col" className="px-6 py-4">
                     {props.Action}
                   </th>
                 </tr>
@@ -73,13 +75,21 @@ const StudentDetails = (props) => {
                       <td className="px-6 py-4 whitespace-nowrap">
                         {item.contactnumber}
                       </td>
+                      <td className="px-6 py-4 whitespace-nowrap">
+                        {item.courseEnrolled}
+                      </td>
+                      <td className="px-6 py-4 whitespace-nowrap">{item.status}</td>
                       <td className="flex gap-2">
-                        <Link to={`/admin/studentDetails/${item._id}`}>
+                        <Link to={`/admin/studentView/${item._id}`}>
                           <button className="bg-green-500 p-2 rounded-lg text-white">
+                            View
+                          </button>
+                        </Link>
+                        <Link to={`/admin/studentDetails/${item._id}`}>
+                          <button className="bg-blue-500 p-2 rounded-lg text-white">
                             Edit
                           </button>
                         </Link>
-
                         <button
                           className="bg-red-500 p-2 rounded-lg text-white"
                           onClick={() => {

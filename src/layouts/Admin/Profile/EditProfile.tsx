@@ -246,7 +246,7 @@ export default function EditProfile() {
                   max={yesterdayFormatted}
                   {...register("dob", {
                     pattern: {
-                      value: /^\d{4}-\d{2}-\d{2}$/,
+                      value: /^\d{2}\/\d{2}\/\d{4}$/,
                       message: "Invalid date format (DD/MM/YYYY)",
                     },
                   })}
@@ -256,10 +256,10 @@ export default function EditProfile() {
                 )}
                 <style>
                   {`
-  input[type="date"]::-webkit-calendar-picker-indicator {
-    filter: invert(1);
-  }
-`}
+                    input[type="date"]::-webkit-calendar-picker-indicator {
+                    filter: invert(1);
+                    }
+                  `}
                 </style>
               </div>
 

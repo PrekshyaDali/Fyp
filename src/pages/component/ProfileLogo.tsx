@@ -26,7 +26,6 @@ const ProfileLogo = () => {
       document.body.removeEventListener("click", clickHandlerOutsideProfile);
     };
   }, [profileClick]);
-  console.log(profileClick, "profileClick");
 
   return (
     <>

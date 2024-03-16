@@ -5,6 +5,7 @@ import { useEditDetailsMutation, useEditUsersQuery, useGetUsersQuery } from "@/f
 import { useParams } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
+import { useEffect } from "react";
 
 export default function StudentEdit() {
   const { id } = useParams<{ id: string }>();
@@ -43,7 +44,7 @@ export default function StudentEdit() {
  };
 
 
-  React.useEffect(() => {
+  useEffect(() => {
     if (userData) {
       // Set default values for form fields when data is fetched
       setValue("firstname", userData.firstname);

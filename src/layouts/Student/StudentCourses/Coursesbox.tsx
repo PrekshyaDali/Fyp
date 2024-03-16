@@ -1,6 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { useGetCoursesQuery } from "@/feature/userApiSlice";
+import Button from "@/pages/component/Button";
 
 const Coursesbox = (props) => {
   return (
@@ -29,9 +30,13 @@ const Coursesbox = (props) => {
         <Link to={`/user/courses/${props.id}`}>
           <button className="bg-[#273469] text-white rounded-lg p-2">View Details</button>
         </Link>
-        <Link to={`/user/Enrollmentforms/${props.id}`}>
-          <button className="bg-[#273469] text-white rounded-lg p-2">Enroll Now</button>
-        </Link>
+        {!props?.enroll ? (
+          <Link to={`/user/Enrollmentforms/${props.id}`}>
+            <button className="bg-[#273469] text-white rounded-lg p-2">Enroll Now</button>
+          </Link>
+        ) : (
+          <button className="bg-[#700c0c] text-white rounded-lg p-2">Already enrolled</button>
+        )}
       </div>
     </div>
   );
