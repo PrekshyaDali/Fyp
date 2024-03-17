@@ -32,6 +32,7 @@ export default function StudentTable() {
         Email={"Email"}
         ContactNumber={"Contact Number"}
         CourseEnrolled={"Course Enrolled"}
+        Attendance = {"Attendance"}
         Status={"Status"}
         Action={"Action"}
       />

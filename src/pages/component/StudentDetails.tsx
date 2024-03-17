@@ -60,6 +60,9 @@ const StudentDetails = (props) => {
                     {props.Status}
                   </th>
                   <th scope="col" className="px-6 py-4">
+                    {props.Attendance}
+                  </th>
+                  <th scope="col" className="px-6 py-4">
                     {props.Action}
                   </th>
                 </tr>
@@ -76,9 +79,28 @@ const StudentDetails = (props) => {
                         {item.contactnumber}
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap">
-                        {item.courseEnrolled}
+                        <div>
+                          <button className="bg-green-400 text-white px-4 py-2 rounded-md">
+                            Enrolled
+                          </button>
+                        </div>
                       </td>
-                      <td className="px-6 py-4 whitespace-nowrap">{item.status}</td>
+                      <td className="px-6 py-4 whitespace-nowrap">
+                        <div>
+                          <button className="bg-green-400 text-white px-4 py-2 rounded-md">
+                            Paid
+                          </button>
+                        </div>
+                      </td>
+                      <td className="px-6 py-0  whitespace-nowrap">
+                        <Link to={`/admin/attendance/${item._id}`}>
+                          <div>
+                            <button className="bg-blue-400 text-white rounded-md px-4 py-2 hover:bg-blue-500 active:bg-blue-400">
+                              Attendance
+                            </button>
+                          </div>
+                        </Link>
+                      </td>
                       <td className="flex gap-2">
                         <Link to={`/admin/studentView/${item._id}`}>
                           <button className="bg-green-500 p-2 rounded-lg text-white">
