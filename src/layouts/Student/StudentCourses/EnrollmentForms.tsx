@@ -52,6 +52,7 @@ export default function EnrollmentForms() {
       setValue("gender", data?.user?.gender);
     }
   }, [setValue, data]);
+  console.log(data, "data")
   const formData = getValues();
 
   const onSubmitStep1 = (data) => {
@@ -80,7 +81,9 @@ export default function EnrollmentForms() {
           payment: selectedPayment,
           startdate: data1.startdate,
           courseId: id,
+          userId: data?.user?._id,
         };
+        console.log(data?.user?._id);
 
         if (enrollment?.data?.course && enrollment?.data?.course === id) {
           const res = await updateEnrollment({

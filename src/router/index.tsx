@@ -39,6 +39,7 @@ import EditProfile from "@/layouts/Admin/Profile/EditProfile";
 import CustomizeForm from "@/layouts/Student/StudentCourses/CustomizeForm";
 import CustomizeCourse from "@/layouts/Admin/Course/CustomizeCourse";
 import ViewStudent from "@/layouts/Admin/CRUD/ViewStudent";
+import AttendanceTracking from "@/layouts/Admin/CRUD/AttendanceTracking";
 
 // lazy import components
 // const PostList = lazy(() => import("@/pages/posts/list"));
@@ -55,6 +56,7 @@ const AppRouter = () => {
               <Route path="/admin/studentDetails" element={<StudentTable />}></Route>
               <Route path="/admin/studentDetails/:id" element={<StudentEdit />}></Route>
               <Route path="/admin/studentView/:id" element={<ViewStudent />}></Route>
+              <Route path="/admin/attendance/:id" element={<AttendanceTracking />}></Route>
               <Route
                 path="/admin/instructorDetails"
                 element={<InstructorTable />}
