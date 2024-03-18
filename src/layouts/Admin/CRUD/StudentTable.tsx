@@ -1,7 +1,7 @@
 import { useGetUsersQuery } from "@/feature/userApiSlice";
 import StudentDetails from "@/pages/component/StudentDetails";
-import React, { useEffect, useState } from "react";
-
+import React from "react";
+import { useState, useEffect } from "react";
 
 export default function StudentTable() {
   const { data, isLoading } = useGetUsersQuery({});
@@ -32,8 +32,7 @@ export default function StudentTable() {
         Email={"Email"}
         ContactNumber={"Contact Number"}
         CourseEnrolled={"Course Enrolled"}
-        Attendance = {"Attendance"}
-        Status={"Status"}
+        Attendance={"Attendance"}
         Action={"Action"}
       />
     </>

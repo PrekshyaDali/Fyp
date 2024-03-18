@@ -142,6 +142,13 @@ export const userApiSlice = apiSlice.injectEndpoints({
       }),
       providesTags: (result) => [{ type: "Instructor", id: "LIST" }],
     }),
+    getEnrollmentCount: builder.query({
+      query: () => ({
+        url: "/countEnrollment",
+        method: "GET",
+      }),
+      providesTags: (result) => [{ type: "Instructor", id: "LIST" }],
+    }),
 
     getInstructors: builder.query({
       query: () => ({
@@ -237,6 +244,7 @@ export const {
   useGetProfileQuery,
   useGetInstructorsQuery,
   useGetEnrollmentQuery,
+  useGetEnrollmentCountQuery,
   useGetEnrollmentByIdQuery,
   // useGetImageQuery,
 } = userApiSlice;

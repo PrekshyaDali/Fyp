@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useEditUsersQuery } from "@/feature/userApiSlice";
 import { useParams } from "react-router-dom";
 import { useGetEnrollmentByIdQuery } from "@/feature/userApiSlice";
+import BackButton from "@/pages/component/BackButton";
 
 export default function AttendanceTracking() {
   const { id } = useParams<{ id: string }>();
@@ -45,9 +46,9 @@ export default function AttendanceTracking() {
       <div className="flex flex-col">
         <h1 className="text-2xl font-bold">Attendance Tracking</h1>
         <p className="text-sm text-gray-500">
-          {userData?.firstname} {userData?.lastname}
+          {userData?.firstname.toUpperCase()} {userData?.lastname.toUpperCase()}
         </p>
-        <p className="text-sm text-gray-500">{enrollmentData?.data?.category}</p>
+        <p className="text-sm text-gray-500">{enrollmentData?.data?.category.toUpperCase()}</p>
         <div className="flex space-x-5 flex-1">
           <div>
             <label htmlFor="StartDate">Start Date</label>
@@ -86,10 +87,11 @@ export default function AttendanceTracking() {
           </div>
         </div>
 
-        <div className="mt-5">
+        <div className="mt-5 space-x-3 flex justify-between">
           <button className="text-sm text-white bg-blue-400 hover:bg-blue-500 active:bg-blue-400 rounded-md px-6 py-2">
             Mark Attendance
           </button>
+          <BackButton></BackButton>
         </div>
       </div>
     </div>
