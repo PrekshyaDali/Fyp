@@ -5,6 +5,7 @@ import { useEditUsersQuery, useGetEnrollmentByIdQuery } from "@/feature/userApiS
 import { useParams } from "react-router-dom";
 import BackButton from "@/pages/component/BackButton";
 import { useEditDetailsMutation } from "@/feature/userApiSlice";
+import { set } from "react-hook-form";
 
 const ViewStudent = () => {
   const { id } = useParams<{ id: string }>();
@@ -16,6 +17,14 @@ const ViewStudent = () => {
   console.log(userData, "data");
   console.log(typeof id, id);
 
+  const[dueAmount, setDueAmount] = useState(0);
+
+  const dueAmountHandler = ()=>{
+    const amount = enrollmentData?.data?.price;
+    const paidAmount = 5000;
+    return amount - paidAmount;
+
+  }
   return (
     <div className="p-3">
       <div className="mb-3">
@@ -33,13 +42,11 @@ const ViewStudent = () => {
 
           <div className="flex flex-col md:flex-row md:space-x-5">
             <div className="w-full md:w-1/2 flex items-center">
-              <label htmlFor="Category" className="mr-2 md:w-1/3 text-sm">
-                {enrollmentData?.data?.category}
-              </label>
+              <label htmlFor="Category" className="mr-2 md:w-1/3 text-sm">Category</label>
               <input
                 type="text"
                 className="bg-white border-2 text-sm p-1 w-full"
-                value="Scooter"
+                value={enrollmentData?.data?.category}
               />
             </div>
             <div className="w-full md:w-1/2 flex items-center">
@@ -80,12 +87,34 @@ const ViewStudent = () => {
           <div className="flex flex-col md:flex-row md:space-x-5 ">
             <div className="w-full md:w-1/2 flex items-center">
               <label htmlFor="Amount" className="mr-2 md:w-1/3 text-sm">
-                Amount
+                Package Amount
+              </label>
+              <input
+                type="text"
+                className="bg-white border-2 text-sm p-1 w-full"
+                value={enrollmentData?.data?.price}
+              />
+            </div>
+
+            <div className="w-full md:w-1/2 flex items-center">
+              <label htmlFor="Amount" className="mr-2 md:w-1/3 text-sm">
+                Paid Amount
               </label>
               <input
                 type="text"
                 className="bg-white border-2 text-sm p-1 w-full"
                 value="Rs 5000"
+              />
+            </div>
+
+            <div className="w-full md:w-1/2 flex items-center">
+              <label htmlFor="Amount" className="mr-2 md:w-1/3 text-sm">
+                Due Amount
+              </label>
+              <input
+                type="text"
+                className="bg-white border-2 text-sm p-1 w-full"
+                value={dueAmountHandler}
               />
             </div>
           </div>
@@ -98,7 +127,7 @@ const ViewStudent = () => {
         </div>
 
         <div className="w-44 md:w-44 h-fit">
-          <img className="object-cover" src="/img/Scooter1.png" alt="" />
+          <img className="object-cover w-full h-full" src="/img/Scooter1.png" alt="" />
         </div>
       </div>
     </div>

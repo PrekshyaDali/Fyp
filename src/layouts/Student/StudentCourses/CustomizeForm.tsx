@@ -1,4 +1,4 @@
-import React from 'react'
+import React from "react";
 
 export default function CustomizeForm() {
   return (
@@ -166,11 +166,7 @@ export default function CustomizeForm() {
             <div className="sm:flex space-y-5 sm:space-y-0 sm:space-x-8">
               <div className="w-full sm:w-1/2">
                 <label htmlFor="Duration">Duration</label>
-                <select className="inputfields" name="" id="">
-                  <option value="7 days">7 days</option>
-                  <option value="14 days">14 days</option>
-                  <option value="21 days">21 days</option>
-                </select>
+                <input type="text" className="inputfields" />
               </div>
               <div className="w-full sm:w-1/2">
                 <label htmlFor="Price">Price</label>
