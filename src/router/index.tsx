@@ -40,6 +40,8 @@ import CustomizeForm from "@/layouts/Student/StudentCourses/CustomizeForm";
 import CustomizeCourse from "@/layouts/Admin/Course/CustomizeCourse";
 import ViewStudent from "@/layouts/Admin/CRUD/ViewStudent";
 import AttendanceTracking from "@/layouts/Admin/CRUD/AttendanceTracking";
+import ViewCourses from "@/layouts/Admin/Course/ViewCourses";
+import CoursesTable from "@/layouts/Admin/Course/CoursesTable";
 
 // lazy import components
 // const PostList = lazy(() => import("@/pages/posts/list"));
@@ -56,7 +58,10 @@ const AppRouter = () => {
               <Route path="/admin/studentDetails" element={<StudentTable />}></Route>
               <Route path="/admin/studentDetails/:id" element={<StudentEdit />}></Route>
               <Route path="/admin/studentView/:id" element={<ViewStudent />}></Route>
-              <Route path="/admin/studentDetails/:id/:enrollmentId" element={<AttendanceTracking />}></Route>
+              <Route
+                path="/admin/studentDetails/:id/:enrollmentId"
+                element={<AttendanceTracking />}
+              ></Route>
               <Route
                 path="/admin/instructorDetails"
                 element={<InstructorTable />}
@@ -64,6 +69,8 @@ const AppRouter = () => {
               <Route path="/admin/Finances" element={<Finances></Finances>}></Route>
 
               <Route path="/admin/AddCourse" element={<AddCourse />}></Route>
+              <Route path="/admin/viewCourse" element={<CoursesTable />}></Route>
+              <Route path="/admin/viewCourse/:id" element={<ViewCourses />}></Route>
               <Route path="/admin/customizeCourse" element={<CustomizeCourse />}></Route>
               <Route path="/admin/profile" element={<ProfileDetails />}></Route>
               <Route path="/admin/profile/:id" element={<EditProfile />}></Route>

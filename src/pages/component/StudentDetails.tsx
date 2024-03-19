@@ -75,7 +75,7 @@ const StudentDetails = (props) => {
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap">
                         <div className="text-green-400 flex items-center justify-center">
-                          Enrolled
+                          {item?.enrolled ? "Enrolled" : <span className = "text-red-500">Not Enrolled</span>}
                         </div>
                       </td>
 

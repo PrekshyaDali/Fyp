@@ -8,9 +8,9 @@ export default function AttendanceTracking() {
   const { enrollmentId } = useParams<{ enrollmentId: string }>();
 
   // Fetch enrollment data using enrollmentId
-  const { data: enrollmentData } = useOneEnrollmentUserQuery(enrollmentId);
-  console.log(enrollmentData)
-  console.log(enrollmentData?.data?.startdate);
+  const { data: enrollmentData, isLoading } = useOneEnrollmentUserQuery(enrollmentId);
+  // console.log(enrollmentData)
+  // console.log(enrollmentData?.data?.startdate);
 
   // State to store the start date
   const [startDate, setStartDate] = useState<string>("");
@@ -21,15 +21,13 @@ export default function AttendanceTracking() {
   // Set the start date and present date when enrollment data changes
   useEffect(() => {
     if (enrollmentData?.data?.startdate) {
-      setStartDate(enrollmentData.data.startdate);
+      setStartDate(enrollmentData?.data?.startdate);
       setPresentDate(new Date().toISOString().split("T")[0]); // Set present date to today
     }
   }, [enrollmentData]);
 
   // Function to calculate remaining days
   const calculateRemainingDays = () => {
-    // Implement your logic to calculate remaining days here
-    // For example:
     const remainingDays = 20; // Assuming 20 days for demonstration
     return remainingDays.toString();
   };
@@ -64,7 +62,7 @@ export default function AttendanceTracking() {
               className="bg-white border-2 text-sm p-1 w-full"
               min={startDate}
               value={presentDate}
-              readOnly
+              
             />
             <style>
               {`
@@ -86,7 +84,7 @@ export default function AttendanceTracking() {
         </div>
 
         <div className="mt-5 space-x-3 flex justify-between">
-          <button className="text-sm text-white bg-blue-400 hover:bg-blue-500 active:bg-blue-400 rounded-md px-6 py-2">
+          <button className="text-sm text-white bg-blue-400 hover:bg-blue-500 active:bg-blue-400 rounded-md px-6 py-2 " isLoading = {isLoading}>
             Mark Attendance
           </button>
           <BackButton></BackButton>
