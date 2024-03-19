@@ -192,6 +192,12 @@ export const userApiSlice = apiSlice.injectEndpoints({
         method: "GET",
       }),
     }),
+    oneEnrollmentUser: builder.query({
+      query: (enrollmentId) => ({
+        url: `/oneEnrollmentUser/${enrollmentId}`,
+        method: "GET",
+      }),
+    }),
 
     updateEnrollment: builder.mutation({
       query: ({id, body}) => ({
@@ -246,5 +252,6 @@ export const {
   useGetEnrollmentQuery,
   useGetEnrollmentCountQuery,
   useGetEnrollmentByIdQuery,
+  useOneEnrollmentUserQuery,
   // useGetImageQuery,
 } = userApiSlice;

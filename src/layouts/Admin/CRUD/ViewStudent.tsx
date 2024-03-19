@@ -22,6 +22,7 @@ const ViewStudent = () => {
   // State for due amount
   const [dueAmount, setDueAmount] = useState(0);
 
+
   useEffect(() => {
     // Calculate due amount or any other initialization logic
     // This can be based on the enrollment data
@@ -39,24 +40,26 @@ const ViewStudent = () => {
 
   // Extract enrollment data from response
   const enrollmentData = responseData?.data;
+        
 
   return (
     <div className="p-3">
       <div className="mb-3">
         <BackButton />
       </div>
-
       <div className="bg-[#E6F0FB] mb-8 p-3 rounded-md">
         <h1 className="text-2xl font-bold">
           {userData?.firstname.toUpperCase()} {userData?.lastname.toUpperCase()}
         </h1>
         <p className="text-sm text-gray-500">{userData?.email}</p>
         <p className="text-sm text-gray-500">{userData?.contactnumber}</p>
+        
       </div>
-
+   
       <div className="flex flex-col space-y-5">
         {enrollmentData &&
           enrollmentData.map((enrollment, index) => (
+     
             <div
               key={index}
               className="h-auto md:h-auto bg-[#E6F0FB] rounded-md flex mb-4"
@@ -113,7 +116,7 @@ const ViewStudent = () => {
                     <input
                       type="text"
                       className="bg-white border-2 text-sm p-1 w-full"
-                      value={enrollment.payment}
+                      
                     />
                   </div>
 
@@ -125,14 +128,14 @@ const ViewStudent = () => {
                     <input
                       type="text"
                       className="bg-white border-2 text-sm p-1 w-full"
-                      value={enrollment.payment}
+                      default={enrollment.payment}
                     />
                   </div>
                 </div>
 
                 {/* Action buttons */}
                 <div className="flex justify-end mt-5 space-x-3">
-                  <Link to={`/admin/attendance/${id}`}>
+                  <Link to={`/admin/studentDetails/${id}/${enrollment._id}`}>
                     <button className="text-sm text-white bg-blue-400 hover:bg-blue-500 active:bg-blue-400 rounded-md px-6 py-2">
                       Mark Attendance
                     </button>
