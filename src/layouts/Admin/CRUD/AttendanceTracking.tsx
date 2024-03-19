@@ -1,18 +1,16 @@
-import React, { useState, useEffect } from "react";
-import { useEditUsersQuery } from "@/feature/userApiSlice";
+import React from "react";
 import { useParams } from "react-router-dom";
-import { useGetEnrollmentByIdQuery } from "@/feature/userApiSlice";
+import { useOneEnrollmentUserQuery } from "@/feature/userApiSlice";
+import BackButton from "@/pages/component/BackButton";
+import { useState, useEffect } from "react";
 
 export default function AttendanceTracking() {
-  const { id } = useParams<{ id: string }>();
+  const { enrollmentId } = useParams<{ enrollmentId: string }>();
 
-  // Fetch user data
-  const { data: userData, isLoading: isUserDataLoading } = useEditUsersQuery(id, {
-    refetchOnMountOrArgChange: true,
-  });
-
-  // Fetch enrollment data
-  const { data: enrollmentData } = useGetEnrollmentByIdQuery(id);
+  // Fetch enrollment data using enrollmentId
+  const { data: enrollmentData } = useOneEnrollmentUserQuery(enrollmentId);
+  console.log(enrollmentData)
+  console.log(enrollmentData?.data?.startdate);
 
   // State to store the start date
   const [startDate, setStartDate] = useState<string>("");
@@ -20,24 +18,20 @@ export default function AttendanceTracking() {
   // State to store the present date
   const [presentDate, setPresentDate] = useState<string>("");
 
-  // Function to format the date
-  const formatDate = (dateString: string) => {
-    const date = new Date(dateString);
-    return date.toISOString().split("T")[0]; // Extract only the date part
-  };
-
   // Set the start date and present date when enrollment data changes
   useEffect(() => {
     if (enrollmentData?.data?.startdate) {
-      setStartDate(formatDate(enrollmentData.data.startdate));
-      setPresentDate(formatDate(new Date().toISOString()));
+      setStartDate(enrollmentData.data.startdate);
+      setPresentDate(new Date().toISOString().split("T")[0]); // Set present date to today
     }
   }, [enrollmentData]);
 
-  // Function to handle change in present date
-  const handlePresentDateChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const selectedDate = e.target.value;
-    setPresentDate(selectedDate);
+  // Function to calculate remaining days
+  const calculateRemainingDays = () => {
+    // Implement your logic to calculate remaining days here
+    // For example:
+    const remainingDays = 20; // Assuming 20 days for demonstration
+    return remainingDays.toString();
   };
 
   return (
@@ -45,9 +39,13 @@ export default function AttendanceTracking() {
       <div className="flex flex-col">
         <h1 className="text-2xl font-bold">Attendance Tracking</h1>
         <p className="text-sm text-gray-500">
-          {userData?.firstname} {userData?.lastname}
+          {/* Display enrollment data if available */}
+          {enrollmentData?.data?.firstname &&
+            `${enrollmentData.data.firstname.toUpperCase()} ${enrollmentData.data.lastname.toUpperCase()}`}
         </p>
-        <p className="text-sm text-gray-500">{enrollmentData?.data?.category}</p>
+        <p className="text-sm text-gray-500">
+          {enrollmentData?.data?.category?.toUpperCase()}
+        </p>
         <div className="flex space-x-5 flex-1">
           <div>
             <label htmlFor="StartDate">Start Date</label>
@@ -64,9 +62,9 @@ export default function AttendanceTracking() {
             <input
               type="date"
               className="bg-white border-2 text-sm p-1 w-full"
-              min={startDate} // Set min attribute to start date
+              min={startDate}
               value={presentDate}
-              onChange={handlePresentDateChange}
+              readOnly
             />
             <style>
               {`
@@ -81,15 +79,17 @@ export default function AttendanceTracking() {
             <input
               type="text"
               className="bg-white border-2 text-sm p-1 w-full"
-              value="20" // You need to calculate the remaining days
+              value={calculateRemainingDays()}
+              readOnly
             />
           </div>
         </div>
 
-        <div className="mt-5">
+        <div className="mt-5 space-x-3 flex justify-between">
           <button className="text-sm text-white bg-blue-400 hover:bg-blue-500 active:bg-blue-400 rounded-md px-6 py-2">
             Mark Attendance
           </button>
+          <BackButton></BackButton>
         </div>
       </div>
     </div>

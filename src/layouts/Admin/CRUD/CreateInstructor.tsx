@@ -14,7 +14,7 @@ const CreateInstuctor = () => {
     reset,
   } = useForm<IRegisterInstructor>();
   const [registerInstructor, { isLoading }] = useRegisterInstructorMutation();
-  const [SendPassword, ] = useSendPasswordMutation();
+  const [SendPassword] = useSendPasswordMutation();
 
   const SubmitHandler = async (data: IRegisterInstructor) => {
     const data1 = {
@@ -41,8 +41,8 @@ const CreateInstuctor = () => {
   return (
     <div className="h-full p-5 flex flex-col ">
       <form className="flex flex-col space-y-5" onSubmit={handleSubmit(SubmitHandler)}>
-        <div className="flex space-x-10 ">
-          <div>
+        <div className="flex space-x-10 w-full ">
+          <div className="w-full">
             <label htmlFor="FirstName">FirstName</label>
             <input
               type="text"
@@ -58,7 +58,7 @@ const CreateInstuctor = () => {
             )}
           </div>
 
-          <div>
+          <div className="w-full">
             <label htmlFor="LastName">LastName</label>
             <input
               type="text"
