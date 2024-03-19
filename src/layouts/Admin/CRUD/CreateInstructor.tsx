@@ -39,9 +39,11 @@ const CreateInstuctor = () => {
     }
   };
   return (
-    <div className="h-full p-5 flex flex-col ">
+    <div className="h-full p-5 flex flex-col border-2 m-3 rounded-md ">
       <form className="flex flex-col space-y-5" onSubmit={handleSubmit(SubmitHandler)}>
-        <div className="flex space-x-10 w-full ">
+        <h1 className="text-2xl font-bold">Create Instructor</h1>
+
+        <div className="flex flex-col space-y-5 sm:flex-row sm:space-x-10 sm:space-y-0 w-full ">
           <div className="w-full">
             <label htmlFor="FirstName">FirstName</label>
             <input

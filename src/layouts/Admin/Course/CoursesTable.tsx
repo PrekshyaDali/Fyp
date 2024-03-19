@@ -24,7 +24,7 @@ const CoursesTable = () => {
                   <th scope="col" className="px-6 py-4">
                     Duration
                   </th>
-                  <th scope="col" className="px-6 py-4">
+                  <th scope="col" className="px-6 py-4 ">
                     Price
                   </th>
                   <th scope="col" className="px-6 py-4">
@@ -42,18 +42,16 @@ const CoursesTable = () => {
                     <td className="px-6 py-4 whitespace-nowrap">
                       {course.courseDuration + " " + "days"}
                     </td>
-                    <td className="px-6 py-4 whitespace-nowrap">{"Rs" + " " + course.price}</td>
+                    <td className="px-6 py-4 whitespace-nowrap font-bold">
+                      {"Rs" + " " + course.price}
+                    </td>
                     <td className="flex gap-2">
                       <Link to={`/admin/viewCourse/${course._id}`}>
                         <button className="bg-green-400 p-2 rounded-lg text-white">
                           View
                         </button>
                       </Link>
-                      <Link to={`/admin/courseView/${course._id}`}>
-                        <button className="bg-blue-400 p-2 rounded-lg text-white">
-                          Edit
-                        </button>
-                      </Link>
+
                       <Link to={`/admin/courseView/${course._id}`}>
                         <button className="bg-red-400 p-2 rounded-lg text-white">
                           delete

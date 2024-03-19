@@ -53,7 +53,7 @@ export default function AddCourse() {
       encType="multipart/form-data"
       onSubmit={handleSubmit(SubmitHandler)}
     >
-      <div className="m-5 flex flex-col space-y-5">
+      <div className="m-5 border-2 p-3 rounded-md flex flex-col space-y-5">
         <div className="relative">
           <label htmlFor="CourseOverview">Course Overview</label>
           <textarea

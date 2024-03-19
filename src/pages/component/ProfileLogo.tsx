@@ -2,8 +2,12 @@ import React, { useState, useEffect } from "react";
 
 import AdminProfile from "@/layouts/Admin/Profile/AdminProfile";
 import StudentProfile from "@/layouts/Student/StudentProfile/StudentProfile";
+import { useGetProfileQuery } from "@/feature/userApiSlice";
+
 
 const ProfileLogo = () => {
+  const { data } = useGetProfileQuery({ refetchOnMountOrArgChange: true });
+  console.log(data);
   const [profileClick, setProfileClick] = useState(false);
 
   const profileClickHandler = () => {
@@ -29,11 +33,11 @@ const ProfileLogo = () => {
 
   return (
     <>
-      <div className="mr-2 flex flex-col absolute top-2 z-50">
+      <div className="mr-2 h-10 w-10 flex flex-col absolute top-2 z-50">
         <img
           onClick={profileClickHandler}
-          className="w-10 "
-          src="/img/UserProfile.png"
+          className="h-10 w-10 object-cover rounded-full "
+          src={data?.user?.image}
           alt=""
         />
       </div>
