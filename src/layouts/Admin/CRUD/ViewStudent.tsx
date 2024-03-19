@@ -22,7 +22,6 @@ const ViewStudent = () => {
   // State for due amount
   const [dueAmount, setDueAmount] = useState(0);
 
-
   useEffect(() => {
     // Calculate due amount or any other initialization logic
     // This can be based on the enrollment data
@@ -40,7 +39,6 @@ const ViewStudent = () => {
 
   // Extract enrollment data from response
   const enrollmentData = responseData?.data;
-        
 
   return (
     <div className="p-3">
@@ -53,18 +51,18 @@ const ViewStudent = () => {
         </h1>
         <p className="text-sm text-gray-500">{userData?.email}</p>
         <p className="text-sm text-gray-500">{userData?.contactnumber}</p>
-        
       </div>
-   
-      <div className="flex flex-col space-y-5">
+
+
+      <div></div>
+      <div className="flex flex-col space-y-5 border-2">
         {enrollmentData &&
           enrollmentData.map((enrollment, index) => (
-     
             <div
               key={index}
               className="h-auto md:h-auto bg-[#E6F0FB] rounded-md flex mb-4"
             >
-              <div className="p-3 flex-1 space-y-3 md:mr-6 md:flex-1">
+              <div className="p-3 flex-1 space-y-3 md:mr-6 md:flex-1 border-2">
                 <div className="flex flex-col space-y-5">
                   {/* Enrollment details */}
                   <div className="w-full md:w-1/2 flex items-center">
@@ -113,11 +111,7 @@ const ViewStudent = () => {
                     <label htmlFor={`PaidAmount${index}`} className="mr-2 text-sm">
                       Paid Amount {index + 1}:
                     </label>
-                    <input
-                      type="text"
-                      className="bg-white border-2 text-sm p-1 w-full"
-                      
-                    />
+                    <input type="text" className="bg-white border-2 text-sm p-1 w-full" />
                   </div>
 
                   {/* Due amount */}
@@ -148,24 +142,48 @@ const ViewStudent = () => {
               </div>
 
               {/* Image */}
-              <div className="w-44 md:w-44 h-fit p-2 md:pl-0">
-                {enrollment.category === "car" ? (
-                  <img className="object-cover w-full h-full" src="/img/Car.png" alt="" />
-                ) : enrollment.category === "bike" ? (
-                  <img
-                    className="object-cover w-full h-full"
-                    src="/img/Bike1.png"
-                    alt=""
-                  />
-                ) : (
-                  enrollment.category === "scooter" && (
+              <div className="w-96  md:w-96 flex flex-col  p-2 md:pl-0">
+                {/* <div className="w-44 h-fit flex justify-end">
+                  {enrollment.category === "car" ? (
                     <img
                       className="object-cover w-full h-full"
-                      src="/img/Scooter.png"
+                      src="/img/Car.png"
                       alt=""
                     />
-                  )
-                )}
+                  ) : enrollment.category === "bike" ? (
+                    <img
+                      className="object-cover w-full h-full"
+                      src="/img/Bike1.png"
+                      alt=""
+                    />
+                  ) : (
+                    enrollment.category === "scooter" && (
+                      <img
+                        className="object-cover w-full h-full"
+                        src="/img/Scooter.png"
+                        alt=""
+                      />
+                    )
+                  )}
+                </div> */}
+                <div className="overflow-x-auto">
+                  <table className="table-auto w-full">
+                    <thead>
+                      <tr>
+                        <th className="px-4 py-2">SN</th>
+                        <th className="px-4 py-2">Date</th>
+                        <th className="px-4 py-2">Amount</th>
+                      </tr>
+                    </thead>
+                    <tbody >
+                      <tr>
+                        <td className="border px-4 py-2">1</td>
+                        <td className="border px-4 py-2">2024-03-19</td>
+                        <td className="border px-4 py-2">$100.00</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
               </div>
             </div>
           ))}

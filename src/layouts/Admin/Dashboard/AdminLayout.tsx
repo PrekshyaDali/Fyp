@@ -88,7 +88,7 @@ const AdminLayout = () => {
                 />
               </div>
               {ShowSubMenu && (
-                <div className = "flex flex-col">
+                <div className="flex flex-col">
                   <li>
                     <Link to="/admin/AddCourse">
                       <img className="h-6" src="/img/student.png" alt="" />
@@ -96,7 +96,13 @@ const AdminLayout = () => {
                     </Link>
                   </li>
                   <li>
-                    <Link to = "/admin/customizeCourse">
+                    <Link to="/admin/viewCourse">
+                      <img className="h-6" src="/img/student.png" alt="" />
+                      View Courses
+                    </Link>
+                  </li>
+                  <li>
+                    <Link to="/admin/customizeCourse">
                       <img className="h-6" src="/img/student.png" alt="" />
                       Customize Course
                     </Link>
