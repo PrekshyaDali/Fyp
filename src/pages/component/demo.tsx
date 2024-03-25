@@ -1,5 +1,6 @@
 import React from "react";
-export default function demo() {
+
+export default function Demo() {
   return (
     <div className="min-h-screen bg-gray-100">
       <div className="flex">
@@ -21,6 +22,7 @@ export default function demo() {
           <div className="bg-white shadow-md rounded-lg p-6">
             {/* Content Goes Here */}
             <p>This is your dashboard content.</p>
+            <p>You can customize and add more content here.</p>
           </div>
         </div>
       </div>
