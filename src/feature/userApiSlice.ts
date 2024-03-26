@@ -76,6 +76,14 @@ export const userApiSlice = apiSlice.injectEndpoints({
         body,
       }),
     }),
+    editCourseDetail: builder.mutation({
+      query: ({id, body}) => ({
+        url: `/editCourse/${id}`,
+        method: "PUT",
+        body,
+      }),
+    }),
+  
     uploadImg: builder.mutation({
       query: (body) => ({
         url: "/upload",
@@ -231,6 +239,7 @@ export const {
   useForgetPasswordMutation,
   useSendPasswordMutation,
   useAddCourseMutation,
+  useEditCourseDetailMutation,
   useDeleteUserMutation,
   useChangePasswordMutation,
   useEditDetailsMutation,
@@ -238,6 +247,9 @@ export const {
   useEnrollmentMutation,
   useEditProfileDetailsMutation,
   useUpdateEnrollmentMutation,
+
+
+
 
   useGetImgQuery,
   useGetCourseQuery,
