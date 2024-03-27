@@ -4,13 +4,14 @@ import { useGetCourseQuery, useEditCourseDetailMutation } from "@/feature/userAp
 import { useParams } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
+import { IAddCourse } from "@/index";
 
 export default function ViewCourses() {
   const { id } = useParams<{ id: string }>();
   const { data } = useGetCourseQuery(id, { refetchOnMountOrArgChange: true });
 
   const [edit, setEdit] = useState(false);
-  const [editCourse] = useEditCourseDetailMutation();
+  const [editCourse, { isLoading }] = useEditCourseDetailMutation();
 
   const {
     register,
@@ -33,9 +34,10 @@ export default function ViewCourses() {
     setEdit(true);
   };
 
-  const onSubmit = async (formData) => {
+  const SubmitHandler = async (formData: IAddCourse) => {
     try {
-      await editCourse({ courseId: id, ...formData });
+      const res = await editCourse({ courseId: id, ...formData }).unwrap();
+      console.log(res);
       setEdit(false);
       toast.success("Course details updated successfully");
     } catch (error) {
@@ -65,7 +67,7 @@ export default function ViewCourses() {
         </div>
       </div>
 
-      <form onSubmit={handleSubmit(onSubmit)} encType="multipart/form-data">
+      <form onSubmit={handleSubmit(SubmitHandler)} encType="multipart/form-data">
         <div className="flex space-x-5 border-2 rounded-md">
           <div className="w-72 flex justify-center font-bold">
             <label htmlFor="Category">Category</label>
@@ -98,7 +100,7 @@ export default function ViewCourses() {
 
         <div className="flex space-x-5 border-2 rounded-md">
           <div className="w-72 flex justify-center font-bold">
-            <label htmlFor="Category">Course Description</label>
+            <label htmlFor="CourseDescription">Course Description</label>
           </div>
           <textarea
             {...register("courseDescription")}
@@ -107,11 +109,14 @@ export default function ViewCourses() {
             className="w-full bg-white border-2 overflow-auto"
             disabled={!edit}
           ></textarea>
+          {errors.courseDescription && (
+            <span className="text-red-500">{errors.courseDescription.message}</span>
+          )}
         </div>
 
         <div className="flex space-x-5 border-2 rounded-md">
           <div className="w-72 flex justify-center font-bold">
-            <label htmlFor="Category">Certification</label>
+            <label htmlFor="Certification">Certification</label>
           </div>
           <textarea
             {...register("certification")}
@@ -136,7 +141,7 @@ export default function ViewCourses() {
 
         {edit && (
           <div className="flex justify-end">
-            <Button name="Save Changes"></Button>
+            <Button name="Save Changes" isLoading={isLoading}></Button>
           </div>
         )}
       </form>
