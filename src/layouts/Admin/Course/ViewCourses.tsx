@@ -9,6 +9,7 @@ import { IAddCourse } from "@/index";
 export default function ViewCourses() {
   const { id } = useParams<{ id: string }>();
   const { data } = useGetCourseQuery(id, { refetchOnMountOrArgChange: true });
+  const [img, setImg] = useState<any>(null);
 
   const [edit, setEdit] = useState(false);
   const [editCourse, { isLoading }] = useEditCourseDetailMutation();
@@ -22,6 +23,7 @@ export default function ViewCourses() {
 
   useEffect(() => {
     if (data) {
+      setValue ("image", data?.image);
       setValue("type", data?.type);
       setValue("courseOverview", data?.courseOverview);
       setValue("courseDescription", data?.courseDescription);
@@ -30,13 +32,20 @@ export default function ViewCourses() {
     }
   }, [data, setValue]);
 
+  const fileHandler = () => {
+    const fileInput = document.getElementById("fileInput");
+    if (fileInput) {
+      fileInput.click();
+    }
+  };
+
   const clickEditHandler = () => {
     setEdit(true);
   };
 
-  const SubmitHandler = async (formData: IAddCourse) => {
+  const SubmitHandler = async (formData) => {
     try {
-      const res = await editCourse({ courseId: id, ...formData }).unwrap();
+      const res = await editCourse({ id, body: formData }).unwrap();
       console.log(res);
       setEdit(false);
       toast.success("Course details updated successfully");
@@ -53,8 +62,25 @@ export default function ViewCourses() {
       </div>
 
       <div className="flex justify-between relative">
-        <div className="h-52 w-64 overflow-hidden">
-          <img className="object-contain h-52 w-64" src={data?.image} alt="" />
+        <div className="relative w-80">
+          <div className="h-52 w-64 overflow-hidden ">
+            <img className="object-contain h-52 w-64" src={data?.image} alt="" />
+          </div>
+          <div className="h-12 w-12 absolute rounded-md bg-gray-300 hover:bg-gray-400 active:bg-gray-300 flex justify-center items-center right-0 bottom-4">
+            <input
+              {...register("image")}
+              onChange={(e: any) => {
+                console.log(e.target.files[0], "files");
+                setImg(e.target.files[0]);
+              }}
+              id="fileInput"
+              onClick={fileHandler}
+              className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
+              type="file"
+              accept="image/*"
+            />
+            <img className="h-8" src="/img/edit.png" alt="" />
+          </div>
         </div>
 
         <div className="absolute bottom-3 right-3">
@@ -74,7 +100,7 @@ export default function ViewCourses() {
           </div>
           <select
             {...register("type")}
-            className="w-full bg-white border-2"
+            className="w-full text-black bg-white border-2"
             name="type"
             id="type"
             disabled={!edit}
