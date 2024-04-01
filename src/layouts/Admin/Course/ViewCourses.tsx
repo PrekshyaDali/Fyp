@@ -23,7 +23,7 @@ export default function ViewCourses() {
 
   useEffect(() => {
     if (data) {
-      setValue ("image", data?.image);
+      setValue("image", data?.image);
       setValue("type", data?.type);
       setValue("courseOverview", data?.courseOverview);
       setValue("courseDescription", data?.courseDescription);
@@ -43,8 +43,18 @@ export default function ViewCourses() {
     setEdit(true);
   };
 
-  const SubmitHandler = async (formData) => {
+  const SubmitHandler = async (data1) => {
     try {
+      const formData = new FormData();
+      formData.append("type", data1.type);
+      formData.append("courseOverview", data1.courseOverview);
+      formData.append("courseDescription", data1.courseDescription);
+      formData.append("certification", data1.certification);
+      formData.append("price", data1.price);
+      if (img) {
+        formData.append("image", img);
+      }
+
       const res = await editCourse({ id, body: formData }).unwrap();
       console.log(res);
       setEdit(false);
@@ -68,7 +78,6 @@ export default function ViewCourses() {
           </div>
           <div className="h-12 w-12 absolute rounded-md bg-gray-300 hover:bg-gray-400 active:bg-gray-300 flex justify-center items-center right-0 bottom-4">
             <input
-              {...register("image")}
               onChange={(e: any) => {
                 console.log(e.target.files[0], "files");
                 setImg(e.target.files[0]);
