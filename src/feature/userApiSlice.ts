@@ -77,13 +77,13 @@ export const userApiSlice = apiSlice.injectEndpoints({
       }),
     }),
     editCourseDetail: builder.mutation({
-      query: ({id, body}) => ({
+      query: ({ id, body }) => ({
         url: `/editCourses/${id}`,
         method: "PUT",
         body,
       }),
     }),
-  
+
     uploadImg: builder.mutation({
       query: (body) => ({
         url: "/upload",
@@ -200,6 +200,14 @@ export const userApiSlice = apiSlice.injectEndpoints({
         method: "GET",
       }),
     }),
+    viewStudentPayment: builder.mutation({
+      query: ({body, category}) => ({
+        url: "/viewStudent",
+        method: "POST",
+        body: {body, category},
+      }),
+    }),
+
     oneEnrollmentUser: builder.query({
       query: (enrollmentId) => ({
         url: `/oneEnrollmentUser/${enrollmentId}`,
@@ -208,7 +216,7 @@ export const userApiSlice = apiSlice.injectEndpoints({
     }),
 
     updateEnrollment: builder.mutation({
-      query: ({id, body}) => ({
+      query: ({ id, body }) => ({
         url: `/enrollment/${id}`,
         method: "PATCH",
         body,
@@ -247,7 +255,7 @@ export const {
   useEnrollmentMutation,
   useEditProfileDetailsMutation,
   useUpdateEnrollmentMutation,
-
+  useViewStudentPaymentMutation,
 
 
 

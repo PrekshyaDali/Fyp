@@ -1,8 +1,14 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { useEditUsersQuery, useGetEnrollmentByIdQuery } from "@/feature/userApiSlice";
+import {
+  useEditUsersQuery,
+  useGetEnrollmentByIdQuery,
+  useViewStudentPaymentMutation,
+} from "@/feature/userApiSlice";
 import { useParams } from "react-router-dom";
 import BackButton from "@/pages/component/BackButton";
+import { useForm } from "react-hook-form";
+import { toast } from "react-toastify";
 
 const ViewStudent = () => {
   const { id } = useParams<{ id: string }>();
@@ -11,6 +17,25 @@ const ViewStudent = () => {
   const { data: userData, isLoading: isUserDataLoading } = useEditUsersQuery(id, {
     refetchOnMountOrArgChange: true,
   });
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
+  const [studentPayment] = useViewStudentPaymentMutation();
+  console.log(studentPayment)
+
+  const SubmitHandler = async(data: any, category: string) => {
+    try {
+      const res = await studentPayment({data, category}).unwrap();
+      console.log(data)
+      console.log(res);
+      toast.success("Data saved");
+    } catch (error) {
+      console.log(error);
+      toast.error("Data submission failed");
+    }
+  };
 
   // Fetch enrollment data
   const {
@@ -53,97 +78,101 @@ const ViewStudent = () => {
         <p className="text-sm text-gray-500">{userData?.contactnumber}</p>
       </div>
 
+      <form onSubmit={handleSubmit((data) => SubmitHandler(data, enrollmentData.category))} action="">
+        <div className="flex flex-col space-y-5 border-2">
+          {enrollmentData &&
+            enrollmentData.map((enrollment, index) => (
+              <div
+                key={index}
+                className="h-auto md:h-auto bg-[#E6F0FB] rounded-md flex flex-col md:flex-row   mb-4"
+              >
+                <div className="p-3 flex-1 space-y-3 md:mr-6 md:flex-1 border-2">
+                  <div className="flex flex-col space-y-5">
+                    {/* Enrollment details */}
+                    <div className="w-full md:w-1/2 flex items-center">
+                      <label htmlFor={`Category${index}`} className="mr-2 text-sm">
+                        Category :
+                      </label>
+                      <span className="text-green-500">
+                        {enrollment.category.toUpperCase()}
+                      </span>
+                    </div>
 
-      <div></div>
-      <div className="flex flex-col space-y-5 border-2">
-        {enrollmentData &&
-          enrollmentData.map((enrollment, index) => (
-            <div
-              key={index}
-              className="h-auto md:h-auto bg-[#E6F0FB] rounded-md flex mb-4"
-            >
-              <div className="p-3 flex-1 space-y-3 md:mr-6 md:flex-1 border-2">
-                <div className="flex flex-col space-y-5">
-                  {/* Enrollment details */}
-                  <div className="w-full md:w-1/2 flex items-center">
-                    <label htmlFor={`Category${index}`} className="mr-2 text-sm">
-                      Category :
-                    </label>
-                    <span className="text-green-500">
-                      {enrollment.category.toUpperCase()}
-                    </span>
+                    {/* Other details of enrollment */}
+                    {/* Payment method */}
+                    <div className="w-full md:w-1/2 flex items-center">
+                      <label htmlFor={`Payment${index}`} className="mr-2 text-sm">
+                        Payment Method :
+                      </label>
+                      <span className="text-green-500">
+                        {enrollment.payment.toUpperCase()}
+                      </span>
+                    </div>
+
+                    {/* Package amount */}
+                    <div className="w-full md:w-1/2 flex items-center">
+                      <label htmlFor={`Price${index}`} className="mr-2 text-sm">
+                        Package Amount :
+                      </label>
+                      <span className="text-green-500">{enrollment.price}</span>
+                    </div>
+
+                    {/* Other details of enrollment */}
+                    {/* Payment type */}
+                    <div className="w-full md:w-1/2 flex items-center">
+                      <label htmlFor={`PaymentType${index}`} className="mr-2 text-sm">
+                        Payment Type {index + 1}:
+                      </label>
+                      <select className="bg-white border-2 text-sm p-1 w-full">
+                        <option value="Unpaid">Unpaid</option>
+                        <option value="Half Payment">Half Payment</option>
+                        <option value="Full Payment">Full Payment</option>
+                      </select>
+                    </div>
+
+                    {/* Paid amount */}
+                    <div className="w-full md:w-1/2 flex items-center">
+                      <label htmlFor={`PaidAmount${index}`} className="mr-2 text-sm">
+                        Paid Amount {index + 1}:
+                      </label>
+                      <input
+                      {...register("amount")}
+                        type="text"
+                        className="bg-white border-2 text-sm p-1 w-full"
+                      />
+                    </div>
+
+                    {/* Due amount */}
+                    <div className="w-full md:w-1/2 flex items-center">
+                      <label htmlFor={`DueAmount${index}`} className="mr-2 text-sm">
+                        Due Amount {index + 1}:
+                      </label>
+                      <input
+                      {...register("dueAmount")}
+                        type="text"
+                        className="bg-white border-2 text-sm p-1 w-full"
+                        default={enrollment.payment}
+                      />
+                    </div>
                   </div>
 
-                  {/* Other details of enrollment */}
-                  {/* Payment method */}
-                  <div className="w-full md:w-1/2 flex items-center">
-                    <label htmlFor={`Payment${index}`} className="mr-2 text-sm">
-                      Payment Method :
-                    </label>
-                    <span className="text-green-500">
-                      {enrollment.payment.toUpperCase()}
-                    </span>
-                  </div>
+                  {/* Action buttons */}
+                  <div className="flex justify-end mt-5 space-x-3">
+                    <Link to={`/admin/studentDetails/${id}/${enrollment._id}`}>
+                      <button className="text-sm text-white bg-blue-400 hover:bg-blue-500 active:bg-blue-400 rounded-md px-6 py-2">
+                        Mark Attendance
+                      </button>
+                    </Link>
 
-                  {/* Package amount */}
-                  <div className="w-full md:w-1/2 flex items-center">
-                    <label htmlFor={`Price${index}`} className="mr-2 text-sm">
-                      Package Amount :
-                    </label>
-                    <span className="text-green-500">{enrollment.price}</span>
-                  </div>
-
-                  {/* Other details of enrollment */}
-                  {/* Payment type */}
-                  <div className="w-full md:w-1/2 flex items-center">
-                    <label htmlFor={`PaymentType${index}`} className="mr-2 text-sm">
-                      Payment Type {index + 1}:
-                    </label>
-                    <select className="bg-white border-2 text-sm p-1 w-full">
-                      <option value="Unpaid">Unpaid</option>
-                      <option value="Half Payment">Half Payment</option>
-                      <option value="Full Payment">Full Payment</option>
-                    </select>
-                  </div>
-
-                  {/* Paid amount */}
-                  <div className="w-full md:w-1/2 flex items-center">
-                    <label htmlFor={`PaidAmount${index}`} className="mr-2 text-sm">
-                      Paid Amount {index + 1}:
-                    </label>
-                    <input type="text" className="bg-white border-2 text-sm p-1 w-full" />
-                  </div>
-
-                  {/* Due amount */}
-                  <div className="w-full md:w-1/2 flex items-center">
-                    <label htmlFor={`DueAmount${index}`} className="mr-2 text-sm">
-                      Due Amount {index + 1}:
-                    </label>
-                    <input
-                      type="text"
-                      className="bg-white border-2 text-sm p-1 w-full"
-                      default={enrollment.payment}
-                    />
-                  </div>
-                </div>
-
-                {/* Action buttons */}
-                <div className="flex justify-end mt-5 space-x-3">
-                  <Link to={`/admin/studentDetails/${id}/${enrollment._id}`}>
                     <button className="text-sm text-white bg-blue-400 hover:bg-blue-500 active:bg-blue-400 rounded-md px-6 py-2">
-                      Mark Attendance
+                      Save
                     </button>
-                  </Link>
-
-                  <button className="text-sm text-white bg-blue-400 hover:bg-blue-500 active:bg-blue-400 rounded-md px-6 py-2">
-                    Save
-                  </button>
+                  </div>
                 </div>
-              </div>
 
-              {/* Image */}
-              <div className="w-96  md:w-96 flex flex-col  p-2 md:pl-0">
-                {/* <div className="w-44 h-fit flex justify-end">
+                {/* Image */}
+                <div className="w-96 md:w-96 flex flex-col  p-2 md:pl-0">
+                  {/* <div className="w-44 h-fit flex justify-end">
                   {enrollment.category === "car" ? (
                     <img
                       className="object-cover w-full h-full"
@@ -166,28 +195,29 @@ const ViewStudent = () => {
                     )
                   )}
                 </div> */}
-                <div className="overflow-x-auto">
-                  <table className="table-auto w-full">
-                    <thead>
-                      <tr>
-                        <th className="px-4 py-2">SN</th>
-                        <th className="px-4 py-2">Date</th>
-                        <th className="px-4 py-2">Amount</th>
-                      </tr>
-                    </thead>
-                    <tbody >
-                      <tr>
-                        <td className="border px-4 py-2">1</td>
-                        <td className="border px-4 py-2">2024-03-19</td>
-                        <td className="border px-4 py-2">$100.00</td>
-                      </tr>
-                    </tbody>
-                  </table>
+                  <div className="overflow-x-auto">
+                    <table className="table-auto w-full">
+                      <thead>
+                        <tr>
+                          <th className="px-4 py-2">SN</th>
+                          <th className="px-4 py-2">Date</th>
+                          <th className="px-4 py-2">Amount</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <td className="border px-4 py-2">1</td>
+                          <td className="border px-4 py-2">2024-03-19</td>
+                          <td className="border px-4 py-2">$100.00</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
                 </div>
               </div>
-            </div>
-          ))}
-      </div>
+            ))}
+        </div>
+      </form>
     </div>
   );
 };
