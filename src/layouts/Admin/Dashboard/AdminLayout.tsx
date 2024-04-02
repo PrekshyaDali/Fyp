@@ -114,6 +114,10 @@ const AdminLayout = () => {
                 <img className="h-6 " src="/img/Finance.png" alt="" />
                 Finances
               </Link>
+              <Link to="/admin/Notifications">
+                <img className="h-6 " src="/img/Finance.png" alt="" />
+                Notifications
+              </Link>
             </li>
 
             <div className="absolute bottom-0 w-full left-0 p-4">

@@ -23,12 +23,12 @@ const ViewStudent = () => {
     formState: { errors },
   } = useForm();
   const [studentPayment] = useViewStudentPaymentMutation();
-  console.log(studentPayment)
+  console.log(studentPayment);
 
-  const SubmitHandler = async(data: any, category: string) => {
+  const SubmitHandler = async (data: any, category: string) => {
     try {
-      const res = await studentPayment({data, category}).unwrap();
-      console.log(data)
+      const res = await studentPayment({ data, category }).unwrap();
+      console.log(data);
       console.log(res);
       toast.success("Data saved");
     } catch (error) {
@@ -78,7 +78,10 @@ const ViewStudent = () => {
         <p className="text-sm text-gray-500">{userData?.contactnumber}</p>
       </div>
 
-      <form onSubmit={handleSubmit((data) => SubmitHandler(data, enrollmentData.category))} action="">
+      <form
+        onSubmit={handleSubmit((data) => SubmitHandler(data, enrollmentData.category))}
+        action=""
+      >
         <div className="flex flex-col space-y-5 border-2">
           {enrollmentData &&
             enrollmentData.map((enrollment, index) => (
@@ -115,44 +118,6 @@ const ViewStudent = () => {
                         Package Amount :
                       </label>
                       <span className="text-green-500">{enrollment.price}</span>
-                    </div>
-
-                    {/* Other details of enrollment */}
-                    {/* Payment type */}
-                    <div className="w-full md:w-1/2 flex items-center">
-                      <label htmlFor={`PaymentType${index}`} className="mr-2 text-sm">
-                        Payment Type {index + 1}:
-                      </label>
-                      <select className="bg-white border-2 text-sm p-1 w-full">
-                        <option value="Unpaid">Unpaid</option>
-                        <option value="Half Payment">Half Payment</option>
-                        <option value="Full Payment">Full Payment</option>
-                      </select>
-                    </div>
-
-                    {/* Paid amount */}
-                    <div className="w-full md:w-1/2 flex items-center">
-                      <label htmlFor={`PaidAmount${index}`} className="mr-2 text-sm">
-                        Paid Amount {index + 1}:
-                      </label>
-                      <input
-                      {...register("amount")}
-                        type="text"
-                        className="bg-white border-2 text-sm p-1 w-full"
-                      />
-                    </div>
-
-                    {/* Due amount */}
-                    <div className="w-full md:w-1/2 flex items-center">
-                      <label htmlFor={`DueAmount${index}`} className="mr-2 text-sm">
-                        Due Amount {index + 1}:
-                      </label>
-                      <input
-                      {...register("dueAmount")}
-                        type="text"
-                        className="bg-white border-2 text-sm p-1 w-full"
-                        default={enrollment.payment}
-                      />
                     </div>
                   </div>
 
