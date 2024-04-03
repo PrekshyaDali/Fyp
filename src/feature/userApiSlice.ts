@@ -201,10 +201,23 @@ export const userApiSlice = apiSlice.injectEndpoints({
       }),
     }),
     viewStudentPayment: builder.mutation({
-      query: ({body, category}) => ({
+      query: ({ body, category }) => ({
         url: "/viewStudent",
         method: "POST",
-        body: {body, category},
+        body: { body, category },
+      }),
+    }),
+    attendance: builder.mutation({
+      query: (body) => ({
+        url: "/attendance",
+        method: "POST",
+        body,
+      }),
+    }),
+    getAttendance: builder.query({
+      query: (id) => ({
+        url: `/getAttendance/${id}`,
+        method: "GET",
       }),
     }),
 
@@ -256,8 +269,7 @@ export const {
   useEditProfileDetailsMutation,
   useUpdateEnrollmentMutation,
   useViewStudentPaymentMutation,
-
-
+  useAttendanceMutation,
 
   useGetImgQuery,
   useGetCourseQuery,
@@ -273,5 +285,6 @@ export const {
   useGetEnrollmentCountQuery,
   useGetEnrollmentByIdQuery,
   useOneEnrollmentUserQuery,
+  useGetAttendanceQuery,
   // useGetImageQuery,
 } = userApiSlice;
