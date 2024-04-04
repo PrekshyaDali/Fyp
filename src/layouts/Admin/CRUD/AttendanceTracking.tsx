@@ -9,13 +9,15 @@ import BackButton from "@/pages/component/BackButton";
 import ViewStudentTable from "@/pages/component/ViewStudentTable";
 import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
+import ViewPayment from "./ViewPayment";
 
 export default function AttendanceTracking() {
   const { enrollmentId } = useParams<{ enrollmentId: string }>();
+  
 
   // Fetch enrollment data using enrollmentId
   const { data: enrollmentData, isLoading } = useOneEnrollmentUserQuery(enrollmentId);
-  const { data: attendanceData } = useGetAttendanceQuery(enrollmentId );
+  const { data: attendanceData } = useGetAttendanceQuery(enrollmentId);
   console.log(attendanceData, "attendanceData");
 
   const [attendance] = useAttendanceMutation();
@@ -62,50 +64,9 @@ export default function AttendanceTracking() {
 
   return (
     <div className="p-3 flex flex-col space-y-5">
-      <div className=" flex flex-col md:flex-row bg-[#E6F0FB] p-5">
-        <div className="flex-1 w-full">
-          <h1 className="text-2xl font-semibold mb-3">Payment Details</h1>
-          <div className="w-full md:w-1/2 flex items-center mb-3">
-            <label htmlFor="Payment" className="mr-2 text-sm">
-              Payment Type
-            </label>
-            <select className="bg-white border-2 text-sm p-1 w-full">
-              <option value="Unpaid">Unpaid</option>
-              <option value="Half Payment">Half Payment</option>
-              <option value="Full Payment">Full Payment</option>
-            </select>
-          </div>
-
-          {/* Paid amount */}
-          <div className="w-full md:w-1/2 flex items-center mb-3">
-            <label htmlFor="" className="mr-2 text-sm">
-              Paid Amount
-            </label>
-            <input type="text" className="bg-white border-2 text-sm p-1 w-full" />
-          </div>
-
-          {/* Due amount */}
-          <div className="w-full md:w-1/2 flex items-center">
-            <label htmlFor="" className="mr-2 text-sm">
-              Due Amount
-            </label>
-            <input type="text" className="bg-white border-2 text-sm p-1 w-full" />
-          </div>
-        </div>
-
-        {/* right div */}
-        <div>
-          <ViewStudentTable
-            SN="1"
-            field1="Category"
-            field2="Payment Method"
-            data1="Primary"
-            data2="Cash"
-            data3="1000"
-          />
-        </div>
+      <div>
+        <ViewPayment></ViewPayment>
       </div>
-
       {/* Attendance tracking form */}
       <form
         action=""
@@ -159,6 +120,7 @@ export default function AttendanceTracking() {
                 <input
                   type="text"
                   className="bg-white border-2 text-sm p-1 w-full"
+                  value={attendanceData?.remainingDays}
                   readOnly
                 />
               </div>
@@ -176,15 +138,20 @@ export default function AttendanceTracking() {
           </div>
 
           {/* Attendance record */}
-          <div className="bg-white p-5 flex-1">
+          <div className="bg-white p-5 flex-1 h-96 overflow-auto">
             <ViewStudentTable
-              SN="SN"
-              field1="Date"
-              field2="Status"
-              data1="1"
-              data2="2022-09-01"
-              data3="Present"
-            />
+              SN="SN" // Use index + 1 as the serial number
+              field1="Date" // Assuming this is the date field
+              field2="Status" // Assuming this is the status field
+            ></ViewStudentTable>
+            {attendanceData?.attendance.map((item, index) => (
+              <ViewStudentTable
+                key={index} // Provide a unique key for each item in the list
+                data1={index + 1} // Use the date from the attendance data item
+                data2={new Date(item.date).toISOString().split("T")[0]} // Use the status from the attendance data item
+                data3="Present" // If you have another field for status, replace this with the appropriate data field
+              />
+            ))}
           </div>
         </div>
       </form>
