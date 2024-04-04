@@ -200,11 +200,11 @@ export const userApiSlice = apiSlice.injectEndpoints({
         method: "GET",
       }),
     }),
-    viewStudentPayment: builder.mutation({
-      query: ({ body, category }) => ({
-        url: "/viewStudent",
+    paymentTracking: builder.mutation({
+      query: (body) => ({
+        url: "/paymentTracking",
         method: "POST",
-        body: { body, category },
+        body,
       }),
     }),
     attendance: builder.mutation({
@@ -215,8 +215,8 @@ export const userApiSlice = apiSlice.injectEndpoints({
       }),
     }),
     getAttendance: builder.query({
-      query: (id) => ({
-        url: `/getAttendance/${id}`,
+      query: (enrollmentId) => ({
+        url: `/getAttendance/${enrollmentId}`,
         method: "GET",
       }),
     }),
@@ -268,7 +268,7 @@ export const {
   useEnrollmentMutation,
   useEditProfileDetailsMutation,
   useUpdateEnrollmentMutation,
-  useViewStudentPaymentMutation,
+  usePaymentTrackingMutation,
   useAttendanceMutation,
 
   useGetImgQuery,

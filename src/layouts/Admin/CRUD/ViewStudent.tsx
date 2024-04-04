@@ -52,7 +52,7 @@ const ViewStudent = () => {
       <div className="mb-3">
         <BackButton />
       </div>
-      <div className="bg-[#E6F0FB] mb-8 p-3 rounded-md">
+      <div className="bg-white mb-8 p-3 rounded-md">
         <h1 className="text-2xl font-bold">
           {userData?.firstname.toUpperCase()} {userData?.lastname.toUpperCase()}
         </h1>
@@ -60,14 +60,14 @@ const ViewStudent = () => {
         <p className="text-sm text-gray-500">{userData?.contactnumber}</p>
       </div>
 
-      <div className="flex flex-col space-y-5 border-2">
+      <div className="flex flex-col space-y-5 ">
         {enrollmentData &&
           enrollmentData.map((enrollment, index) => (
             <div
               key={index}
-              className="h-auto md:h-auto bg-[#E6F0FB] rounded-md flex flex-col md:flex-row   mb-4"
+              className="h-auto md:h-auto bg-white rounded-md flex flex-col md:flex-row   mb-4"
             >
-              <div className="p-3 flex-1 space-y-3 md:mr-6 md:flex-1 border-2">
+              <div className="p-3 flex-1 space-y-3 md:mr-6 md:flex-1">
                 <div className="flex flex-col space-y-5">
                   {/* Enrollment details */}
                   <div className="w-full md:w-1/2 flex items-center">
@@ -106,16 +106,14 @@ const ViewStudent = () => {
                       Mark Attendance
                     </button>
                   </Link>
-
-                  <button className="text-sm text-white bg-blue-400 hover:bg-blue-500 active:bg-blue-400 rounded-md px-6 py-2">
-                    Save
-                  </button>
                 </div>
               </div>
 
               {/* Image */}
 
               <div>
+                {/* attendance data mapping */}
+
                 <ViewStudentTable
                   SN="SN"
                   field1="Date"
