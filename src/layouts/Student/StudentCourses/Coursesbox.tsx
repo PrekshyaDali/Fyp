@@ -4,6 +4,7 @@ import { useGetCoursesQuery } from "@/feature/userApiSlice";
 import Button from "@/pages/component/Button";
 
 const Coursesbox = (props) => {
+  console.log(props, "props")
   return (
     <div className="flex flex-col bg-white rounded-xl shadow-md justify-items-start gap-2 items-center p-1 max-w-64 sm:max-w-full  h-auto">
       <div className="h-48 w-full">
@@ -31,6 +32,7 @@ const Coursesbox = (props) => {
           <button className="bg-[#273469] text-white rounded-lg p-2">View Details</button>
         </Link>
         {!props?.enroll ? (
+          
           <Link to={`/user/Enrollmentforms/${props.id}`}>
             <button className="bg-[#273469] text-white rounded-lg p-2">Enroll Now</button>
           </Link>
