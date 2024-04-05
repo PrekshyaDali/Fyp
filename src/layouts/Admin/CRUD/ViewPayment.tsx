@@ -12,6 +12,7 @@ import { toast } from "react-toastify";
 export default function ViewPayment() {
   const { enrollmentId } = useParams<{ enrollmentId: string }>();
   const { data: enrollmentData } = useOneEnrollmentUserQuery(enrollmentId);
+  console.log(enrollmentData)
   const { data: paymentData } = useGetPaymentDataQuery(enrollmentId);
   console.log(paymentData, "paymentData");
   const [paymentTracking, isLoading] = usePaymentTrackingMutation();
@@ -20,7 +21,7 @@ export default function ViewPayment() {
     handleSubmit,
     formState: { errors },
   } = useForm();
-  const [dueAmount, setDueAmount] = useState<number>(0); // State to hold the due amount
+  const [dueAmount, setDueAmount] = useState<number>(1); // State to hold the due amount
   useEffect(() => {
     if (paymentData && paymentData.payments && paymentData.payments.length > 0) {
       // Find the latest payment object based on _id or any other criteria
@@ -61,7 +62,7 @@ export default function ViewPayment() {
   return (
     <form onSubmit={handleSubmit(SubmitHandler)} encType="multipart/form-data">
       <div className="flex flex-col md:flex-row bg-white p-5">
-        <div className="flex-1 w-full flex flex-col space-y-5">
+        <div className="flex-1 w-full flex flex-col space-y-3">
           <h1 className="text-2xl font-semibold mb-3">Payment Details</h1>
           <div>
             <p>
@@ -71,7 +72,7 @@ export default function ViewPayment() {
               </span>
             </p>
           </div>
-          <div className="w-full md:w-1/2 flex items-center mb-3">
+          <div className="w-full md:w-1/2  items-center mb-3">
             <label htmlFor="Payment" className="mr-2 text-sm">
               Payment Type
             </label>
@@ -89,7 +90,7 @@ export default function ViewPayment() {
           </div>
 
           {/* Paid amount */}
-          <div className="w-full md:w-1/2 flex items-center mb-3">
+          <div className="w-full md:w-1/2  items-center mb-3">
             <label htmlFor="" className="mr-2 text-sm">
               Paid Amount
             </label>
@@ -99,7 +100,7 @@ export default function ViewPayment() {
               className="bg-white border-2 text-sm p-1 w-full"
             />
             {errors.paidAmount && (
-              <span className="text-red-500 text-sm">{String(errors.paidAmount)}</span>
+              <span className="text-red-500 text-sm">{"This field is required"}</span>
             )}
           </div>
 

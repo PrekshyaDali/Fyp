@@ -5,6 +5,17 @@ export default function Notifications() {
   const { data: notificationData, isLoading } = useGetNotificationsQuery({});
   console.log(notificationData, "notificationData");
 
+  // Function to format time as "HH:mm"
+  const formatTime = (dateString) => {
+    const date = new Date(dateString);
+    const hours = date.getHours();
+    const minutes = date.getMinutes();
+    const ampm = hours >= 12 ? "PM" : "AM";
+    const formattedHours = hours % 12 || 12;
+    const formattedTime = `${hours}:${minutes < 10 ? "0" : ""}${minutes} ${ampm}`;
+    return formattedTime;
+  };
+
   return (
     <div className="w-full h-full m-3">
       <div className="flex flex-col w-full">
@@ -19,7 +30,8 @@ export default function Notifications() {
               <span className="mr-2">&#x2022;</span> {notification.notification}
             </p>
             <p className="text-sm text-gray-400">
-              {new Date(notification.date).toISOString().split("T")[0]}
+              {new Date(notification.date).toISOString().split("T")[0]}{" "}{"at"}{" "}
+              <span className = "text-purple-400">{formatTime(notification.date)}</span>
             </p>
           </div>
         ))}
