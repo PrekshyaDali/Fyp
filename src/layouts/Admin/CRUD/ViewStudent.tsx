@@ -111,18 +111,7 @@ const ViewStudent = () => {
 
               {/* Image */}
 
-              <div>
-                {/* attendance data mapping */}
-
-                <ViewStudentTable
-                  SN="SN"
-                  field1="Date"
-                  field2="Present"
-                  data1="1"
-                  data2="2021-08-01"
-                  data3="Yes"
-                />
-              </div>
+           
             </div>
           ))}
       </div>
