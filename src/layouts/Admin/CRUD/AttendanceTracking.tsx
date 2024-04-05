@@ -13,7 +13,6 @@ import ViewPayment from "./ViewPayment";
 
 export default function AttendanceTracking() {
   const { enrollmentId } = useParams<{ enrollmentId: string }>();
-  
 
   // Fetch enrollment data using enrollmentId
   const { data: enrollmentData, isLoading } = useOneEnrollmentUserQuery(enrollmentId);
@@ -51,7 +50,9 @@ export default function AttendanceTracking() {
       formData.append("userId", enrollmentData?.data?.user);
       const res = await attendance(formData).unwrap();
       console.log(res);
-      toast.success("Attendance marked successfully");
+      if (res) {
+        toast.success("Attendance marked successfully");
+      }
     } catch (error) {
       toast.error("Error marking attendance");
     }
@@ -64,6 +65,9 @@ export default function AttendanceTracking() {
 
   return (
     <div className="p-3 flex flex-col space-y-5">
+      <div>
+        <BackButton></BackButton>
+      </div>
       <div>
         <ViewPayment></ViewPayment>
       </div>
@@ -133,7 +137,6 @@ export default function AttendanceTracking() {
               >
                 Mark Attendance
               </button>
-              <BackButton />
             </div>
           </div>
 

@@ -1,39 +1,76 @@
-import { usePaymentTrackingMutation } from "@/feature/userApiSlice";
+import {
+  useGetPaymentDataQuery,
+  useOneEnrollmentUserQuery,
+  usePaymentTrackingMutation,
+} from "@/feature/userApiSlice";
 import ViewStudentTable from "@/pages/component/ViewStudentTable";
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 
 export default function ViewPayment() {
   const { enrollmentId } = useParams<{ enrollmentId: string }>();
-  console.log(enrollmentId, "enrollmentId");
+  const { data: enrollmentData } = useOneEnrollmentUserQuery(enrollmentId);
+  const { data: paymentData } = useGetPaymentDataQuery(enrollmentId);
+  console.log(paymentData, "paymentData");
   const [paymentTracking, isLoading] = usePaymentTrackingMutation();
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm();
+  const [dueAmount, setDueAmount] = useState<number>(0); // State to hold the due amount
+  useEffect(() => {
+    if (paymentData && paymentData.payments && paymentData.payments.length > 0) {
+      // Find the latest payment object based on _id or any other criteria
+      const latestPayment = paymentData.payments.reduce((latest, payment) =>
+        latest._id > payment._id ? latest : payment,
+      );
+
+      // Update the due amount state with the dueAmount from the latest payment
+      setDueAmount(latestPayment.dueAmount);
+    }
+  }, [paymentData]);
 
   const SubmitHandler = async (data) => {
     try {
       const formData = new FormData();
       formData.append("paymentType", data.paymentType);
       formData.append("paidAmount", data.paidAmount);
-
       formData.append("enrollmentId", enrollmentId);
+
       const res = await paymentTracking(formData).unwrap();
       console.log(res);
+      // Update the due amount after successful payment tracking
       toast.success("Payment tracked successfully");
     } catch (error) {
       toast.error("Error tracking payment");
     }
   };
+
+  console.log(dueAmount, "dueAmount");
+
+  const renderFullyPaidMessage = () => {
+    if (dueAmount === 0) {
+      return <p className="text-green-600 font-bold ">Payment Completed</p>;
+    }
+    return null;
+  };
+
   return (
-    <form action="" onSubmit={handleSubmit(SubmitHandler)} encType="multipart/form-data">
-      <div className=" flex flex-col md:flex-row bg-white p-5 ">
-        <div className="flex-1 w-full flex flex-col space-y-5 ">
+    <form onSubmit={handleSubmit(SubmitHandler)} encType="multipart/form-data">
+      <div className="flex flex-col md:flex-row bg-white p-5">
+        <div className="flex-1 w-full flex flex-col space-y-5">
           <h1 className="text-2xl font-semibold mb-3">Payment Details</h1>
+          <div>
+            <p>
+              Package Amount
+              <span className=" ml-5 text-green-400">
+                {"Rs" + " " + enrollmentData?.data?.price}
+              </span>
+            </p>
+          </div>
           <div className="w-full md:w-1/2 flex items-center mb-3">
             <label htmlFor="Payment" className="mr-2 text-sm">
               Payment Type
@@ -47,7 +84,7 @@ export default function ViewPayment() {
               <option value="Full Payment">Full Payment</option>
             </select>
             {errors.paymentType && (
-              <span className="text-red-500 text-sm">{String(errors.message)}</span>
+              <span className="text-red-500 text-sm">{String(errors.paymentType)}</span>
             )}
           </div>
 
@@ -61,43 +98,49 @@ export default function ViewPayment() {
               type="text"
               className="bg-white border-2 text-sm p-1 w-full"
             />
-            {errors.paymentType && (
-              <span className="text-red-500 text-sm">{String(errors.message)}</span>
+            {errors.paidAmount && (
+              <span className="text-red-500 text-sm">{String(errors.paidAmount)}</span>
             )}
           </div>
 
           {/* Due amount */}
-          <div className="w-full md:w-1/2 flex items-center">
+          <div className="w-full md:w-1/2 flex items-center mb-3">
             <label htmlFor="" className="mr-2 text-sm">
               Due Amount
             </label>
-            <input type="text" className="bg-white border-2 text-sm p-1 w-full" />
+            <span className="text-red-500">{"Rs" + " " + dueAmount}</span>
           </div>
 
+          {/* Render fully paid message */}
+          {renderFullyPaidMessage()}
 
-          {/* button */}
-
+          {/* Button */}
           <div>
             <button
-            type = "submit"
-            isLoading={isLoading}
-            className="text-sm text-white bg-blue-400 hover:bg-blue-500 active:bg-blue-400 rounded-md px-6 py-2">
-              {" "}
+              type="submit"
+              // disabled={isLoading}
+              className="text-sm text-white bg-blue-400 hover:bg-blue-500 active:bg-blue-400 rounded-md px-6 py-2"
+            >
               Save
             </button>
           </div>
         </div>
 
-        {/* right div */}
+        {/* Right div */}
         <div>
           <ViewStudentTable
             SN="1"
-            field1="Category"
-            field2="Payment Method"
-            data1="Primary"
-            data2="Cash"
-            data3="1000"
-          />
+            field1="Paid Amount"
+            field2="Due Amount"
+          ></ViewStudentTable>
+          {paymentData?.payments.map((payment, index) => (
+            <ViewStudentTable
+              key={index}
+              data1={index + 1}
+              data2={payment.paidAmount}
+              data3={payment.dueAmount}
+            />
+          ))}
         </div>
       </div>
     </form>

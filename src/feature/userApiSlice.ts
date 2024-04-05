@@ -207,6 +207,13 @@ export const userApiSlice = apiSlice.injectEndpoints({
         body,
       }),
     }),
+    getPaymentData: builder.query({
+      query: (enrollmentId) => ({
+        url: `/getPaymentData/${enrollmentId}`,
+        method: "GET",
+      }),
+    }),
+    
     attendance: builder.mutation({
       query: (body) => ({
         url: "/attendance",
@@ -270,6 +277,9 @@ export const {
   useUpdateEnrollmentMutation,
   usePaymentTrackingMutation,
   useAttendanceMutation,
+
+
+  useGetPaymentDataQuery,
 
   useGetImgQuery,
   useGetCourseQuery,
