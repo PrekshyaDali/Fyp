@@ -21,9 +21,11 @@ const Courses = () => {
 
     // Calculate the difference in milliseconds between the two dates
     const timeDiff = currentDate.getTime() - startDate.getTime();
+    console.log(timeDiff)
 
     // Calculate the number of days
     const daysDiff = timeDiff / (1000 * 3600 * 24) < 30;
+    console.log(daysDiff)
     setDaysDiff(daysDiff);
   }, [enrollmentData]);
 
@@ -31,18 +33,20 @@ const Courses = () => {
     <>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 gap-4 text-[#30343f] p-4">
         {data?.map((item, index) => {
-          const enroll = daysDiff && enrollmentData?.data?.course == item?._id;
+          const enroll = daysDiff && enrollmentData?.data?.course.includes(item?._id);
+          console.log(enroll, "enroll")
 
           return (
             <>
               <Coursesbox
-                id={item?._id}
                 key={index}
+                id={item?._id}
                 img={item?.image}
                 courseDuration={item.courseDuration + " DAYS"}
                 title={item.type.toUpperCase() + " COURSE"}
                 description={item.courseDescription}
                 enroll={enroll}
+
                 // image={"/img/Car1.png"}
               />
             </>
