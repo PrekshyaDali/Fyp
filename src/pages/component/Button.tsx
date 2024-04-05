@@ -7,7 +7,7 @@ const Button = (props) => {
     return (
       <div>
         <button
-          className={`bg-[#365486] rounded-lg text-white  p-5 px-12 h-10 flex items-center justify-center 
+          className={`bg-blue-400 rounded-lg text-white  p-5 px-12 h-10 flex items-center justify-center 
               ${
                 props.isLoading
                   ? "opacity-50 cursor-not-allowed"
