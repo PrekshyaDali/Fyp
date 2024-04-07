@@ -7,7 +7,7 @@ import {
   useGetEnrollmentQuery,
   useUpdateEnrollmentMutation,
 } from "@/feature/userApiSlice";
-import { useLocation, useNavigate, useParams, useSearchParams } from "react-router-dom";
+import { useNavigate, useParams, useSearchParams } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
 
@@ -16,6 +16,7 @@ export default function EnrollmentForms() {
   const { id } = useParams<{ id: string }>();
   const { data: courseData } = useGetCourseQuery(id, { refetchOnMountOrArgChange: true });
   const { data: enrollment } = useGetEnrollmentQuery({});
+ 
 
   const { data } = useGetProfileQuery({});
   const {

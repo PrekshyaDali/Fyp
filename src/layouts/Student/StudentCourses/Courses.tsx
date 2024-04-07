@@ -1,57 +1,73 @@
 import React from "react";
-import {useEffect, useState} from "react";
-
+import { useEffect, useState } from "react";
 
 import Coursesbox from "@/layouts/Student/StudentCourses/Coursesbox";
-import { Link } from "react-router-dom";
-import { useGetCoursesQuery, useGetEnrollmentQuery } from "@/feature/userApiSlice";
+import { Link, useParams } from "react-router-dom";
+import {
+  useGetCoursesQuery,
+  useGetEnrollmentByIdQuery,
+  useGetEnrollmentQuery,
+} from "@/feature/userApiSlice";
 import Button from "@/pages/component/Button";
 import { FaRoad } from "react-icons/fa";
 
 const Courses = () => {
+  const id = localStorage.getItem("id").toString();
+
+  const { data: enrollmentData } = useGetEnrollmentByIdQuery(id);
+  const[enrollmentStatus, setEnrollmentStatus] = useState([] as any[]);
+
   const { data } = useGetCoursesQuery({}, { refetchOnMountOrArgChange: true });
-  const { data: enrollmentData } = useGetEnrollmentQuery({});
-  const [daysDiff, setDaysDiff] = useState(false);
+
+  // const [daysDiff, setDaysDiff] = useState(false);
   // const { data: imgData } = useGetImageQuery({}, { refetchOnMountOrArgChange: true });
   useEffect(() => {
-    const startDate = new Date(enrollmentData ? enrollmentData?.data?.startdate : "");
+    // Initialize an array to hold enrollment start dates
+    const enrollmentStartDates = [];
+
+    // Extract start dates from each enrollment entry
+    enrollmentData?.data.forEach((enrollment) => {
+      const startDate = new Date(enrollment.startdate);
+      enrollmentStartDates.push(startDate);
+    });
 
     // Get the current date
     const currentDate = new Date();
 
-    // Calculate the difference in milliseconds between the two dates
-    const timeDiff = currentDate.getTime() - startDate.getTime();
-    console.log(timeDiff)
+    // Map enrollment start dates to their corresponding courses
+    const enrollmentStatus = data?.map((course) => {
+      return {
+        ...course,
+        enroll: enrollmentStartDates.some((startDate) => {
+          const timeDiff = currentDate.getTime() - startDate.getTime();
+          const daysDiff = timeDiff / (1000 * 3600 * 24) < 30;
+          return (
+            daysDiff &&
+            enrollmentData?.data.some((enrollment) =>
+              enrollment.course.includes(course._id),
+            )
+          );
+        }),
+      };
+    });
 
-    // Calculate the number of days
-    const daysDiff = timeDiff / (1000 * 3600 * 24) < 30;
-    console.log(daysDiff)
-    setDaysDiff(daysDiff);
-  }, [enrollmentData]);
-
+    // Set the enrollment status
+    setEnrollmentStatus(enrollmentStatus);
+  }, [enrollmentData, data]);
   return (
     <>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 gap-4 text-[#30343f] p-4">
-        {data?.map((item, index) => {
-          const enroll = daysDiff && enrollmentData?.data?.course.includes(item?._id);
-          console.log(enroll, "enroll")
-
-          return (
-            <>
-              <Coursesbox
-                key={index}
-                id={item?._id}
-                img={item?.image}
-                courseDuration={item.courseDuration + " DAYS"}
-                title={item.type.toUpperCase() + " COURSE"}
-                description={item.courseDescription}
-                enroll={enroll}
-
-                // image={"/img/Car1.png"}
-              />
-            </>
-          );
-        })}
+        {enrollmentStatus?.map((item, index) => (
+          <Coursesbox
+            key={index}
+            id={item?._id}
+            img={item?.image}
+            courseDuration={item.courseDuration + " DAYS"}
+            title={item.type.toUpperCase() + " COURSE"}
+            description={item.courseDescription}
+            enroll={item.enroll}
+          />
+        ))}
       </div>
       <div className="flex relative justify-end items-center p-4">
         <Link to="/user/courses/customizeCourse">
