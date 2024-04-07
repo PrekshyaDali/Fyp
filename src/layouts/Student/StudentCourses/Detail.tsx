@@ -1,26 +1,32 @@
 import React from "react";
-
 import DetailComponent from "@/pages/component/DetailComponent";
-import { useGetCourseQuery } from "@/feature/userApiSlice";
+import { useGetCourseQuery, useGetEnrollmentQuery } from "@/feature/userApiSlice";
 import { useParams } from "react-router-dom";
 
 const Details = () => {
-  const {id} = useParams<{id:string}>();
-  const {data} = useGetCourseQuery(id,{refetchOnMountOrArgChange:true});
-  // console.log(data.courseDescription,"data")
-  console.log(data);
+  const { id } = useParams<{ id: string }>();
+  const { data } = useGetCourseQuery(id, { refetchOnMountOrArgChange: true });
+  const { data: enrollmentData } = useGetEnrollmentQuery({});
+
+  // Check if enrollmentData.data is an array and if any enrollment's course matches id
+  const isEnrolled =
+    (enrollmentData.data instanceof Array &&
+      enrollmentData?.data?.some((enrollment) => enrollment.course === id)) ||
+    false;
+
+    console.log(isEnrolled)
   return (
     <DetailComponent
-      id = {data?._id}
+      isEnrolled={isEnrolled}
+      id={data?._id}
       DetailName={data?.type?.toString().toUpperCase() + " DETAIL"}
       courseDuration={data?.courseDuration + "DAYS"}
-      description = {data?.courseDescription}  
+      description={data?.courseDescription}
       paragraph={data?.courseOverview}
       certification={data?.certification}
       price={data?.price}
       customizationfee="Rs 1000"
-      
-    ></DetailComponent>
+    />
   );
 };
 

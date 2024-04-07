@@ -39,6 +39,7 @@ const Login = () => {
       localStorage.setItem("email", data.email);
       localStorage.setItem("role", res.role);
       localStorage.setItem("accessToken", res.accessToken);
+      localStorage.setItem("id", res.id);
 
 
       //role based routing to dashboard

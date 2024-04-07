@@ -2,12 +2,19 @@ import React from "react";
 import { Link } from "react-router-dom";
 
 const DetailComponent = (props) => {
+  console.log(props.isEnrolled, "props")
   return (
     <div className="container mx-auto p-8 bg-white shadow-lg rounded-lg">
       <div className="flex justify-end">
-        <Link to={`/user/Enrollmentforms/${props.id}`}>
-          <button className="bg-[#273469] text-white rounded-lg p-2">Enroll Now</button>
-        </Link>
+        {!props.isEnrolled ? (
+          <Link to={`/user/Enrollmentforms/${props.id}`}>
+            <button className="bg-[#273469] text-white rounded-lg p-2">Enroll Now</button>
+          </Link>
+        ) : (
+          <button className="bg-red-500 text-white rounded-lg p-2">
+            Already Enrolled
+          </button>
+        )}
       </div>
       <h1 className="text-3xl font-semibold mb-6">{props.DetailName}</h1>
 

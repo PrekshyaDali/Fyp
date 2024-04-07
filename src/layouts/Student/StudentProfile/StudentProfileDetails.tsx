@@ -3,11 +3,9 @@ import Button from "@/pages/component/Button";
 import { useGetProfileQuery, userApiSlice } from "@/feature/userApiSlice";
 import { Link } from "react-router-dom";
 export default function StudentProfileDetails() {
-  const { data } = useGetProfileQuery({}, { refetchOnMountOrArgChange: true ,
-  
-  
-});
-console.log(data)
+  const { data } = useGetProfileQuery({}, { refetchOnMountOrArgChange: true });
+ 
+  console.log(data);
   return (
     <div className="flex flex-col space-y-5 p-3 text-[#254E7A]">
       {/* Profile Card */}
@@ -38,7 +36,7 @@ console.log(data)
             <div className="relative">
               <img className="h-4 absolute left-2 " src="/img/edit.png" alt="" />
             </div>
-            <Link to= {`/user/profile/${data?.user?._id}`}>
+            <Link to={`/user/profile/${data?.user?._id}`}>
               <button className="h-10 text-sm bg-[#892506] rounded-md text-white border-2 p-2 hover:bg-[#82C2E6] hover:active:bg-[#254E7A]">
                 Edit
               </button>
