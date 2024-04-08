@@ -101,7 +101,13 @@ const ViewStudent = () => {
 
                 {/* Action buttons */}
                 <div className="flex justify-end mt-5 space-x-3">
-                  <Link to={`/admin/studentDetails/${id}/${enrollment._id}`}>
+                  <Link to={`/admin/viewPayments/${id}/${enrollment._id}`}>
+                    <button className="text-sm text-white bg-blue-400 hover:bg-blue-500 active:bg-blue-400 rounded-md px-6 py-2">
+                      View Payment
+                    </button>
+                  </Link>
+
+                  <Link to={`/admin/markAttendance/${id}/${enrollment._id}`}>
                     <button className="text-sm text-white bg-blue-400 hover:bg-blue-500 active:bg-blue-400 rounded-md px-6 py-2">
                       Mark Attendance
                     </button>
@@ -110,8 +116,6 @@ const ViewStudent = () => {
               </div>
 
               {/* Image */}
-
-           
             </div>
           ))}
       </div>
