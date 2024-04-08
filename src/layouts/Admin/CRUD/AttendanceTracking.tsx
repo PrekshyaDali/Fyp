@@ -68,9 +68,7 @@ export default function AttendanceTracking() {
       <div>
         <BackButton></BackButton>
       </div>
-      <div>
-        <ViewPayment></ViewPayment>
-      </div>
+
       {/* Attendance tracking form */}
       <form
         action=""
