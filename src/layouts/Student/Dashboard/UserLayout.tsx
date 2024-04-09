@@ -9,6 +9,7 @@ import Button from "@/pages/component/Button";
 import ProfileLogo from "../../../pages/component/ProfileLogo";
 const UserLayout = () => {
   const dispatch = useAppDispatch();
+  const id = localStorage.getItem("id")
   return (
     <div className="text-[#1E2749]">
       <div className="drawer drawer-mobile">
@@ -60,7 +61,7 @@ const UserLayout = () => {
                 <img className="h-5" src="/img/Enrollment.png" alt="" />
                 Courses/Enrollment
               </Link>
-              <Link to="/user/mycourses">
+              <Link to={`/user/mycourses/${id}`}>
                 <img className="h-5" src="/img/Enrollment.png" alt="" />
                 My Courses
               </Link>
