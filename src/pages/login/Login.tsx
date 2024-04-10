@@ -41,20 +41,18 @@ const Login = () => {
       localStorage.setItem("accessToken", res.accessToken);
       localStorage.setItem("id", res.id);
 
-
       //role based routing to dashboard
 
       if (res.role === "admin") {
         navigate("/admin");
       } else if (res.role === "user") {
         navigate("/user");
-      }
-      else if (res.role === "instructor" && res.isFirstLogin === false) {
+      } else if (res.role === "instructor" && res.isFirstLogin === false) {
         navigate("/Changepassword");
       } else if (res.isFirstLogin === true) {
         navigate("/instructor");
       }
-  
+
       localStorage.removeItem("email");
       // localStorage.removeItem("role");
 
@@ -73,96 +71,91 @@ const Login = () => {
 
   return (
     <>
-      <main
-        className="flex justify-center items-center 
-        bg-white
-      h-[100vh] "
-        style={{
-          background: `url('/img/background.jpg')`,
-          backgroundSize: "cover",
-          backgroundImage: "center",
-          backgroundRepeat: "no-repeat",
-        }}
-      >
-        <form className="w-96" onSubmit={handleSubmit(SubmitHandler)}>
-          <div className="text-[#1E2749]   flex flex-col py-5 px-10 md:px-11 shadow-md space-y-5 bg-white rounded-md ">
-            <DriveSyncLogo></DriveSyncLogo>
-            <h1 className="font-bold text-3xl my-5">Login</h1>
-            <div className="">
-              <label htmlFor="Email">Email</label>
-              <input
-                className="inputfields"
-                id="Email"
-                type="text"
-                {...register("email", {
-                  required: true,
-                })}
-              />
-              {errors.email && (
-                <span className="text-red-500">This field is required</span>
-              )}
-            </div>
-            <div className="mb-12 relative">
-              <label htmlFor="password">Password</label>
-              <input
-                className="inputfields relative"
-                id="password"
-                type={isPasswordVisible ? "text" : "password"}
-                {...register(
-                  "password",
+      <div className="w-full h-[100vh] bg-gray-200 flex justify-center items-center">
+        <div className="max-w-6xl h-5/6 border-2 flex bg-white rounded-md shadow-lg">
+          <div className="flex justify-center items-center">
+            {" "}
+            <form className="w-96" onSubmit={handleSubmit(SubmitHandler)}>
+              <div className="text-[#1E2749]   flex flex-col py-5 px-10 md:px-11  space-y-5">
+                <DriveSyncLogo></DriveSyncLogo>
+                <h1 className="font-bold text-3xl my-5">Login</h1>
+                <div className="">
+                  <label htmlFor="Email">Email</label>
+                  <input
+                    className="inputfields"
+                    id="Email"
+                    type="text"
+                    {...register("email", {
+                      required: true,
+                    })}
+                  />
+                  {errors.email && (
+                    <span className="text-red-500">This field is required</span>
+                  )}
+                </div>
+                <div className="mb-12 relative">
+                  <label htmlFor="password">Password</label>
+                  <input
+                    className="inputfields relative"
+                    id="password"
+                    type={isPasswordVisible ? "text" : "password"}
+                    {...register(
+                      "password",
 
-                  {
-                    required: true,
-                  },
-                )}
-              />
-              {errors.password && (
-                <span className="text-red-500">This field is required</span>
-              )}
-              {isPasswordVisible ? (
-                <FaEyeSlash
-                  className="absolute right-3 top-8 cursor-pointer text-lg"
-                  onClick={() => setIsPasswordVisible(!isPasswordVisible)}
-                />
-              ) : (
-                <FaEye
-                  className="absolute right-3 top-8 cursor-pointer text-lg"
-                  onClick={() => setIsPasswordVisible(!isPasswordVisible)}
-                />
-              )}
+                      {
+                        required: true,
+                      },
+                    )}
+                  />
+                  {errors.password && (
+                    <span className="text-red-500">This field is required</span>
+                  )}
+                  {isPasswordVisible ? (
+                    <FaEyeSlash
+                      className="absolute right-3 top-8 cursor-pointer text-lg"
+                      onClick={() => setIsPasswordVisible(!isPasswordVisible)}
+                    />
+                  ) : (
+                    <FaEye
+                      className="absolute right-3 top-8 cursor-pointer text-lg"
+                      onClick={() => setIsPasswordVisible(!isPasswordVisible)}
+                    />
+                  )}
 
-              <Link
-                to="/Forgetpassword"
-                className="underline_sign text-sm text-gray-600 underline absolute right-1 top-16"
-              >
-                Forget Password?
-              </Link>
-            </div>
+                  <Link
+                    to="/Forgetpassword"
+                    className="underline_sign text-sm text-gray-600 underline absolute right-1 top-16"
+                  >
+                    Forget Password?
+                  </Link>
+                </div>
 
-            <div className="flex flex-col items-center justify-center ">
-              <div className="mt-5">
-                <Button isLoading={isLoading} name="Sign in"></Button>
+                <div className="flex flex-col items-center justify-center ">
+                  <div className="mt-5">
+                    <Button isLoading={isLoading} name="Sign in"></Button>
+                  </div>
+                  <p className="text-[#c2c2c2] text-xs py-3">
+                    Don't have an account?{" "}
+                    <Link to="/Register" className="underline_sign">
+                      Sign Up
+                    </Link>
+                  </p>
+                  {/* <p className="mb-3">Or</p> */}
+                </div>
               </div>
-              <p className="text-[#c2c2c2] text-xs py-3">
-                Don't have an account?{" "}
-                <Link to="/Register" className="underline_sign">
-                  Sign Up
-                </Link>
-              </p>
-              {/* <p className="mb-3">Or</p> */}
-            </div>
+            </form>
           </div>
-        </form>
-        {/* {innerWidth > 768 && (
-            <div className="w-full  max-h-[100vh]  ">
-              <img
-                className="  w-full h-full object-cover"
-                src="/img/DrivingPic1.png"
-                alt=""
-              />
-            </div>
-          )} */}
-      </main>
+
+          {/* {left side div} */}
+          <div className="h-full">
+            <img
+              className="h-full w-full object-cover"
+              src="/img/backgroundimg.png"
+              alt=""
+            />
+          </div>
+        </div>
+      </div>
     </>
   );
 };

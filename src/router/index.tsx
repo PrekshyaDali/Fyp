@@ -44,11 +44,10 @@ import ViewCourses from "@/layouts/Admin/Course/ViewCourses";
 import CoursesTable from "@/layouts/Admin/Course/CoursesTable";
 import AddNotifications from "@/layouts/Admin/Notifications/AddNotifications";
 import Notifications from "@/layouts/Student/Notifications/Notifications";
-import MyCourses from "@/layouts/Student/Attendance/MyCourses";
+import MyCourses from "@/layouts/Student/StudentCourses/MyCourses";
 import ViewPayment from "@/layouts/Admin/CRUD/ViewPayment";
 import ShowTransactions from "@/layouts/Student/Attendance/ShowTransactions";
 import ShowAttendance from "@/layouts/Student/Attendance/ShowAttendance";
-
 
 // lazy import components
 // const PostList = lazy(() => import("@/pages/posts/list"));
@@ -94,15 +93,18 @@ const AppRouter = () => {
               <Route path="/user/courses" element={<Courses />} />
               <Route path="/user/courses/:id" element={<Details />} />
               <Route path="/user/courses/customizeCourse" element={<CustomizeForm />} />
-
               <Route path="/user/profile" element={<StudentProfileDetails />} />
               <Route path="/user/profile/:id" element={<EditProfile />} />
-              <Route path="/user/finances" element={<Finances />} />
               <Route path="/user/enrollmentForms/:id" element={<EnrollmentForms />} />
               <Route path="/user/mycourses/:id" element={<MyCourses />} />
-              <Route path="/user/transactions/:id/:enrollmentId" element={<ShowTransactions />} />
-              <Route path="/user/attendances/:id/:enrollmentId" element={<ShowAttendance />} />
-
+              <Route
+                path="/user/transactions/:id/:enrollmentId"
+                element={<ShowTransactions />}
+              />
+              <Route
+                path="/user/attendances/:id/:enrollmentId"
+                element={<ShowAttendance />}
+              />
               <Route path="/user/BikeDetails" element={<Details></Details>} />
               <Route path="/user/Notifications" element={<Notifications />}></Route>
             </Route>

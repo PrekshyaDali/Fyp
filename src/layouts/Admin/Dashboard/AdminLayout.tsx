@@ -119,18 +119,6 @@ const AdminLayout = () => {
                 Notifications
               </Link>
             </li>
-
-            <div className="absolute bottom-0 w-full left-0 p-4">
-              <Button
-                name="Logout"
-                onClick={() => {
-                  navigate("/login");
-                  dispatch(logout());
-                }}
-              >
-                Logout
-              </Button>
-            </div>
           </ul>
         </div>
       </div>

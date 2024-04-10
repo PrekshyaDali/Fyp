@@ -8,13 +8,14 @@ const Details = () => {
   const { data } = useGetCourseQuery(id, { refetchOnMountOrArgChange: true });
   const { data: enrollmentData } = useGetEnrollmentQuery({});
 
-  // Check if enrollmentData.data is an array and if any enrollment's course matches id
+  // Check if enrollmentData is loaded and if enrollmentData.data is an array and if any enrollment's course matches id
   const isEnrolled =
-    (enrollmentData.data instanceof Array &&
-      enrollmentData?.data?.some((enrollment) => enrollment.course === id)) ||
-    false;
+    enrollmentData &&
+    Array.isArray(enrollmentData.data) &&
+    enrollmentData?.data?.some((enrollment) => enrollment.course === id);
 
-    console.log(isEnrolled)
+  console.log(isEnrolled);
+
   return (
     <DetailComponent
       isEnrolled={isEnrolled}
