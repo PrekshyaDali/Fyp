@@ -138,8 +138,9 @@ export default function ViewPayment() {
             <ViewStudentTable
               key={index}
               data1={index + 1}
-              data2={payment.paidAmount}
-              data3={payment.dueAmount}
+              data2={new Date(payment.date).toISOString().split("T")[0]}
+              data3={payment.paidAmount}
+              data4={payment.dueAmount}
             />
           ))}
         </div>

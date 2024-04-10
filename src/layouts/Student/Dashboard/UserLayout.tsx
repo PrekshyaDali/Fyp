@@ -9,7 +9,7 @@ import Button from "@/pages/component/Button";
 import ProfileLogo from "../../../pages/component/ProfileLogo";
 const UserLayout = () => {
   const dispatch = useAppDispatch();
-  const id = localStorage.getItem("id")
+  const id = localStorage.getItem("id");
   return (
     <div className="text-[#1E2749]">
       <div className="drawer drawer-mobile">
@@ -47,12 +47,12 @@ const UserLayout = () => {
         </div>
         <div className="drawer-side ">
           <label htmlFor="my-drawer-2" className="drawer-overlay "></label>
-          <ul className="menu p-2 sm:p-4 w-56 sm:w-72  text-sm bg-[#5584B0] ">
+          <ul className="menu p-2 sm:p-4 w-56 sm:w-72  text-sm bg-[#B4B4B8]">
             <div className="fixed z-10 ">
               <DriveSyncLogo></DriveSyncLogo>
             </div>
 
-            <li className=" mt-16 text-sm sm:text-sm text-[#FAFAFF] space-y-2 font-bold">
+            <li className=" mt-16 text-sm sm:text-sm text-black space-y-2 font-bold">
               <Link to="/user/StudentDashboard">
                 <img className="h-5" src="/img/home.png" alt="" />
                 Home
@@ -62,18 +62,10 @@ const UserLayout = () => {
                 Courses/Enrollment
               </Link>
               <Link to={`/user/mycourses/${id}`}>
-                <img className="h-5" src="/img/Enrollment.png" alt="" />
+                <img className="h-5" src="/img/mycourses.png" alt="" />
                 My Courses
               </Link>
 
-              <Link to="/user/finances">
-                <img className="h-5" src="/img/transaction.png" alt="" />
-                Finance/Transactions
-              </Link>
-              <Link to="/user/">
-                <img className="h-5" src="/img/Attendance.png" alt="" />
-                Attendance Tracking
-              </Link>
               <Link to="/user/Notifications">
                 <img className="h-5" src="/img/notification.png" alt="" />
                 Notifications
@@ -83,12 +75,6 @@ const UserLayout = () => {
                 Settings
               </Link>
             </li>
-
-            <div className="absolute bottom-0 w-full left-0 p-4">
-              <Button name="Logout" onClick={() => dispatch(logout())}>
-                Logout
-              </Button>
-            </div>
           </ul>
         </div>
       </div>

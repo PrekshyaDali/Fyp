@@ -1,4 +1,5 @@
 import { useGetPaymentDataQuery } from "@/feature/userApiSlice";
+import BackButton from "@/pages/component/BackButton";
 import React from "react";
 import { useParams } from "react-router-dom";
 
@@ -10,7 +11,10 @@ export default function ShowTransactions() {
 
   return (
     <div className="w-full h-full ">
-      <div className="m-3 p-3 pr-3">
+      <div className="m-3 p-3 ">
+        <div className="mb-3">
+          <BackButton></BackButton>
+        </div>
         <h1 className="text-2xl font-semibold mb-3">Transaction History</h1>
         {paymentData?.payments?.map((payment, index) => (
           <div key={index} className="h-20 rounded-md shadow-sm bg-white p-5 mb-3">

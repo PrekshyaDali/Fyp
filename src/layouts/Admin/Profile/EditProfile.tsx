@@ -89,6 +89,7 @@ export default function EditProfile() {
               <div className="h-32 w-32 sm:h-52 sm:w-52 flex flex-col justify-center items-center ">
                 <div className="h-32 w-32 sm:h-52 sm:w-52 rounded-full border-gray-400 border-2">
                   <img
+                    
                     className="object-cover rounded-full h-32 w-32 sm:h-52 sm:w-52"
                     src={typeof img === "string" ? img : URL.createObjectURL(img)}
                     alt=""
