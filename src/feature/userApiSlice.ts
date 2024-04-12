@@ -256,6 +256,14 @@ export const userApiSlice = apiSlice.injectEndpoints({
     //     method: "GET",
     //   }),
     // }),
+    esewaPayment: builder.mutation({
+      query: (formData) => ({
+        url: "/esewa",
+        method: "POST",
+        body: formData,
+      }),
+    }),
+
   }),
 });
 
@@ -277,6 +285,7 @@ export const {
   useUpdateEnrollmentMutation,
   usePaymentTrackingMutation,
   useAttendanceMutation,
+  useEsewaPaymentMutation,
 
 
   useGetPaymentDataQuery,
