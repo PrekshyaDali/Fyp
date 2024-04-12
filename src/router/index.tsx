@@ -49,6 +49,8 @@ import ViewPayment from "@/layouts/Admin/CRUD/ViewPayment";
 import ShowTransactions from "@/layouts/Student/Attendance/ShowTransactions";
 import ShowAttendance from "@/layouts/Student/Attendance/ShowAttendance";
 import Esewa from "@/layouts/Student/StudentCourses/Esewa";
+import PaymentSuccess from "@/layouts/Student/StudentCourses/PaymentSuccess";
+import PaymentFailed from "@/layouts/Student/StudentCourses/PaymentFailed";
 
 // lazy import components
 // const PostList = lazy(() => import("@/pages/posts/list"));
@@ -108,6 +110,11 @@ const AppRouter = () => {
                 path="/user/attendances/:id/:enrollmentId"
                 element={<ShowAttendance />}
               />
+              <Route
+                path="/user/esewa_payment_success"
+                element={<PaymentSuccess />}
+              />
+              <Route path="/user/esewa_payment_failed" element={<PaymentFailed />} />
               <Route path="/user/BikeDetails" element={<Details></Details>} />
               <Route path="/user/Notifications" element={<Notifications />}></Route>
             </Route>

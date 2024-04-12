@@ -10,71 +10,64 @@ export default function Esewa() {
     handleSubmit,
     formState: { errors },
   } = useForm();
-  const courseData = JSON.parse(localStorage.getItem("course"));
-  const userData = localStorage.getItem("id");
-  console.log(courseData, userData);
-const SubmitHandler = async (data) => {
-  try {
-    console.log("Data:", data);
-    console.log("Course Data:", courseData);
-    console.log("User Data:", userData);
+  const course = JSON.parse(localStorage.getItem("course"));
+  const user = localStorage.getItem("id");
+ 
+  const SubmitHandler = async (data) => {
+    try {
+      console.log("Data:", data);
+      console.log("Course Data:", course);
+      console.log("User Data:", user);
+      const payload = {
+        amount: data.amount,
+        course,
+        user,
+      };
 
-    const formData = new FormData();
-    formData.append("amount", data.amount);
-    formData.append("course", JSON.stringify(courseData));
-    formData.append("user", JSON.stringify(userData));
-
-    console.log("FormData:", formData);
-
-    const res = await esewa(formData).unwrap();
-    console.log("Response:", res);
-    toast.success("Payment Successful");
-    const {amount} = data;
-    const pid = res.course;
-    callEsewaApi(amount, pid);
-
-  } catch (error) {
-    console.log("Error:", error);
-    toast.error("Payment Failed");
-  }
-};
-
-const callEsewaApi = async (amount, pid) => {
-  const formData = {
-    amt: amount,
-    psc: 0,
-    pdc: 0,
-    txAmt: 0,
-    tAmt: amount,
-    pid: pid,
-    scd: "EPAYTEST",
-    su: "http://localhost:5173/users/esewa_payment_success",
-    fu: "http://localhost:5173/users/esewa_payment_failed",
-  };
-  const form = document.createElement("form");
-  form.setAttribute("method", "POST");
-  form.setAttribute("action", "https://uat.esewa.com.np/epay/main");
-
-  for (const key in formData) {
-    if (Object.hasOwnProperty.call(formData, key)) {
-      const hiddenField = document.createElement("input");
-      hiddenField.setAttribute("type", "hidden");
-      hiddenField.setAttribute("name", key);
-      hiddenField.setAttribute("value", formData[key]);
-      form.appendChild(hiddenField);
+      const res = await esewa(payload).unwrap();
+      console.log("Response:", res);
+      toast.success("Payment Successful");
+      const { amount } = data;
+      const pid = res.course;
+      callEsewaApi(amount, pid);
+    } catch (error) {
+      console.log("Error:", error);
+      toast.error("Payment Failed");
     }
-  }
-  document.body.appendChild(form);
-  form.submit();
-};
+  };
+
+  const callEsewaApi = async (amount, pid) => {
+    const formData = {
+      amt: amount,
+      psc: 0,
+      pdc: 0,
+      txAmt: 0,
+      tAmt: amount,
+      pid: pid,
+      scd: "EPAYTEST",
+      su: "http://localhost:3000/user/esewa_payment_success",
+      fu: "http://localhost:3000/user/esewa_payment_failed",
+    };
+    const form = document.createElement("form");
+    form.setAttribute("method", "POST");
+    form.setAttribute("action", "https://uat.esewa.com.np/epay/main");
+
+    for (const key in formData) {
+      if (Object.hasOwnProperty.call(formData, key)) {
+        const hiddenField = document.createElement("input");
+        hiddenField.setAttribute("type", "hidden");
+        hiddenField.setAttribute("name", key);
+        hiddenField.setAttribute("value", formData[key]);
+        form.appendChild(hiddenField);
+      }
+    }
+    document.body.appendChild(form);
+    form.submit();
+  };
 
   return (
     <div className="h-full w-full flex items-center justify-center p-5">
-      <form
-        action=""
-        onSubmit={handleSubmit(SubmitHandler)}
-        encType="multipart/form-data"
-      >
+      <form action="" onSubmit={handleSubmit(SubmitHandler)}>
         <div className="w-80 h-fit border-2 p-5 flex flex-col space-y-5">
           <div className="space-y-3">
             <h1 className="text-2xl font-bold ">Esewa</h1>
