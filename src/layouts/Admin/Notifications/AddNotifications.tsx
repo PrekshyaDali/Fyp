@@ -49,7 +49,7 @@ export default function AddNotifications() {
           )}
         </div>
         <div className="mt-5">
-          <Button name="Save notification" />
+          <Button  name="Save notification" />
         </div>
       </form>
     </div>
