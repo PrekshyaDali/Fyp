@@ -1,7 +1,7 @@
 import React from "react";
 import { useEffect, useState } from "react";
 
-import Coursesbox from "@/layouts/Student/StudentCourses/Coursesbox";
+import Coursesbox from "./Coursesbox";
 import { Link, useParams } from "react-router-dom";
 import {
   useGetCoursesQuery,

@@ -47,12 +47,12 @@ const UserLayout = () => {
         </div>
         <div className="drawer-side ">
           <label htmlFor="my-drawer-2" className="drawer-overlay "></label>
-          <ul className="menu p-2 sm:p-4 w-56 sm:w-72  text-sm bg-[#B4B4B8]">
+          <ul className="menu p-2 sm:p-4 w-56 sm:w-72  text-sm bg-[#5584B0]">
             <div className="fixed z-10 ">
               <DriveSyncLogo></DriveSyncLogo>
             </div>
 
-            <li className=" mt-16 text-sm sm:text-sm text-black space-y-2 font-bold">
+            <li className=" mt-16 text-sm sm:text-sm text-white space-y-2 font-bold">
               <Link to="/user/StudentDashboard">
                 <img className="h-5" src="/img/home.png" alt="" />
                 Home

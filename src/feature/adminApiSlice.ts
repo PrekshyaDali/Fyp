@@ -15,7 +15,15 @@ export const adminApiSlice = apiSlice.injectEndpoints({
         method: "GET",
       }),
     }),
+
+    deleteCourse: builder.mutation({
+      // delete from admin table
+      query: (id) => ({
+        url: `/deleteCourse/${id}`,
+        method: "DELETE",
+      }),
+    }),
   }),
 });
 
-export const { useAddNotificationMutation, useGetNotificationsQuery } = adminApiSlice;
+export const { useAddNotificationMutation, useGetNotificationsQuery, useDeleteCourseMutation } = adminApiSlice;
