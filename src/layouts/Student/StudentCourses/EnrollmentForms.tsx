@@ -12,11 +12,13 @@ import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
 
 export default function EnrollmentForms() {
+  const navigate = useNavigate();
+
   const { data: profileData } = useGetProfileQuery({});
   const { id } = useParams<{ id: string }>();
   const { data: courseData } = useGetCourseQuery(id, { refetchOnMountOrArgChange: true });
   const { data: enrollment } = useGetEnrollmentQuery({});
- 
+  console.log(courseData, "courseData");
 
   const { data } = useGetProfileQuery({});
   const {
@@ -32,11 +34,15 @@ export default function EnrollmentForms() {
   const [selectedPayment, setSelectedPayment] = useState("");
   const [searchParams, setSearchParams] = useSearchParams();
 
+  const esewaClickHandler = () => {
+    setSelectedPayment("esewa");
+    navigate("/user/esewa");
+  };
   const step = parseInt(`${searchParams.get("step")}`) || 1;
-  const navigate = useNavigate();
 
   useEffect(() => {
     const storedFormData = localStorage.getItem("formData");
+
     if (storedFormData) {
       console.log(storedFormData);
       const parsedFormData = JSON.parse(storedFormData);
@@ -53,13 +59,16 @@ export default function EnrollmentForms() {
       setValue("gender", data?.user?.gender);
     }
   }, [setValue, data]);
-  console.log(data, "data")
+  console.log(data, "data");
   const formData = getValues();
 
   const onSubmitStep1 = (data) => {
     setSearchParams({ step: `2` });
     const formData = getValues();
     localStorage.setItem("formData", JSON.stringify(formData));
+    if (courseData) {
+      localStorage.setItem("course", JSON.stringify(courseData._id));
+    }
   };
 
   const onSubmitStep2 = async (data1) => {
@@ -345,7 +354,7 @@ export default function EnrollmentForms() {
                 className={`flex flex-col justify-center items-center w-44 relative ${
                   selectedPayment === "esewa" ? "active:border-green-400" : ""
                 }`}
-                onClick={() => setSelectedPayment("esewa")}
+                onClick={esewaClickHandler}
                 onFocus={() => setSelectedPayment("esewa")}
                 tabIndex={0}
               >
