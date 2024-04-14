@@ -25,7 +25,7 @@ export default function MyCourses() {
                         src="/img/Car.jpg"
                         alt=""
                       />
-                    ) : enrollment.category === "Bike" ? (
+                    ) : enrollment.category === "bike" ? (
                       <img
                         className="object-cover w-full h-full"
                         src="/img/Bike.jpg"

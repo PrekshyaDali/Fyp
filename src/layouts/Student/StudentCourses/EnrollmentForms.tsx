@@ -105,7 +105,11 @@ export default function EnrollmentForms() {
         }
         toast.success("You have enrolled successfully");
         localStorage.removeItem("formData");
-        navigate("/user/courses");
+        if (selectedPayment === "esewa") {
+          navigate("/user/esewa");
+        } else {
+          navigate("/user/courses");
+        }
       } catch (errors) {
         console.log(errors, "err");
         const { data } = errors as { data: { message: string } };

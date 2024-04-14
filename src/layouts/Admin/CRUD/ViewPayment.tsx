@@ -40,7 +40,6 @@ export default function ViewPayment() {
       formData.append("paymentType", data.paymentType);
       formData.append("paidAmount", data.paidAmount);
       formData.append("enrollmentId", enrollmentId);
-
       const res = await paymentTracking(formData).unwrap();
       console.log(res);
       // Update the due amount after successful payment tracking
