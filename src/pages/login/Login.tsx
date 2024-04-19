@@ -6,7 +6,7 @@ import { useLoginMutation } from "@/feature/userApiSlice";
 import { toast } from "react-toastify";
 import { Link, useNavigate } from "react-router-dom";
 import { useAppDispatch } from "@/app/store";
-import { setIsAuthenticated } from "@/app/authSlice";
+import { setAuth } from "@/app/authSlice";
 import { FaEye } from "react-icons/fa";
 import { FaEyeSlash } from "react-icons/fa";
 import Button from "../component/Button";
@@ -35,7 +35,8 @@ const Login = () => {
     try {
       const res = await loginUser(data2).unwrap();
       toast.success("LoggedIn Successfully");
-      dispatch(setIsAuthenticated(true));
+      console.log(res, "res")
+      dispatch(setAuth(res));
       localStorage.setItem("email", data.email);
       localStorage.setItem("role", res.role);
       localStorage.setItem("accessToken", res.accessToken);
@@ -60,6 +61,7 @@ const Login = () => {
     } catch (error) {
       console.log(error, "err");
       localStorage.setItem("email", data2.email);
+
       const { data } = error as { data: { error: string } };
       toast.error(data.error);
 

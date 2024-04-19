@@ -51,6 +51,8 @@ import ShowAttendance from "@/layouts/Student/Attendance/ShowAttendance";
 import Esewa from "@/layouts/Student/StudentCourses/Esewa";
 import PaymentSuccess from "@/layouts/Student/StudentCourses/PaymentSuccess";
 import PaymentFailed from "@/layouts/Student/StudentCourses/PaymentFailed";
+import PrivateRoutes from "./PrivateRoutes";
+import RoleProtection from "@/layouts/RoleProtection";
 
 // lazy import components
 // const PostList = lazy(() => import("@/pages/posts/list"));
@@ -61,69 +63,77 @@ const AppRouter = () => {
       <Routes>
         <Route>
           <Route element={<ProtectedRoute />} path="/">
-            <Route element={<AdminLayout />} path="/admin">
-              <Route path="/admin/CreateInstructor" element={<CreateInstuctor />}></Route>
-              <Route path="/admin/adminDashboard" element={<AdminDashboard />}></Route>
-              <Route path="/admin/studentDetails" element={<StudentTable />}></Route>
-              <Route path="/admin/studentDetails/:id" element={<StudentEdit />}></Route>
-              <Route path="/admin/studentView/:id" element={<ViewStudent />}></Route>
-              <Route
-                path="/admin/viewPayments/:id/:enrollmentId"
-                element={<ViewPayment />}
-              ></Route>
+            <Route element={<RoleProtection role="admin" />}>
+              <Route element={<AdminLayout />} path="/admin">
+                <Route
+                  path="/admin/CreateInstructor"
+                  element={<CreateInstuctor />}
+                ></Route>
+                <Route path="/admin/adminDashboard" element={<AdminDashboard />}></Route>
+                <Route path="/admin/studentDetails" element={<StudentTable />}></Route>
+                <Route path="/admin/studentDetails/:id" element={<StudentEdit />}></Route>
+                <Route path="/admin/studentView/:id" element={<ViewStudent />}></Route>
+                <Route
+                  path="/admin/viewPayments/:id/:enrollmentId"
+                  element={<ViewPayment />}
+                ></Route>
 
-              <Route
-                path="/admin/markAttendance/:id/:enrollmentId"
-                element={<AttendanceTracking />}
-              ></Route>
-              <Route
-                path="/admin/instructorDetails"
-                element={<InstructorTable />}
-              ></Route>
-              <Route path="/admin/Finances" element={<Finances></Finances>}></Route>
-              <Route path="/admin/Notifications" element={<AddNotifications />}></Route>
+                <Route
+                  path="/admin/markAttendance/:id/:enrollmentId"
+                  element={<AttendanceTracking />}
+                ></Route>
+                <Route
+                  path="/admin/instructorDetails"
+                  element={<InstructorTable />}
+                ></Route>
+                <Route path="/admin/Finances" element={<Finances></Finances>}></Route>
+                <Route path="/admin/Notifications" element={<AddNotifications />}></Route>
 
-              <Route path="/admin/AddCourse" element={<AddCourse />}></Route>
-              <Route path="/admin/viewCourse" element={<CoursesTable />}></Route>
-              <Route path="/admin/viewCourse/:id" element={<ViewCourses />}></Route>
-              <Route path="/admin/customizeCourse" element={<CustomizeCourse />}></Route>
-              <Route path="/admin/profile" element={<ProfileDetails />}></Route>
-              <Route path="/admin/profile/:id" element={<EditProfile />}></Route>
+                <Route path="/admin/AddCourse" element={<AddCourse />}></Route>
+                <Route path="/admin/viewCourse" element={<CoursesTable />}></Route>
+                <Route path="/admin/viewCourse/:id" element={<ViewCourses />}></Route>
+                <Route
+                  path="/admin/customizeCourse"
+                  element={<CustomizeCourse />}
+                ></Route>
+                <Route path="/admin/profile" element={<ProfileDetails />}></Route>
+                <Route path="/admin/profile/:id" element={<EditProfile />}></Route>
+              </Route>
+            </Route>
+            <Route element={<RoleProtection role="user" />}>
+              <Route path="/user" element={<UserLayout />}>
+                <Route path="/user/StudentDashboard" element={<StudentDashboard />} />
+                <Route path="/user/courses" element={<Courses />} />
+                <Route path="/user/courses/:id" element={<Details />} />
+                <Route path="/user/courses/customizeCourse" element={<CustomizeForm />} />
+                <Route path="/user/profile" element={<StudentProfileDetails />} />
+                <Route path="/user/profile/:id" element={<EditProfile />} />
+
+                <Route path="/user/enrollmentForms/:id" element={<EnrollmentForms />} />
+                <Route path="/user/esewa" element={<Esewa />} />
+                <Route path="/user/mycourses" element={<MyCourses />} />
+                <Route
+                  path="/user/transactions/:id/:enrollmentId"
+                  element={<ShowTransactions />}
+                />
+                <Route
+                  path="/user/attendances/:id/:enrollmentId"
+                  element={<ShowAttendance />}
+                />
+                <Route path="/user/esewa_payment_success" element={<PaymentSuccess />} />
+                <Route path="/user/esewa_payment_failed" element={<PaymentFailed />} />
+                <Route path="/user/BikeDetails" element={<Details></Details>} />
+                <Route path="/user/Notifications" element={<Notifications />}></Route>
+              </Route>
             </Route>
 
-            <Route path="/user" element={<UserLayout />}>
-              <Route path="/user/StudentDashboard" element={<StudentDashboard />} />
-              <Route path="/user/courses" element={<Courses />} />
-              <Route path="/user/courses/:id" element={<Details />} />
-              <Route path="/user/courses/customizeCourse" element={<CustomizeForm />} />
-              <Route path="/user/profile" element={<StudentProfileDetails />} />
-              <Route path="/user/profile/:id" element={<EditProfile />} />
-
-              <Route path="/user/enrollmentForms/:id" element={<EnrollmentForms />} />
-              <Route path="/user/esewa" element={<Esewa />} />
-              <Route path="/user/mycourses/:id" element={<MyCourses />} />
-              <Route
-                path="/user/transactions/:id/:enrollmentId"
-                element={<ShowTransactions />}
-              />
-              <Route
-                path="/user/attendances/:id/:enrollmentId"
-                element={<ShowAttendance />}
-              />
-              <Route
-                path="/user/esewa_payment_success"
-                element={<PaymentSuccess />}
-              />
-              <Route path="/user/esewa_payment_failed" element={<PaymentFailed />} />
-              <Route path="/user/BikeDetails" element={<Details></Details>} />
-              <Route path="/user/Notifications" element={<Notifications />}></Route>
-            </Route>
-
-            <Route path="/instructor" element={<InstructorLayout />}>
-              <Route
-                path="/instructor/InstructorDashboard"
-                element={<InstructorDashboard />}
-              />
+            <Route element={<RoleProtection role="instructor" />}>
+              <Route path="/instructor" element={<InstructorLayout />}>
+                <Route
+                  path="/instructor/InstructorDashboard"
+                  element={<InstructorDashboard />}
+                />
+              </Route>
             </Route>
           </Route>
 

@@ -1,10 +1,11 @@
+import React from "react";
+import { useState, useEffect } from "react";
 import {
   useGetPaymentDataQuery,
   useOneEnrollmentUserQuery,
   usePaymentTrackingMutation,
 } from "@/feature/userApiSlice";
 import ViewStudentTable from "@/pages/component/ViewStudentTable";
-import React, { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { useParams } from "react-router-dom";
 import { toast } from "react-toastify";
@@ -12,7 +13,6 @@ import { toast } from "react-toastify";
 export default function ViewPayment() {
   const { enrollmentId } = useParams<{ enrollmentId: string }>();
   const { data: enrollmentData } = useOneEnrollmentUserQuery(enrollmentId);
-  console.log(enrollmentData);
   const { data: paymentData } = useGetPaymentDataQuery(enrollmentId);
   console.log(paymentData, "paymentData");
   const [paymentTracking, isLoading] = usePaymentTrackingMutation();
@@ -22,14 +22,13 @@ export default function ViewPayment() {
     formState: { errors },
   } = useForm();
   const [dueAmount, setDueAmount] = useState<number>(1); // State to hold the due amount
-  useEffect(() => {
+
+  React.useEffect(() => {
     if (paymentData && paymentData.payments && paymentData.payments.length > 0) {
       // Find the latest payment object based on _id or any other criteria
       const latestPayment = paymentData.payments.reduce((latest, payment) =>
         latest._id > payment._id ? latest : payment,
       );
-
-      // Update the due amount state with the dueAmount from the latest payment
       setDueAmount(latestPayment.dueAmount);
     }
   }, [paymentData]);
@@ -112,11 +111,9 @@ export default function ViewPayment() {
             </label>
             <span className="text-red-500">{"Rs" + " " + dueAmount}</span>
           </div>
-
-          {/* Render fully paid message */}
           {renderFullyPaidMessage()}
 
-          {/* Button */}
+       
           <div>
             <button
               type="submit"
@@ -134,6 +131,7 @@ export default function ViewPayment() {
             SN="1"
             field1="Paid Amount"
             field2="Due Amount"
+         
           ></ViewStudentTable>
           {paymentData?.payments.map((payment, index) => (
             <ViewStudentTable

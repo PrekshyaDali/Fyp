@@ -61,7 +61,7 @@ const UserLayout = () => {
                 <img className="h-5" src="/img/Enrollment.png" alt="" />
                 Courses/Enrollment
               </Link>
-              <Link to={`/user/mycourses/${id}`}>
+              <Link to={`/user/mycourses`}>
                 <img className="h-5" src="/img/mycourses.png" alt="" />
                 My Courses
               </Link>
