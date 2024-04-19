@@ -12,7 +12,7 @@ import { toast } from "react-toastify";
 export default function ViewPayment() {
   const { enrollmentId } = useParams<{ enrollmentId: string }>();
   const { data: enrollmentData } = useOneEnrollmentUserQuery(enrollmentId);
-  console.log(enrollmentData)
+  console.log(enrollmentData);
   const { data: paymentData } = useGetPaymentDataQuery(enrollmentId);
   console.log(paymentData, "paymentData");
   const [paymentTracking, isLoading] = usePaymentTrackingMutation();
@@ -36,11 +36,13 @@ export default function ViewPayment() {
 
   const SubmitHandler = async (data) => {
     try {
-      const formData = new FormData();
-      formData.append("paymentType", data.paymentType);
-      formData.append("paidAmount", data.paidAmount);
-      formData.append("enrollmentId", enrollmentId);
-      const res = await paymentTracking(formData).unwrap();
+      const payload = {
+        paymentType: data.paymentType,
+        paidAmount: data.paidAmount,
+        enrollmentId: enrollmentId,
+      };
+
+      const res = await paymentTracking(payload).unwrap();
       console.log(res);
       // Update the due amount after successful payment tracking
       toast.success("Payment tracked successfully");

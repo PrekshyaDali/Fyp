@@ -43,12 +43,13 @@ export default function AttendanceTracking() {
 
   const SubmitHandler = async (data) => {
     try {
-      const formData = new FormData();
-      // formData.append("startDate", startDate);
-      formData.append("date", presentDate);
-      formData.append("enrollmentId", enrollmentId);
-      formData.append("userId", enrollmentData?.data?.user);
-      const res = await attendance(formData).unwrap();
+      const payload = {
+        date: presentDate,
+        enrollmentId: enrollmentId,
+        userId: enrollmentData?.data?.user,
+      };
+
+      const res = await attendance(payload).unwrap();
       console.log(res);
       if (res) {
         toast.success("Attendance marked successfully");
