@@ -27,43 +27,12 @@ export default function Esewa() {
       const res = await esewa(payload).unwrap();
       console.log("Response:", res);
       toast.success("Payment Successful");
-      const { amount } = data;
-      const pid = res.course;
-      callEsewaApi(amount, pid);
     } catch (error) {
       console.log("Error:", error);
       toast.error("Payment Failed");
     }
   };
 
-  const callEsewaApi = async (amount, pid) => {
-    const formData = {
-      amt: amount,
-      psc: 0,
-      pdc: 0,
-      txAmt: 0,
-      tAmt: amount,
-      pid: pid,
-      scd: "EPAYTEST",
-      su: "http://localhost:3000/user/esewa_payment_success",
-      fu: "http://localhost:3000/user/esewa_payment_failed",
-    };
-    const form = document.createElement("form");
-    form.setAttribute("method", "POST");
-    form.setAttribute("action", "https://uat.esewa.com.np/epay/main");
-
-    for (const key in formData) {
-      if (Object.hasOwnProperty.call(formData, key)) {
-        const hiddenField = document.createElement("input");
-        hiddenField.setAttribute("type", "hidden");
-        hiddenField.setAttribute("name", key);
-        hiddenField.setAttribute("value", formData[key]);
-        form.appendChild(hiddenField);
-      }
-    }
-    document.body.appendChild(form);
-    form.submit();
-  };
 
   return (
     <div className="h-full w-full flex items-center justify-center p-5">
