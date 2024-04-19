@@ -35,7 +35,7 @@ export default function EditProfile() {
       setValue("lastname", userData.lastname);
       setValue("email", userData.email);
       setValue("contactnumber", userData.contactnumber);
-      setValue("dob", userData.dob);
+      setValue("dob", new Date(userData.dob).toISOString().split("T")[0]);
       setValue("emergencycontactnumber", userData.emergencycontactnumber);
       setValue("gender", userData.gender);
       setValue("address", userData.address);
@@ -54,13 +54,14 @@ export default function EditProfile() {
       formData.append("lastname", data1.lastname);
       formData.append("email", data1.email);
       formData.append("contactnumber", data1.contactnumber.toString());
-      formData.append("dob", data1.dob.toString());
+      formData.append("dob", new Date(data1.dob).toISOString().split("T")[0]);
       formData.append("emergencycontactnumber", data1.emergencycontactnumber.toString());
       formData.append("gender", data1.gender);
       formData.append("address", data1.address);
       formData.append("image", img);
 
       const res = await editProfile({ formData, id }).unwrap();
+      console.log(data1.dob);
       console.log(res);
       toast.success("User details updated successfully!");
     } catch (error) {
@@ -89,7 +90,6 @@ export default function EditProfile() {
               <div className="h-32 w-32 sm:h-52 sm:w-52 flex flex-col justify-center items-center ">
                 <div className="h-32 w-32 sm:h-52 sm:w-52 rounded-full border-gray-400 border-2">
                   <img
-                    
                     className="object-cover rounded-full h-32 w-32 sm:h-52 sm:w-52"
                     src={typeof img === "string" ? img : URL.createObjectURL(img)}
                     alt=""
@@ -246,10 +246,7 @@ export default function EditProfile() {
                   type="date"
                   max={yesterdayFormatted}
                   {...register("dob", {
-                    pattern: {
-                      value: /^\d{2}\/\d{2}\/\d{4}$/,
-                      message: "Invalid date format (DD/MM/YYYY)",
-                    },
+                    pattern: /^\d{4}-\d{2}-\d{2}$/,
                   })}
                 />
                 {errors.dob && (

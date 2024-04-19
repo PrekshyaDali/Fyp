@@ -1,12 +1,95 @@
 import React from "react";
-import { useGetEnrollmentByIdQuery } from "@/feature/userApiSlice";
+import { useEnrollmentMutation, useGetEnrollmentByIdQuery } from "@/feature/userApiSlice";
 import Button from "@/pages/component/Button";
-import { Link, useParams } from "react-router-dom";
+import { Link } from "react-router-dom";
+import { useAppSelector } from "@/app/store";
+import { selectUser } from "@/app/authSlice";
+import axios from "axios";
+import { toast } from "react-toastify";
 
 export default function MyCourses() {
-  const { id } = useParams<{ id: string }>();
-
+  const id = useAppSelector(selectUser).id;
+  const [isPayementRedirect, setIsPaymentRedirect] = React.useState(false);
   const { data: enrollmentData } = useGetEnrollmentByIdQuery(id);
+  const [enroll] = useEnrollmentMutation();
+
+
+
+
+
+  
+
+
+  const handlelookUp = async() => {
+    try {
+      //get status from query url
+      const urlParams = window.location.href;
+      const pid = urlParams.split("=")[1].split("&")[0];
+        const headers = {
+          Authorization: "key 3def120726f04186b1c6f274700bd12f",
+          "Content-Type": "application/json",
+        };
+      const url = "https://a.khalti.com/api/v2/epayment/lookup/";
+      const data = {
+        pidx: pid,
+      };
+
+      const response = await axios.post(url, {
+        pidx : pid
+      }, { headers: headers });
+
+      if (response.data.status === "Expired") {
+        toast.error("Payment Expired");
+      }
+      if (response.data.status === "User canceled") {
+        toast.error("Payment Canceled");
+      }
+      if (response.data.status === "Completed") {
+        const payloadData = localStorage.getItem("formData")
+          ? JSON.parse(localStorage.getItem("formData"))
+          : null;
+        const startDate = localStorage.getItem("startDate");
+        const payload = {
+          firstname: payloadData.firstname,
+          lastname: payloadData.lastname,
+          contactnumber: payloadData.contactnumber,
+          email: payloadData.email,
+          category: payloadData?.type,
+          address: payloadData.address,
+          price: payloadData?.price,
+          duration: payloadData?.courseDuration,
+          gender: payloadData.gender,
+          emergencycontactnumber: payloadData.emergencycontactnumber,
+          payment: "Esewa",
+          startdate: startDate,
+          courseId: payloadData.courseId,
+          userId: id,
+        };
+        try {
+          const response = await enroll(payload).unwrap();
+          if (response) {
+            toast.success("Enrollment Successfull");
+          }
+        } catch (error) {
+          toast.error("Enrollment Failed");
+        }
+      }
+    } catch (error) {
+      toast.error("Payment Failed")
+    }
+  }
+
+  React.useEffect(() => {
+    const urlParams = window.location.href;
+    const pid = urlParams?.split("=")[1]?.split("&")[0];
+    if (pid) {
+      setIsPaymentRedirect(true);
+      handlelookUp();
+    }
+  }, []);
+
+  
+
 
   return (
     <>

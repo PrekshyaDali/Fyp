@@ -11,14 +11,21 @@ import AdminDashboard from "./AdminDashboard";
 import Finances from "./Finances";
 import Button from "@/pages/component/Button";
 import ProfileLogo from "../../../pages/component/ProfileLogo";
+
 const AdminLayout = () => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
-  const [ShowSubMenu, setShowSubMenu] = React.useState(false);
+  const [showInstructorSubMenu, setShowInstructorSubMenu] = React.useState(false);
+  const [showCoursesSubMenu, setShowCoursesSubMenu] = React.useState(false);
 
-  const toggleSubMenu = () => {
-    setShowSubMenu(!ShowSubMenu);
+  const toggleInstructorSubMenu = () => {
+    setShowInstructorSubMenu(!showInstructorSubMenu);
   };
+
+  const toggleCoursesSubMenu = () => {
+    setShowCoursesSubMenu(!showCoursesSubMenu);
+  };
+
   return (
     <div className="text-[#1E2749]">
       <div className="drawer drawer-mobile">
@@ -66,19 +73,32 @@ const AdminLayout = () => {
                 <img className="h-6" src="/img/dashboard.png" alt="" />
                 Dashboard
               </Link>
-              <Link to="/admin/createInstructor">
-                <img className="h-6" src="/img/Instructor.png" alt="" />
-                Create Instructor
-              </Link>
-              <Link to="/admin/studentDetails">
+              <div className="relative" onClick={toggleInstructorSubMenu}>
                 <img className="h-6" src="/img/student.png" alt="" />
-                Student Details
-              </Link>
-              <Link to="/admin/instructorDetails">
-                <img className="h-6" src="/img/student.png" alt="" />
-                Instructor Details
-              </Link>
-              <div className="relative" onClick={toggleSubMenu}>
+                Instructor
+                <img
+                  className="h-6 absolute top-3 right-3"
+                  src="/img/submenu.png"
+                  alt=""
+                />
+              </div>
+              {showInstructorSubMenu && (
+                <div className="flex flex-col">
+                  <li>
+                    <Link to="/admin/createInstructor">
+                      <img className="h-6" src="/img/Instructor.png" alt="" />
+                      Create Instructor
+                    </Link>
+                  </li>
+                  <li>
+                    <Link to="/admin/instructorDetails">
+                      <img className="h-6" src="/img/Instructor.png" alt="" />
+                      Instructor Details
+                    </Link>
+                  </li>
+                </div>
+              )}
+              <div className="relative" onClick={toggleCoursesSubMenu}>
                 <img className="h-6" src="/img/student.png" alt="" />
                 Courses
                 <img
@@ -87,7 +107,7 @@ const AdminLayout = () => {
                   alt=""
                 />
               </div>
-              {ShowSubMenu && (
+              {showCoursesSubMenu && (
                 <div className="flex flex-col">
                   <li>
                     <Link to="/admin/AddCourse">
@@ -109,13 +129,16 @@ const AdminLayout = () => {
                   </li>
                 </div>
               )}
-
+              <Link to="/admin/studentDetails">
+                <img className="h-6" src="/img/student.png" alt="" />
+                Student Details
+              </Link>
               <Link to="/admin/Finances">
                 <img className="h-6 " src="/img/Finance.png" alt="" />
                 Finances
               </Link>
               <Link to="/admin/Notifications">
-                <img className="h-6 " src="/img/Finance.png" alt="" />
+                <img className="h-6 " src="/img/notification.png" alt="" />
                 Notifications
               </Link>
             </li>

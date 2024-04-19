@@ -57,12 +57,22 @@ export default function EnrollmentForms() {
       setValue("address", data?.user?.address);
       setValue("emergencycontactnumber", data?.user?.emergencycontactnumber);
       setValue("gender", data?.user?.gender);
+         setValue("type", courseData?.type);
+         setValue("price", courseData?.price);
+         setValue("courseDuration", courseData?.courseDuration);
+         setValue("courseId", id);
+      
     }
-  }, [setValue, data]);
+  }, [setValue, data,courseData]);
   console.log(data, "data");
   const formData = getValues();
 
   const onSubmitStep1 = (data) => {
+     const localStartItem = localStorage.getItem("startDate");
+     if (localStartItem) {
+       localStorage.removeItem("startDate");
+     }
+     localStorage.setItem("startDate", data.startdate);
     setSearchParams({ step: `2` });
     const formData = getValues();
     localStorage.setItem("formData", JSON.stringify(formData));
@@ -77,6 +87,7 @@ export default function EnrollmentForms() {
       return;
     } else {
       try {
+       
         const data2 = {
           firstname: data1.firstname,
           lastname: data1.lastname,
