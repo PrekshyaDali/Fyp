@@ -381,9 +381,9 @@ export default function EnrollmentForms() {
                       ✔
                     </span>
                   )}
-                  <img src="/img/esewa.png" alt="" />
+                  <img src="/img/khalti.png" alt="" />
                 </div>
-                <p className="text-sm text-gray-500">Pay via esewa</p>
+                <p className="text-sm text-gray-500">Pay via Khalti</p>
               </div>
 
               <div
