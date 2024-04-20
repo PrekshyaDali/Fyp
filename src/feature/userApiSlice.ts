@@ -224,12 +224,14 @@ export const userApiSlice = apiSlice.injectEndpoints({
         method: "POST",
         body,
       }),
+      invalidatesTags: [{ type: "Attendance", id: "LIST" }],
     }),
     getAttendance: builder.query({
       query: (enrollmentId) => ({
         url: `/getAttendance/${enrollmentId}`,
         method: "GET",
       }),
+      providesTags: (result) => [{ type: "Attendance", id: "LIST" }],
     }),
 
     oneEnrollmentUser: builder.query({
@@ -237,6 +239,7 @@ export const userApiSlice = apiSlice.injectEndpoints({
         url: `/oneEnrollmentUser/${enrollmentId}`,
         method: "GET",
       }),
+      providesTags: (result) => [{ type: "Attendance", id: "LIST" }],
     }),
 
     updateEnrollment: builder.mutation({

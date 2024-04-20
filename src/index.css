@@ -10,7 +10,7 @@
 }
 .inputfields {
   @apply px-3 text-sm w-full  lg:w-full bg-[#FAFAFF] border-2 border-gray-200 h-10 rounded-lg
-      hover:shadow-xl 
+      hover:shadow-xl focus-visible:outline-none
   
     /* Set a maximum width for larger screens */;
 }

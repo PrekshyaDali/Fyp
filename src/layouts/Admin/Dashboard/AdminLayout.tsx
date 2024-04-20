@@ -8,7 +8,7 @@ import CreateInstructor from "@/layouts/Admin/CRUD/CreateInstructor";
 import DriveSyncLogo from "@/pages/component/DriveSyncLogo";
 import Adminprofile from "../../../pages/component/ProfileLogo";
 import AdminDashboard from "./AdminDashboard";
-import Finances from "./Finances";
+import Finances from "./RegularCustomers";
 import Button from "@/pages/component/Button";
 import ProfileLogo from "../../../pages/component/ProfileLogo";
 
@@ -135,7 +135,7 @@ const AdminLayout = () => {
               </Link>
               <Link to="/admin/Finances">
                 <img className="h-6 " src="/img/Finance.png" alt="" />
-                Finances
+                Regular Customers
               </Link>
               <Link to="/admin/Notifications">
                 <img className="h-6 " src="/img/notification.png" alt="" />
