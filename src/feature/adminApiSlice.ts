@@ -9,12 +9,6 @@ export const adminApiSlice = apiSlice.injectEndpoints({
         body,
       }),
     }),
-    getNotifications: builder.query({
-      query: () => ({
-        url: "/getNotification",
-        method: "GET",
-      }),
-    }),
 
     deleteCourse: builder.mutation({
       // delete from admin table
@@ -23,7 +17,37 @@ export const adminApiSlice = apiSlice.injectEndpoints({
         method: "DELETE",
       }),
     }),
+
+    addregularCustomer: builder.mutation({
+      query: (body) => ({
+        url: "/regularCustomerTracking",
+        method: "POST",
+        body,
+      }),
+    }),
+
+    getNotifications: builder.query({
+      query: () => ({
+        url: "/getNotification",
+        method: "GET",
+      }),
+    }),
+
+    getRegularCustomer: builder.query({
+      query: () => ({
+        url: "/getRegularCustomer",
+        method: "GET",
+      }),
+    }),
   }),
 });
 
-export const { useAddNotificationMutation, useGetNotificationsQuery, useDeleteCourseMutation } = adminApiSlice;
+export const {
+  useAddNotificationMutation,
+
+  useDeleteCourseMutation,
+  useAddregularCustomerMutation,
+
+  useGetNotificationsQuery,
+  useGetRegularCustomerQuery,
+} = adminApiSlice;

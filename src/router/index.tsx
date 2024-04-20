@@ -17,7 +17,7 @@ import CreateInstuctor from "@/layouts/Admin/CRUD/CreateInstructor";
 import AdminDashboard from "@/layouts/Admin/Dashboard/AdminDashboard";
 import StudentDetails from "@/pages/component/StudentDetails";
 import StudentTable from "@/layouts/Admin/CRUD/StudentTable";
-import Finances from "@/layouts/Admin/Dashboard/Finances";
+import Finances from "@/layouts/Admin/Dashboard/RegularCustomers";
 import Courses from "@/layouts/Student/StudentCourses/Courses";
 import StudentDashboard from "@/layouts/Student/Dashboard/StudentDashboard";
 import AddCourse from "@/layouts/Admin/Course/AddCourse";
@@ -53,6 +53,7 @@ import PaymentSuccess from "@/layouts/Student/StudentCourses/PaymentSuccess";
 import PaymentFailed from "@/layouts/Student/StudentCourses/PaymentFailed";
 import PrivateRoutes from "./PrivateRoutes";
 import RoleProtection from "@/layouts/RoleProtection";
+import RegularCustomers from "@/layouts/Admin/Dashboard/RegularCustomers";
 
 // lazy import components
 // const PostList = lazy(() => import("@/pages/posts/list"));
@@ -86,7 +87,7 @@ const AppRouter = () => {
                   path="/admin/instructorDetails"
                   element={<InstructorTable />}
                 ></Route>
-                <Route path="/admin/Finances" element={<Finances></Finances>}></Route>
+                <Route path="/admin/Finances" element={<RegularCustomers/>}></Route>
                 <Route path="/admin/Notifications" element={<AddNotifications />}></Route>
 
                 <Route path="/admin/AddCourse" element={<AddCourse />}></Route>
