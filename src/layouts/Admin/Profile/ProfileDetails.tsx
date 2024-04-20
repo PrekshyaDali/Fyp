@@ -6,11 +6,6 @@ import { Link } from "react-router-dom";
 
 export default function ProfileDetails() {
   const { data } = useGetProfileQuery({}, { refetchOnMountOrArgChange: true });
-  
-  //  const { id } = useParams<{ id: string }>();
-  //  const { data: userData, isLoading: isUserDataLoading } = useEditUsersQuery(id, {
-  //    refetchOnMountOrArgChange: true,
-  //  });
   console.log(data);
 console.log(data?.user._id)
   return (
@@ -19,14 +14,13 @@ console.log(data?.user._id)
       <div className="rounded-lg shadow-md bg-[#F6F7F2] relative">
         <div className="h-16 bg-[#5584B0] text-white flex items-center justify-center "></div>
         <div className="flex flex-col p-4">
-          {/* Profile Image Container no*/}
-
           <div className="h-24 w-24 border-2 border-white rounded-full overflow-hidden absolute top-10">
             <img
               className="w-full h-full object-cover"
               src={data?.user?.image}
               alt="Profile"
             />
+
           </div>
 
           {/* User Information */}
