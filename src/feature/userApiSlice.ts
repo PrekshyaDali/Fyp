@@ -104,6 +104,7 @@ export const userApiSlice = apiSlice.injectEndpoints({
         method: "POST",
         body,
       }),
+      invalidatesTags: [{ type: "Course", id: "LIST" }],
     }),
 
     getUsers: builder.query({
@@ -199,6 +200,7 @@ export const userApiSlice = apiSlice.injectEndpoints({
         url: `/getEnrollmentId/${id}`,
         method: "GET",
       }),
+      providesTags: (result) => [{ type: "Course", id: "LIST" }],
     }),
     paymentTracking: builder.mutation({
       query: (body) => ({
@@ -206,14 +208,16 @@ export const userApiSlice = apiSlice.injectEndpoints({
         method: "POST",
         body,
       }),
+      invalidatesTags: [{ type: "Payment", id: "LIST" }],
     }),
     getPaymentData: builder.query({
       query: (enrollmentId) => ({
         url: `/getPaymentData/${enrollmentId}`,
         method: "GET",
       }),
+      providesTags: (result) => [{ type: "Payment", id: "LIST" }],
     }),
-    
+
     attendance: builder.mutation({
       query: (body) => ({
         url: "/attendance",
@@ -263,7 +267,6 @@ export const userApiSlice = apiSlice.injectEndpoints({
         body: formData,
       }),
     }),
-
   }),
 });
 

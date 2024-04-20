@@ -31,19 +31,22 @@ export default function EditProfile() {
 
   React.useEffect(() => {
     if (userData) {
-      setValue("firstname", userData.firstname);
-      setValue("lastname", userData.lastname);
-      setValue("email", userData.email);
-      setValue("contactnumber", userData.contactnumber);
-      setValue("dob", new Date(userData.dob).toISOString().split("T")[0]);
-      setValue("emergencycontactnumber", userData.emergencycontactnumber);
-      setValue("gender", userData.gender);
-      setValue("address", userData.address);
-
-      // setValue("image", userData.image);
-      setImg(userData?.image);
+      setValue("firstname", userData?.firstname);
+      setValue("lastname", userData?.lastname);
+      setValue("email", userData?.email);
+      setValue("contactnumber", userData?.contactnumber);
+      if (userData?.dob) {
+        setValue("dob", new Date(userData.dob).toISOString().split("T")[0]);
+      }
+      setValue("emergencycontactnumber", userData?.emergencycontactnumber);
+      setValue("gender", userData?.gender);
+      setValue("address", userData?.address);
+      setImg(userData?.image ? new Blob([userData?.image]) : null);
+    
     }
   }, [userData, setValue]);
+  console.log(userData?.image)
+
 
   const SubmitHandler = async (data1: IEditProfile) => {
     try {
@@ -54,12 +57,13 @@ export default function EditProfile() {
       formData.append("lastname", data1.lastname);
       formData.append("email", data1.email);
       formData.append("contactnumber", data1.contactnumber.toString());
-      formData.append("dob", new Date(data1.dob).toISOString().split("T")[0]);
+      formData.append("dob", data1.dob.toString());
       formData.append("emergencycontactnumber", data1.emergencycontactnumber.toString());
       formData.append("gender", data1.gender);
       formData.append("address", data1.address);
-      formData.append("image", img);
-
+       if (img) {
+         formData.append("image", img);
+       }
       const res = await editProfile({ formData, id }).unwrap();
       console.log(data1.dob);
       console.log(res);
@@ -91,9 +95,10 @@ export default function EditProfile() {
                 <div className="h-32 w-32 sm:h-52 sm:w-52 rounded-full border-gray-400 border-2">
                   <img
                     className="object-cover rounded-full h-32 w-32 sm:h-52 sm:w-52"
-                    src={typeof img === "string" ? img : URL.createObjectURL(img)}
+                    src={img instanceof Blob ? URL.createObjectURL(img) : img}
                     alt=""
                   />
+                  {console.log(img)}
                 </div>
 
                 <h1 className="text-lg font-semibold  ">
@@ -190,7 +195,6 @@ export default function EditProfile() {
               <div className="flex flex-col w-full">
                 <label htmlFor="ContactNumber">Contact Number</label>
                 <input
-                  // defaultValue={userData?.contactnumber}
                   className="inputfields"
                   id="contactnumber"
                   type="text"
@@ -244,14 +248,11 @@ export default function EditProfile() {
                   className="inputfields"
                   id="dob"
                   type="date"
-                  max={yesterdayFormatted}
+                  max={yesterdayFormatted} // Make sure yesterdayFormatted is in the correct format
                   {...register("dob", {
                     pattern: /^\d{4}-\d{2}-\d{2}$/,
                   })}
                 />
-                {errors.dob && (
-                  <p className="text-red-500">{String(errors.dob.message)}</p>
-                )}
                 <style>
                   {`
                     input[type="date"]::-webkit-calendar-picker-indicator {

@@ -13,11 +13,14 @@ import { toast } from "react-toastify";
 
 export default function EnrollmentForms() {
   const navigate = useNavigate();
-
   const { data: profileData } = useGetProfileQuery({});
   const { id } = useParams<{ id: string }>();
   const { data: courseData } = useGetCourseQuery(id, { refetchOnMountOrArgChange: true });
   const { data: enrollment } = useGetEnrollmentQuery({});
+  const [enrollmentData] = useEnrollmentMutation();
+  const [updateEnrollment] = useUpdateEnrollmentMutation();
+  const [selectedPayment, setSelectedPayment] = useState("");
+  const [searchParams, setSearchParams] = useSearchParams();
   console.log(courseData, "courseData");
 
   const { data } = useGetProfileQuery({});
@@ -29,10 +32,6 @@ export default function EnrollmentForms() {
     setValue,
     getValues,
   } = useForm();
-  const [enrollmentData] = useEnrollmentMutation();
-  const [updateEnrollment] = useUpdateEnrollmentMutation();
-  const [selectedPayment, setSelectedPayment] = useState("");
-  const [searchParams, setSearchParams] = useSearchParams();
 
   const esewaClickHandler = () => {
     setSelectedPayment("esewa");
@@ -42,7 +41,6 @@ export default function EnrollmentForms() {
 
   useEffect(() => {
     const storedFormData = localStorage.getItem("formData");
-
     if (storedFormData) {
       console.log(storedFormData);
       const parsedFormData = JSON.parse(storedFormData);
@@ -57,25 +55,25 @@ export default function EnrollmentForms() {
       setValue("address", data?.user?.address);
       setValue("emergencycontactnumber", data?.user?.emergencycontactnumber);
       setValue("gender", data?.user?.gender);
-         setValue("type", courseData?.type);
-         setValue("price", courseData?.price);
-         setValue("courseDuration", courseData?.courseDuration);
-         setValue("courseId", id);
-      
+      setValue("type", courseData?.type);
+      setValue("price", courseData?.price);
+      setValue("courseDuration", courseData?.courseDuration);
+      setValue("courseId", id);
     }
-  }, [setValue, data,courseData]);
+  }, [setValue, data, courseData]);
   console.log(data, "data");
   const formData = getValues();
 
   const onSubmitStep1 = (data) => {
-     const localStartItem = localStorage.getItem("startDate");
-     if (localStartItem) {
-       localStorage.removeItem("startDate");
-     }
-     localStorage.setItem("startDate", data.startdate);
+    const localStartItem = localStorage.getItem("startDate");
+    if (localStartItem) {
+      localStorage.removeItem("startDate");
+    }
+    localStorage.setItem("startDate", data.startdate);
     setSearchParams({ step: `2` });
     const formData = getValues();
     localStorage.setItem("formData", JSON.stringify(formData));
+    console.log(formData);
     if (courseData) {
       localStorage.setItem("course", JSON.stringify(courseData._id));
     }
@@ -87,7 +85,6 @@ export default function EnrollmentForms() {
       return;
     } else {
       try {
-       
         const data2 = {
           firstname: data1.firstname,
           lastname: data1.lastname,

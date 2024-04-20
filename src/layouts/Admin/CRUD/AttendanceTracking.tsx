@@ -52,7 +52,7 @@ export default function AttendanceTracking() {
       const res = await attendance(payload).unwrap();
       console.log(res);
       if (res) {
-        toast.success("Attendance marked successfully");
+        toast.success("Attendance ");
       }
     } catch (error) {
       toast.error("Error marking attendance");
@@ -63,6 +63,40 @@ export default function AttendanceTracking() {
   const handleDateChange = (e) => {
     setPresentDate(e.target.value);
   };
+
+  const column = [{
+    key: "sn",
+    value: "S.N"
+  },
+  {
+    key: "date",
+    value: "Date"
+  },
+  {
+    key: "status",
+    value: "Status",
+    cell: (row) => {
+      return (
+        <span className="text-green-800 text-sm
+        bg-green-200 p-2 rounded-xl
+        
+          
+        ">{row.status}</span>
+      )
+    }
+  }
+
+
+]
+
+const data = attendanceData?.attendance?.map((item, index) => {
+  return {
+    sn: index + 1,
+    date: new Date(item.date).toDateString(),
+    status: "Present"
+  }
+})
+
 
   return (
     <div className="p-3 flex flex-col space-y-5">
@@ -142,18 +176,9 @@ export default function AttendanceTracking() {
           {/* Attendance record */}
           <div className="bg-white p-5 flex-1 h-96 overflow-auto">
             <ViewStudentTable
-              SN="SN" // Use index + 1 as the serial number
-              field1="Date" // Assuming this is the date field
-              field2="Status" // Assuming this is the status field
-            ></ViewStudentTable>
-            {attendanceData?.attendance.map((item, index) => (
-              <ViewStudentTable
-                key={index} // Provide a unique key for each item in the list
-                data1={index + 1} // Use the date from the attendance data item
-                data2={new Date(item.date).toISOString().split("T")[0]} // Use the status from the attendance data item
-                data3="Present" // If you have another field for status, replace this with the appropriate data field
-              />
-            ))}
+              column={column}
+              data={data}
+            />
           </div>
         </div>
       </form>

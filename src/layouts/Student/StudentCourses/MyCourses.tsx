@@ -14,14 +14,9 @@ export default function MyCourses() {
   const [enroll] = useEnrollmentMutation();
 
 
-
-
-
-  
-
-
   const handlelookUp = async() => {
     try {
+
       //get status from query url
       const urlParams = window.location.href;
       const pid = urlParams.split("=")[1].split("&")[0];
@@ -48,7 +43,11 @@ export default function MyCourses() {
         const payloadData = localStorage.getItem("formData")
           ? JSON.parse(localStorage.getItem("formData"))
           : null;
+
+          if (payloadData === null) return;
         const startDate = localStorage.getItem("startDate");
+         localStorage.removeItem("formData");
+         localStorage.removeItem("startDate");
         const payload = {
           firstname: payloadData.firstname,
           lastname: payloadData.lastname,
@@ -69,6 +68,8 @@ export default function MyCourses() {
           const response = await enroll(payload).unwrap();
           if (response) {
             toast.success("Enrollment Successfull");
+           
+            
           }
         } catch (error) {
           toast.error("Enrollment Failed");
@@ -82,9 +83,15 @@ export default function MyCourses() {
   React.useEffect(() => {
     const urlParams = window.location.href;
     const pid = urlParams?.split("=")[1]?.split("&")[0];
+    const formData = localStorage.getItem("formData") ? JSON.parse(localStorage.getItem("formData")) : null;
+    
     if (pid) {
       setIsPaymentRedirect(true);
-      handlelookUp();
+      if(formData !== null){
+        handlelookUp();
+      }
+    
+      
     }
   }, []);
 

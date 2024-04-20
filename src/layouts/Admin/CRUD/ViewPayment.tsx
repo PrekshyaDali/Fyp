@@ -59,6 +59,36 @@ export default function ViewPayment() {
     return null;
   };
 
+  const columns = [
+    {
+      key: "sn",
+      value: "SN",
+    },
+    {
+      key: "date",
+      value: "Date",
+    },
+    {
+      key: "paidAmount",
+      value: "Paid Amount",
+    },
+    {
+      key: "dueAmount",
+      value: "Due Amount",
+    },
+  ]
+
+  const data = paymentData?.payments.map((payment, index) => {
+    return {
+      sn: index + 1,
+      date: new Date(payment.date).toDateString(),
+      paidAmount: payment.paidAmount,
+      dueAmount: payment.dueAmount,
+    };
+  });
+
+
+
   return (
     <form onSubmit={handleSubmit(SubmitHandler)} encType="multipart/form-data">
       <div className="flex flex-col md:flex-row bg-white p-5">
@@ -113,7 +143,6 @@ export default function ViewPayment() {
           </div>
           {renderFullyPaidMessage()}
 
-       
           <div>
             <button
               type="submit"
@@ -128,20 +157,10 @@ export default function ViewPayment() {
         {/* Right div */}
         <div>
           <ViewStudentTable
-            SN="1"
-            field1="Paid Amount"
-            field2="Due Amount"
-         
-          ></ViewStudentTable>
-          {paymentData?.payments.map((payment, index) => (
-            <ViewStudentTable
-              key={index}
-              data1={index + 1}
-              data2={new Date(payment.date).toISOString().split("T")[0]}
-              data3={payment.paidAmount}
-              data4={payment.dueAmount}
-            />
-          ))}
+            column={columns}
+           
+            data={data}
+                      />
         </div>
       </div>
     </form>

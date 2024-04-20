@@ -2,10 +2,15 @@ import { useEsewaPaymentMutation } from "@/feature/userApiSlice";
 import axios from "axios";
 import React from "react";
 import { useForm } from "react-hook-form";
+import { useSearchParams } from "react-router-dom";
 import { toast } from "react-toastify";
 
 export default function Esewa() {
   const [esewa] = useEsewaPaymentMutation();
+  const[searchParams] = useSearchParams();
+  const step = searchParams.get("step");
+  console.log(step)
+  
   const {
     register,
     handleSubmit,
