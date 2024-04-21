@@ -1,4 +1,5 @@
 import { useEsewaPaymentMutation } from "@/feature/userApiSlice";
+import BackButton from "@/pages/component/BackButton";
 import axios from "axios";
 import React from "react";
 import { useForm } from "react-hook-form";
@@ -102,7 +103,7 @@ export default function Esewa() {
               can also pay the full amount
             </p>
             <p className="text-sm">
-              Package Price: <span className="text-green-400">Rs 30000</span>
+              Package Price: <span className="text-purple-400">Rs 30000</span>
             </p>
           </div>
 
@@ -118,13 +119,11 @@ export default function Esewa() {
           <div className="flex flex-col space-y-3">
             <button
               type="submit"
-              className="w-full bg-green-400 h-10 text-white hover:bg-green-500 active:bg-green-400"
+              className="w-full bg-purple-400 h-10 text-white hover:bg-purple-500 active:bg-purple-400"
             >
               Proceed
             </button>
-            <button className="w-full bg-gray-400 h-10 text-white hover:bg-gray-500 active:bg-gray-400">
-              Previous
-            </button>
+            <BackButton></BackButton>
           </div>
         </div>
       </form>

@@ -19,8 +19,7 @@ const Courses = () => {
 
   const { data } = useGetCoursesQuery({}, { refetchOnMountOrArgChange: true });
 
-  // const [daysDiff, setDaysDiff] = useState(false);
-  // const { data: imgData } = useGetImageQuery({}, { refetchOnMountOrArgChange: true });
+
   useEffect(() => {
     // Initialize an array to hold enrollment start dates
     const enrollmentStartDates = [];
@@ -34,7 +33,7 @@ const Courses = () => {
     // Get the current date
     const currentDate = new Date();
 
-    // Map enrollment start dates to their corresponding courses
+
     const enrollmentStatus = data?.map((course) => {
       return {
         ...course,
@@ -75,7 +74,7 @@ const Courses = () => {
             Customize Course
           </button>
         </Link>
-        {/* <img className="absolute h-4 top-4 right-3 " src="/img/plus.png" alt="" /> */}
+     
       </div>
     </>
   );

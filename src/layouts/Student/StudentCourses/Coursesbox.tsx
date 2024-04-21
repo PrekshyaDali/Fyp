@@ -18,7 +18,7 @@ const Coursesbox = (props) => {
       <div className="flex flex-col gap-2 sm:p-4">
         <div className="flex space-x-5">
           <h2 className="text-xl font-semibold text-[#273469]">{props.title}</h2>
-          <span className="py-1 px-6 rounded-md text-red-900 bg-pink-200  opacity-60 font-semibold  shadow-md shadow-gray=500">
+          <span className="py-1 px-6 rounded-full text-blue-900 bg-blue-400   bg-opacity-50   shadow-md shadow-gray=500">
             {props.courseDuration}
           </span>
         </div>
@@ -40,7 +40,7 @@ const Coursesbox = (props) => {
             </button>
           </Link>
         ) : (
-          <button className="bg-[#700c0c] text-white rounded-lg p-2">
+          <button className="bg-pink-200  text-pink-900  rounded-full p-2 px-4">
             Already enrolled
           </button>
         )}
