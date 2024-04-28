@@ -131,12 +131,13 @@ export default function AddCourse() {
           <input
             {...register("price", {
               required: "This field is required",
+              pattern: { value: /^[1-9]\d*$/ , message: "Enter a valid number"},
             })}
             type="number"
             id="Price Details"
             className="inputfields"
           />
-          {errors.price && <span className="text-red-500">"This field is required</span>}
+          {errors.price && <span className="text-red-500">{String(errors.price.message)}</span>}
         </div>
 
         <div className="flex space-x-4">

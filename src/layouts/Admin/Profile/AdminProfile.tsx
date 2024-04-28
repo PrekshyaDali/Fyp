@@ -8,7 +8,7 @@ export default function AdminProfile(props) {
   return (
     <div className="absolute top-0 w-64 mt-16 border-2 bg-white shadow-md z-50">
       <ul>
-        <Link to="/user/profile">
+        <Link to="/admin/profile">
           <li className="text-md font-semibold p-2 h-12 border-b-2 hover:bg-gray-100 cursor-pointer transition-all duration-300 ">
             {" "}
             Profile

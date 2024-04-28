@@ -41,7 +41,7 @@ export default function EditProfile() {
       setValue("emergencycontactnumber", userData?.emergencycontactnumber);
       setValue("gender", userData?.gender);
       setValue("address", userData?.address);
-      setImg(userData?.image ? new Blob([userData?.image]) : null);
+      setImg(userData?.image ? userData?.image : null);
     
     }
   }, [userData, setValue]);
@@ -75,6 +75,7 @@ export default function EditProfile() {
   };
   console.log(img, "img");
 
+
   return (
     <>
       {id && (
@@ -95,10 +96,9 @@ export default function EditProfile() {
                 <div className="h-32 w-32 sm:h-52 sm:w-52 rounded-full border-gray-400 border-2">
                   <img
                     className="object-cover rounded-full h-32 w-32 sm:h-52 sm:w-52"
-                    src={img instanceof Blob ? URL.createObjectURL(img) : img}
+                    src={ typeof img === "string" ? img : URL.createObjectURL(img)}
                     alt=""
                   />
-                  {console.log(img)}
                 </div>
 
                 <h1 className="text-lg font-semibold  ">
