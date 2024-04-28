@@ -24,6 +24,7 @@ export const adminApiSlice = apiSlice.injectEndpoints({
         method: "POST",
         body,
       }),
+      invalidatesTags: [{ type: "regularCustomer", id: "LIST" }],
     }),
 
     getNotifications: builder.query({
@@ -38,6 +39,7 @@ export const adminApiSlice = apiSlice.injectEndpoints({
         url: "/getRegularCustomer",
         method: "GET",
       }),
+      providesTags: (result) => [{ type: "regularCustomer", id: "LIST" }],
     }),
   }),
 });

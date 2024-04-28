@@ -56,7 +56,7 @@ const Register = () => {
 
   return (
     <div className="flex justify-center items-center bg-[#FAFAFF] p-5">
-      <form className = "max-w-lg" onSubmit={handleSubmit(SubmitHandler)}>
+      <form className="max-w-lg" onSubmit={handleSubmit(SubmitHandler)}>
         <div className="  flex flex-col py-8 px-10 md:px-11 gap-3 shadow-md  ">
           <DriveSyncLogo></DriveSyncLogo>
           <h1 className="text-3xl font-bold text-[#0F1035] mb-5">Signup</h1>
@@ -65,23 +65,32 @@ const Register = () => {
             className="inputfields"
             type="text"
             {...register("firstName", {
-              required: true,
+              required: { value: true, message: "Last Name is required" },
+              pattern: {
+                value: /^[a-zA-Z]+$/, // No whitespace or numbers
+                message: "Only alphabets, no spaces or numbers",
+              },
+
               validate: (value) => value !== "admin" || "Nice try!",
             })}
           />
-          {errors.firstName?.type === "required" && (
-            <span className="text-red-500">This field is required</span>
+          {errors.firstName && (
+            <span className="text-red-500">{errors.firstName.message}</span>
           )}
           <input
             placeholder="LastName*"
             className="inputfields"
             type="text"
             {...register("lastName", {
-              required: true,
+              pattern: {
+                value: /^[a-zA-Z]+$/, // No whitespace or numbers
+                message: "Only alphabets, no spaces or numbers",
+              },
+              required: { value: true, message: "Last Name is required" },
             })}
           />
-          {errors.lastName?.type === "required" && (
-            <span className="text-red-500">This field is required</span>
+          {errors.lastName && (
+            <span className="text-red-500">{errors.lastName.message}</span>
           )}
           <input
             placeholder="Email"
