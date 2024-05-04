@@ -39,5 +39,5 @@ export const apiSlice = createApi({
   baseQuery: baseQueryWithInterceptor,
   reducerPath: "api",
   endpoints: () => ({}),
-  tagTypes: ["Instructor","Course","Student","Payment", "Attendance", "regularCustomer"],
+  tagTypes: ["Instructor","Course","Student","Payment", "Attendance", "regularCustomer", 'notification'],
 });

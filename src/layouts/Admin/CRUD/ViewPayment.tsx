@@ -9,6 +9,7 @@ import ViewStudentTable from "@/pages/component/ViewStudentTable";
 import { useForm } from "react-hook-form";
 import { useParams } from "react-router-dom";
 import { toast } from "react-toastify";
+import BackButton from "@/pages/component/BackButton";
 
 export default function ViewPayment() {
   const { enrollmentId } = useParams<{ enrollmentId: string }>();
@@ -21,15 +22,19 @@ export default function ViewPayment() {
     handleSubmit,
     formState: { errors },
   } = useForm();
-  const [dueAmount, setDueAmount] = useState<number>(1); // State to hold the due amount
+  const [dueAmount, setDueAmount] = useState<number>(1);
+  const [paymentType, setPaymentType] = useState("");
+  // State to hold the due amount
 
   React.useEffect(() => {
     if (paymentData && paymentData.payments && paymentData.payments.length > 0) {
-      // Find the latest payment object based on _id or any other criteria
       const latestPayment = paymentData.payments.reduce((latest, payment) =>
         latest._id > payment._id ? latest : payment,
       );
       setDueAmount(latestPayment.dueAmount);
+
+      const paymentType = latestPayment.dueAmount === 0 ? "complete" : "incomplete";
+      setPaymentType(paymentType);
     }
   }, [paymentData]);
 
@@ -76,7 +81,7 @@ export default function ViewPayment() {
       key: "dueAmount",
       value: "Due Amount",
     },
-  ]
+  ];
 
   const data = paymentData?.payments.map((payment, index) => {
     return {
@@ -87,10 +92,11 @@ export default function ViewPayment() {
     };
   });
 
-
-
   return (
     <form onSubmit={handleSubmit(SubmitHandler)} encType="multipart/form-data">
+      <div className="m-3">
+        <BackButton></BackButton>
+      </div>
       <div className="flex flex-col md:flex-row bg-white p-5">
         <div className="flex-1 w-full flex flex-col space-y-3">
           <h1 className="text-2xl font-semibold mb-3">Payment Details</h1>
@@ -106,14 +112,13 @@ export default function ViewPayment() {
             <label htmlFor="Payment" className="mr-2 text-sm">
               Payment Type
             </label>
-            <select
-              {...register("paymentType")}
-              className="bg-white border-2 text-sm p-1 w-full"
-            >
-              <option value="Unpaid">Unpaid</option>
-              <option value="Half Payment">Half Payment</option>
-              <option value="Full Payment">Full Payment</option>
-            </select>
+            {paymentType === "complete" ? (
+              <span className="text-green-500"> {paymentType.toUpperCase()}</span>
+            ) : (
+              <span className="text-red-500"> {paymentType.toUpperCase()}</span>
+            )}
+
+            {console.log(paymentType)}
             {errors.paymentType && (
               <span className="text-red-500 text-sm">{String(errors.paymentType)}</span>
             )}
@@ -122,7 +127,7 @@ export default function ViewPayment() {
           {/* Paid amount */}
           <div className="w-full md:w-1/2  items-center mb-3">
             <label htmlFor="" className="mr-2 text-sm">
-              Paid Amount
+              Paid Amount <span className="text-sm text-pink-500">(in Rs)</span>
             </label>
             <input
               {...register("paidAmount", { required: "This field is required" })}
@@ -156,11 +161,7 @@ export default function ViewPayment() {
 
         {/* Right div */}
         <div>
-          <ViewStudentTable
-            column={columns}
-           
-            data={data}
-                      />
+          <ViewStudentTable column={columns} data={data} />
         </div>
       </div>
     </form>

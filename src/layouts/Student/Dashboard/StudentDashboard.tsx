@@ -1,12 +1,16 @@
 import React from "react";
 import Coursesbox from "@/layouts/Student/StudentCourses/Coursesbox";
 import { useGetProfileQuery } from "@/feature/userApiSlice";
+import { useGetNotificationsQuery } from "@/feature/adminApiSlice";
 
 const StudentDashboard = () => {
   const { data } = useGetProfileQuery({}, { refetchOnMountOrArgChange: true });
+  const { data: notificationData } = useGetNotificationsQuery({});
+  console.log(notificationData);
+  console.log(data);
   return (
     <>
-      <div className="container mx-auto my-8">
+      <div className="container mx-auto my-8 p-5">
         <div className="text-center">
           <h1 className="text-3xl font-semibold mb-4">
             Welcome back, {data?.user.firstname}
@@ -50,9 +54,11 @@ const StudentDashboard = () => {
         <div className="mt-8">
           <h2 className="text-2xl font-semibold mb-4">Notifications and Alerts</h2>
           <ul className="list-disc list-inside">
-            <li>You have a new announcement regarding the upcoming holiday.</li>
-            <li>Your instructor has shared a new update on lesson timings.</li>
-            {/* Add more notifications as needed */}
+            {notificationData?.data?.map((notification) => (
+              <li key={notification._id} className="text-gray-700 mb-2">
+                {notification.notification}
+              </li>
+            ))}
           </ul>
         </div>
       </div>

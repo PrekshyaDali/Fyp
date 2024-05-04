@@ -121,9 +121,17 @@ export default function RegularCustomers() {
             )}
           </div>
           <div>
-            <label htmlFor="">Duration</label>
+            <label htmlFor="">
+              Duration <span className="text-sm text-pink-500">(in minutes)</span>
+            </label>
             <input
-              {...register("duration", { required: "Duration is required" })}
+              {...register("duration", {
+                required: "Duration is required",
+                pattern: {
+                  value: /^[0-9]*$/,
+                  message: "Duration should be a number and greater than 15 minutes.",
+                },
+              })}
               className="inputfields"
               type="text"
             />
@@ -132,7 +140,9 @@ export default function RegularCustomers() {
             )}
           </div>
           <div>
-            <label htmlFor="">Amount</label>
+            <label htmlFor="">
+              Amount <span className="text-sm text-pink-500">(in Rs)</span>
+            </label>
             <input
               {...register("amount", {
                 required: "Amount is required",
@@ -177,7 +187,7 @@ export default function RegularCustomers() {
         <div className="space-x-5">
           <label htmlFor="">Total Income</label>
           <span className="px-8 py-2 rounded-full bg-pink-200 bg-opacity-75 text-pink-900">
-            {"Rs"+ " " + getTotalAmount()}
+            {"Rs" + " " + getTotalAmount()}
           </span>
         </div>
       </div>
