@@ -42,11 +42,9 @@ export default function EditProfile() {
       setValue("gender", userData?.gender);
       setValue("address", userData?.address);
       setImg(userData?.image ? userData?.image : null);
-    
     }
   }, [userData, setValue]);
-  console.log(userData?.image)
-
+  console.log(userData?.image);
 
   const SubmitHandler = async (data1: IEditProfile) => {
     try {
@@ -61,9 +59,9 @@ export default function EditProfile() {
       formData.append("emergencycontactnumber", data1.emergencycontactnumber.toString());
       formData.append("gender", data1.gender);
       formData.append("address", data1.address);
-       if (img) {
-         formData.append("image", img);
-       }
+      if (img) {
+        formData.append("image", img);
+      }
       const res = await editProfile({ formData, id }).unwrap();
       console.log(data1.dob);
       console.log(res);
@@ -74,7 +72,6 @@ export default function EditProfile() {
     }
   };
   console.log(img, "img");
-
 
   return (
     <>
@@ -96,9 +93,10 @@ export default function EditProfile() {
                 <div className="h-32 w-32 sm:h-52 sm:w-52 rounded-full border-gray-400 border-2">
                   <img
                     className="object-cover rounded-full h-32 w-32 sm:h-52 sm:w-52"
-                    src={ typeof img === "string" ? img : URL.createObjectURL(img)}
+                    src={typeof img === "string" ? img : URL.createObjectURL(img)}
                     alt=""
                   />
+
                 </div>
 
                 <h1 className="text-lg font-semibold  ">

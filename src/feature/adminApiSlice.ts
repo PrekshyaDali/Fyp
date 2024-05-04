@@ -8,6 +8,7 @@ export const adminApiSlice = apiSlice.injectEndpoints({
         method: "POST",
         body,
       }),
+      invalidatesTags: [{ type: "notification", id: "LIST" }],
     }),
 
     deleteCourse: builder.mutation({
@@ -32,6 +33,7 @@ export const adminApiSlice = apiSlice.injectEndpoints({
         url: "/getNotification",
         method: "GET",
       }),
+      providesTags: (result) => [{ type: "notification", id: "LIST" }],
     }),
 
     getRegularCustomer: builder.query({

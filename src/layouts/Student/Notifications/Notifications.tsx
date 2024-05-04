@@ -19,7 +19,7 @@ export default function Notifications() {
   return (
     <div className="w-full h-full m-3">
       <div className="flex flex-col w-full">
-        <h1 className="text-2xl font-bold ml-3 mt-3 mb-5">Notifications</h1>
+        <h1 className="text-2xl font-bold ml-3 mt-3 mb-5">Notices</h1>
 
         {notificationData?.data?.map((notification, index) => (
           <div

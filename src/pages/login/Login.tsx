@@ -45,9 +45,9 @@ const Login = () => {
       //role based routing to dashboard
 
       if (res.role === "admin") {
-        navigate("/admin");
+        navigate("/admin/adminDashboard");
       } else if (res.role === "user") {
-        navigate("/user");
+        navigate("/user/StudentDashboard");
       } else if (res.role === "instructor" && res.isFirstLogin === false) {
         navigate("/Changepassword");
       } else if (res.isFirstLogin === true) {

@@ -68,7 +68,11 @@ const UserLayout = () => {
 
               <Link to="/user/Notifications">
                 <img className="h-5" src="/img/notification.png" alt="" />
-                Notifications
+                Notices
+              </Link>
+              <Link to="/user/vehiclesAvailability">
+                <img className="h-5" src="/img/settings.png" alt="" />
+                Vehicles Availability
               </Link>
               <Link to="/user/">
                 <img className="h-5" src="/img/settings.png" alt="" />

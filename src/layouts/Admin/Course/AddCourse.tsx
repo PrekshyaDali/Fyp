@@ -96,7 +96,9 @@ export default function AddCourse() {
         </div>
 
         <div>
-          <label htmlFor="Course Duration">Course Duration</label>
+          <label htmlFor="Course Duration">
+            Course Duration <span className="text-sm text-pink-500">(in days)</span>
+          </label>
           <input
             {...register("CourseDuration", {
               required: "This field is required",
@@ -127,17 +129,21 @@ export default function AddCourse() {
         </div>
 
         <div>
-          <label htmlFor="Price Details">Price Details</label>
+          <label htmlFor="Price Details">
+            Price Details <span className="text-sm text-pink-500">(in Rs)</span>
+          </label>
           <input
             {...register("price", {
               required: "This field is required",
-              pattern: { value: /^[1-9]\d*$/ , message: "Enter a valid number"},
+              pattern: { value: /^[1-9]\d*$/, message: "Enter a valid number" },
             })}
             type="number"
             id="Price Details"
             className="inputfields"
           />
-          {errors.price && <span className="text-red-500">{String(errors.price.message)}</span>}
+          {errors.price && (
+            <span className="text-red-500">{String(errors.price.message)}</span>
+          )}
         </div>
 
         <div className="flex space-x-4">
