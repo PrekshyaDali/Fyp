@@ -46,7 +46,7 @@ export default function MyCourses() {
 
           if (payloadData === null) return;
         const startDate = localStorage.getItem("startDate");
-         localStorage.removeItem("formData");
+         localStorage.removeItem( "formData");
          localStorage.removeItem("startDate");
         const payload = {
           firstname: payloadData.firstname,
