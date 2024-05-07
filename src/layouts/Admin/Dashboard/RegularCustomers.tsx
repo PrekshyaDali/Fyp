@@ -70,6 +70,10 @@ export default function RegularCustomers() {
       value: "Category",
     },
     {
+      key: "name",
+      value: "name",
+    },
+    {
       key: "duration",
       value: "Duration",
     },
@@ -91,7 +95,10 @@ export default function RegularCustomers() {
   const data = filterData()?.map((customer, index) => {
     return {
       sn: index + 1,
+
       category: customer.category,
+      name: customer.customerName,
+
       duration: customer.duration + " " + "minutes",
       amount: "Rs" + " " + customer.amount,
       time: new Date(customer.date).toLocaleString(), // Convert time to local string
@@ -119,6 +126,16 @@ export default function RegularCustomers() {
             {errors.category && (
               <span className="text-red-500">{errors.category.message}</span>
             )}
+          </div>
+          <div>
+            <label htmlFor="">Customer Name</label>
+            <input
+              {...register("customerName", {
+                required: "Customer Name is required",
+              })}
+              type="text"
+              className="inputfields"
+            />
           </div>
           <div>
             <label htmlFor="">
@@ -193,9 +210,15 @@ export default function RegularCustomers() {
       </div>
 
       {/* View Customer table */}
-      <div>
-        <ViewStudentTable column={columns} data={data} />
-      </div>
+      {customerData ? (
+        <div>
+          <ViewStudentTable column={columns} data={data} />
+        </div>
+      ) : (
+        <div className="flex items-center justify-center">
+          <h1 className="text-2xl font-semibold ">No entries for today's date. </h1>
+        </div>
+      )}
     </div>
   );
 }

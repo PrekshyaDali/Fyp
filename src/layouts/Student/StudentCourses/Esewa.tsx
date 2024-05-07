@@ -97,7 +97,7 @@ export default function Esewa() {
       <form action="" onSubmit={handleSubmit(SubmitHandler)}>
         <div className="w-80 h-fit border-2 p-5 flex flex-col space-y-5">
           <div className="space-y-3">
-            <h1 className="text-2xl font-bold ">Esewa</h1>
+            <h1 className="text-2xl font-bold ">Khalti</h1>
             <p className="text-sm text-gray-400">
               Please enter the amount that you want to pay for the course as advance. You
               can also pay the full amount

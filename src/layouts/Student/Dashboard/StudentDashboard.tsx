@@ -52,7 +52,7 @@ const StudentDashboard = () => {
 
         {/* Notifications and Alerts */}
         <div className="mt-8">
-          <h2 className="text-2xl font-semibold mb-4">Notifications and Alerts</h2>
+          <h2 className="text-2xl font-semibold mb-4">Notices and Alerts</h2>
           <ul className="list-disc list-inside">
             {notificationData?.data?.map((notification) => (
               <li key={notification._id} className="text-gray-700 mb-2">

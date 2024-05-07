@@ -1,3 +1,4 @@
+@import './pages/component/Scrollbar.css';
 @tailwind base;
 @tailwind components;
 .btn {
