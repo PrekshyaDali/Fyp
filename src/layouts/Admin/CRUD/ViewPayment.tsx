@@ -21,6 +21,7 @@ export default function ViewPayment() {
     register,
     handleSubmit,
     formState: { errors },
+    reset,
   } = useForm();
   const [dueAmount, setDueAmount] = useState<number>(1);
   const [paymentType, setPaymentType] = useState("");
@@ -49,6 +50,7 @@ export default function ViewPayment() {
       const res = await paymentTracking(payload).unwrap();
       console.log(res);
       // Update the due amount after successful payment tracking
+      reset();
       toast.success("Payment tracked successfully");
     } catch (error) {
       toast.error("Error tracking payment");

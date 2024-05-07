@@ -1,11 +1,11 @@
 import React from "react";
 import Coursesbox from "@/layouts/Student/StudentCourses/Coursesbox";
 import { useGetProfileQuery } from "@/feature/userApiSlice";
-import { useGetNotificationsQuery } from "@/feature/adminApiSlice";
+import { useGetNotificationByWeekQuery } from "@/feature/adminApiSlice";
 
 const StudentDashboard = () => {
   const { data } = useGetProfileQuery({}, { refetchOnMountOrArgChange: true });
-  const { data: notificationData } = useGetNotificationsQuery({});
+  const { data: notificationData } = useGetNotificationByWeekQuery({});
   console.log(notificationData);
   console.log(data);
   return (
