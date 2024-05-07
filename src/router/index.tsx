@@ -49,13 +49,14 @@ import ViewPayment from "@/layouts/Admin/CRUD/ViewPayment";
 import ShowTransactions from "@/layouts/Student/Attendance/ShowTransactions";
 import ShowAttendance from "@/layouts/Student/Attendance/ShowAttendance";
 import Esewa from "@/layouts/Student/StudentCourses/Esewa";
-import PaymentSuccess from "@/layouts/Student/StudentCourses/PaymentSuccess";
-import PaymentFailed from "@/layouts/Student/StudentCourses/PaymentFailed";
+
 import PrivateRoutes from "./PrivateRoutes";
 import RoleProtection from "@/layouts/RoleProtection";
 import RegularCustomers from "@/layouts/Admin/Dashboard/RegularCustomers";
 import VehiclesAvailablity from "@/layouts/Student/StudentCourses/VehiclesAvailablity";
 import PaymentDashboard from "@/pages/component/demo";
+import ViewNotices from "@/layouts/Admin/Notifications/ViewNotices";
+import AddVehicles from "@/layouts/Admin/Vehicles/AddVehicles";
 
 // lazy import components
 // const PostList = lazy(() => import("@/pages/posts/list"));
@@ -93,11 +94,12 @@ const AppRouter = () => {
                   path="/admin/regularCustomers"
                   element={<RegularCustomers />}
                 ></Route>
+                <Route path="/admin/Finances" element={<Finances />}></Route>
+                <Route path="/admin/viewNotices" element={<ViewNotices />}></Route>
                 <Route
-                  path="/admin/Finances"
-                  element={<Finances />}
+                  path="/admin/addNotifications"
+                  element={<AddNotifications />}
                 ></Route>
-                <Route path="/admin/Notifications" element={<AddNotifications />}></Route>
 
                 <Route path="/admin/AddCourse" element={<AddCourse />}></Route>
                 <Route path="/admin/viewCourse" element={<CoursesTable />}></Route>
@@ -109,8 +111,10 @@ const AppRouter = () => {
                 <Route path="/admin/profile" element={<ProfileDetails />}></Route>
                 <Route path="/admin/profile/:id" element={<EditProfile />}></Route>
                 <Route path="/admin/demo" element={<PaymentDashboard />}></Route>
+                <Route path="/admin/Vehicles" element={<AddVehicles />}></Route>
               </Route>
             </Route>
+
             <Route element={<RoleProtection role="user" />}>
               <Route path="/user" element={<UserLayout />}>
                 <Route path="/user/StudentDashboard" element={<StudentDashboard />} />
@@ -135,8 +139,7 @@ const AppRouter = () => {
                   path="/user/attendances/:id/:enrollmentId"
                   element={<ShowAttendance />}
                 />
-                <Route path="/user/esewa_payment_success" element={<PaymentSuccess />} />
-                <Route path="/user/esewa_payment_failed" element={<PaymentFailed />} />
+
                 <Route path="/user/BikeDetails" element={<Details></Details>} />
                 <Route path="/user/Notifications" element={<Notifications />}></Route>
               </Route>

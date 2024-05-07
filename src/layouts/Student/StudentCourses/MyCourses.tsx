@@ -13,25 +13,27 @@ export default function MyCourses() {
   const { data: enrollmentData } = useGetEnrollmentByIdQuery(id);
   const [enroll] = useEnrollmentMutation();
 
-
-  const handlelookUp = async() => {
+  const handlelookUp = async () => {
     try {
-
       //get status from query url
       const urlParams = window.location.href;
       const pid = urlParams.split("=")[1].split("&")[0];
-        const headers = {
-          Authorization: "key 3def120726f04186b1c6f274700bd12f",
-          "Content-Type": "application/json",
-        };
+      const headers = {
+        Authorization: "key 3def120726f04186b1c6f274700bd12f",
+        "Content-Type": "application/json",
+      };
       const url = "https://a.khalti.com/api/v2/epayment/lookup/";
       const data = {
         pidx: pid,
       };
 
-      const response = await axios.post(url, {
-        pidx : pid
-      }, { headers: headers });
+      const response = await axios.post(
+        url,
+        {
+          pidx: pid,
+        },
+        { headers: headers },
+      );
 
       if (response.data.status === "Expired") {
         toast.error("Payment Expired");
@@ -44,10 +46,10 @@ export default function MyCourses() {
           ? JSON.parse(localStorage.getItem("formData"))
           : null;
 
-          if (payloadData === null) return;
+        if (payloadData === null) return;
         const startDate = localStorage.getItem("startDate");
-         localStorage.removeItem( "formData");
-         localStorage.removeItem("startDate");
+        localStorage.removeItem("formData");
+        localStorage.removeItem("startDate");
         const payload = {
           firstname: payloadData.firstname,
           lastname: payloadData.lastname,
@@ -68,35 +70,30 @@ export default function MyCourses() {
           const response = await enroll(payload).unwrap();
           if (response) {
             toast.success("Enrollment Successfull");
-           
-            
           }
         } catch (error) {
           toast.error("Enrollment Failed");
         }
       }
     } catch (error) {
-      toast.error("Payment Failed")
+      toast.error("Payment Failed");
     }
-  }
+  };
 
   React.useEffect(() => {
     const urlParams = window.location.href;
     const pid = urlParams?.split("=")[1]?.split("&")[0];
-    const formData = localStorage.getItem("formData") ? JSON.parse(localStorage.getItem("formData")) : null;
-    
+    const formData = localStorage.getItem("formData")
+      ? JSON.parse(localStorage.getItem("formData"))
+      : null;
+
     if (pid) {
       setIsPaymentRedirect(true);
-      if(formData !== null){
+      if (formData !== null) {
         handlelookUp();
       }
-    
-      
     }
   }, []);
-
-  
-
 
   return (
     <>
@@ -165,7 +162,7 @@ export default function MyCourses() {
         </div>
       ) : (
         <div className="w-full h-full ">
-          <div className = "flex justify-center items-center">
+          <div className="flex justify-center items-center">
             <h1 className="text-2xl text-gray-400">No Courses Enrolled</h1>
           </div>
         </div>

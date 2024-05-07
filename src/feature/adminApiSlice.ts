@@ -1,4 +1,5 @@
 import { apiSlice } from "@/app/apiSlice";
+import { add } from "date-fns";
 
 export const adminApiSlice = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
@@ -35,6 +36,18 @@ export const adminApiSlice = apiSlice.injectEndpoints({
       }),
       providesTags: (result) => [{ type: "notification", id: "LIST" }],
     }),
+    getNotificationByWeek: builder.query({
+      query: () => ({
+        url: "/getNotificationByWeek",
+        method: "GET",
+      }),
+    }),
+    showNotificationToAdmin: builder.query({
+      query: () => ({
+        url: "/showNotificationToAdmin",
+        method: "GET",
+      }),
+    }),
 
     getRegularCustomer: builder.query({
       query: () => ({
@@ -43,6 +56,22 @@ export const adminApiSlice = apiSlice.injectEndpoints({
       }),
       providesTags: (result) => [{ type: "regularCustomer", id: "LIST" }],
     }),
+
+    // Vehicles
+    addVehicles: builder.mutation({
+      query: (body) => ({
+        url: "/addVehicle",
+        method: "POST",
+        body,
+      }),
+    }),
+
+
+
+
+
+
+
   }),
 });
 
@@ -51,7 +80,10 @@ export const {
 
   useDeleteCourseMutation,
   useAddregularCustomerMutation,
+  useAddVehiclesMutation,
 
   useGetNotificationsQuery,
   useGetRegularCustomerQuery,
+  useGetNotificationByWeekQuery,
+  useShowNotificationToAdminQuery,
 } = adminApiSlice;

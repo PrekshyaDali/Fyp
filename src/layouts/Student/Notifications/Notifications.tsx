@@ -1,20 +1,21 @@
 import React from "react";
 import { useGetNotificationsQuery } from "@/feature/adminApiSlice";
+import moment from "moment-timezone";
 
 export default function Notifications() {
   const { data: notificationData, isLoading } = useGetNotificationsQuery({});
   console.log(notificationData, "notificationData");
 
   // Function to format time as "HH:mm"
-  const formatTime = (dateString) => {
-    const date = new Date(dateString);
-    const hours = date.getHours();
-    const minutes = date.getMinutes();
-    const ampm = hours >= 12 ? "PM" : "AM";
-    const formattedHours = hours % 12 || 12;
-    const formattedTime = `${hours}:${minutes < 10 ? "0" : ""}${minutes} ${ampm}`;
-    return formattedTime;
-  };
+
+
+function formatTime(dateString) {
+  // Parse the date with the correct time zone
+  const date = moment(dateString).tz("Asia/Kathmandu");
+  // Format it to a more readable format
+  return date.format("YYYY-MM-DD HH:mm A"); // Adjust as needed
+}
+
 
   return (
     <div className="w-full h-full m-3">
@@ -30,8 +31,8 @@ export default function Notifications() {
               <span className="mr-2">&#x2022;</span> {notification.notification}
             </p>
             <p className="text-sm text-gray-400">
-              {new Date(notification.date).toISOString().split("T")[0]}{" "}{"at"}{" "}
-              <span className = "text-purple-400">{formatTime(notification.date)}</span>
+            
+              <span className = "text-purple-400">{formatTime(notification.created_at)}</span>
             </p>
           </div>
         ))}

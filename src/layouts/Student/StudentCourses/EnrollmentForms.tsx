@@ -361,7 +361,7 @@ export default function EnrollmentForms() {
         <div className="border-2 border-gray-300 m-3 rounded-md p-5 space-y-8 max-h-[80] ">
           <h1 className="text-xl font-bold ">Choose your payment option</h1>
           <div className="flex justify-center">
-            <div className="flex space-x-8 ">
+            <div className="flex flex-col space-y-8 sm:flex-row sm:space-y-0 sm:space-x-8 ">
               <div
                 className={`flex flex-col justify-center items-center w-44 relative ${
                   selectedPayment === "esewa" ? "active:border-green-400" : ""
@@ -413,7 +413,7 @@ export default function EnrollmentForms() {
           </div>
         </div>
       )}
-      <div className="flex justify-between m-3">
+      <div className="flex flex-col space-y-5 sm:flex-row sm:space-y-0  sm:justify-between m-3">
         {step > 1 && (
           <Button
             name="Previous"

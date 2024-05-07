@@ -137,11 +137,15 @@ const AdminLayout = () => {
                 <img className="h-6 " src="/img/Finance.png" alt="" />
                 Regular Customers
               </Link>
-              <Link to="/admin/Notifications">
+              <Link to="/admin/viewNotices">
                 <img className="h-6 " src="/img/notification.png" alt="" />
                 Notices
               </Link>
-               <Link to="/admin/Finances">
+              <Link to="/admin/Vehicles">
+                <img className="h-6 " src="/img/notification.png" alt="" />
+                Vehicles
+              </Link>
+              <Link to="/admin/Finances">
                 <img className="h-6 " src="/img/notification.png" alt="" />
                 Finances
               </Link>
