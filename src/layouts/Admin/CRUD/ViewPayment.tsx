@@ -5,14 +5,18 @@ import {
   useOneEnrollmentUserQuery,
   usePaymentTrackingMutation,
 } from "@/feature/userApiSlice";
+
 import ViewStudentTable from "@/pages/component/ViewStudentTable";
 import { useForm } from "react-hook-form";
 import { useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 import BackButton from "@/pages/component/BackButton";
+import { useGetPaymentKhaltiQuery } from "@/feature/adminApiSlice";
+import { ValueSetter } from "date-fns/parse/_lib/Setter";
 
 export default function ViewPayment() {
   const { enrollmentId } = useParams<{ enrollmentId: string }>();
+  const { id } = useParams<{ id: string }>();
   const { data: enrollmentData } = useOneEnrollmentUserQuery(enrollmentId);
   const { data: paymentData } = useGetPaymentDataQuery(enrollmentId);
   console.log(paymentData, "paymentData");
@@ -25,6 +29,9 @@ export default function ViewPayment() {
   } = useForm();
   const [dueAmount, setDueAmount] = useState<number>(1);
   const [paymentType, setPaymentType] = useState("");
+  const { data: KhaltiData } = useGetPaymentKhaltiQuery(id);
+  console.log(KhaltiData, "KhaltiData");
+
   // State to hold the due amount
 
   React.useEffect(() => {
@@ -83,16 +90,38 @@ export default function ViewPayment() {
       key: "dueAmount",
       value: "Due Amount",
     },
+    {
+      key: "paymentMethod",
+      value: "Payment Method", // <-- Use lowercase 'value' here
+    },
   ];
 
-  const data = paymentData?.payments.map((payment, index) => {
-    return {
-      sn: index + 1,
-      date: new Date(payment.date).toDateString(),
-      paidAmount: payment.paidAmount,
-      dueAmount: payment.dueAmount,
-    };
-  });
+  const data = [];
+  // Add in-house payment data
+  if (paymentData && paymentData.payments) {
+    paymentData.payments.forEach((payment, index) => {
+      data.push({
+        sn: index + 1,
+        date: new Date(payment.date).toDateString(),
+        paidAmount: payment.paidAmount,
+        dueAmount: payment.dueAmount,
+        paymentMethod: "In-House", // Assuming paymentMethod for in-house payments is "In-House"
+      });
+    });
+  }
+
+  // Add Khalti payment data
+  if (KhaltiData && KhaltiData.payment) {
+    KhaltiData.payment.forEach((payment, index) => {
+      data.push({
+        sn: index + 1,
+        date: new Date(payment.date).toDateString(),
+        paidAmount: payment.amount,
+        dueAmount: payment.dueAmount,
+        paymentMethod: "Khalti",
+      });
+    });
+  }
 
   return (
     <form onSubmit={handleSubmit(SubmitHandler)} encType="multipart/form-data">

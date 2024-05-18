@@ -65,14 +65,25 @@ export const adminApiSlice = apiSlice.injectEndpoints({
         body,
       }),
     }),
+    deleteNotification: builder.mutation({
+      query: (body) => ({
+        url: `/deleteNotifications`,
+        method: "DELETE",
+      }),
+      invalidatesTags: [{ type: "notification", id: "LIST" }],
+    }),
 
-
-
-
-
-
-
+    getPaymentKhalti: builder.query({
+      query: (userId) => ({
+        url: `/Khalti/${userId}`,
+        method: "GET",
+      }),
+    }),
   }),
+
+
+
+
 });
 
 export const {
@@ -81,9 +92,11 @@ export const {
   useDeleteCourseMutation,
   useAddregularCustomerMutation,
   useAddVehiclesMutation,
+  useDeleteNotificationMutation,
 
   useGetNotificationsQuery,
   useGetRegularCustomerQuery,
   useGetNotificationByWeekQuery,
   useShowNotificationToAdminQuery,
+  useGetPaymentKhaltiQuery
 } = adminApiSlice;

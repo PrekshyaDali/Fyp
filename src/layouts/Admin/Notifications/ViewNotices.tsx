@@ -1,19 +1,40 @@
-import { useShowNotificationToAdminQuery } from "@/feature/adminApiSlice";
-import Button from "@/pages/component/Button";
-import React from "react";
+import React, { useState } from "react";
 import moment from "moment-timezone";
 import { Link } from "react-router-dom";
+import {
+  useShowNotificationToAdminQuery,
+  useDeleteNotificationMutation,
+} from "@/feature/adminApiSlice";
+import Button from "@/pages/component/Button";
 
 function formatTime(dateString) {
-  // Parse the date with the correct time zone
   const date = moment(dateString).tz("Asia/Kathmandu");
-  // Format it to a more readable format
-  return date.format("YYYY-MM-DD HH:mm A"); // Adjust as needed
+  return date.format("YYYY-MM-DD HH:mm A");
 }
 
 export default function ViewNotices() {
-  const { data: notificationData } = useShowNotificationToAdminQuery({});
-  console.log(notificationData);
+  const { data: notificationData, refetch } = useShowNotificationToAdminQuery({});
+  const [selectedIds, setSelectedIds] = useState([]);
+  const [deleteNotifications] = useDeleteNotificationMutation();
+
+  const handleToggleSelection = (id) => {
+    if (selectedIds.includes(id)) {
+      setSelectedIds(selectedIds.filter((selectedId) => selectedId !== id));
+    } else {
+      setSelectedIds([...selectedIds, id]);
+    }
+  };
+
+  const handleDeleteSelected = async () => {
+    try {
+      await deleteNotifications({ ids: selectedIds.map((id) => id.toString()) }).unwrap();
+      setSelectedIds([]); // Clear selected IDs after deletion
+      refetch(); // Refresh notifications after deletion
+    } catch (error) {
+      console.error("Error deleting notifications:", error);
+    }
+  };
+
   return (
     <div className="p-3 flex-col space-y-5 m-3">
       <div>
@@ -24,6 +45,7 @@ export default function ViewNotices() {
           <Link to="/admin/addNotifications">
             <Button name="Add Notices"></Button>
           </Link>
+          <Button onClick={handleDeleteSelected} name="Delete Selected"></Button>
         </div>
       </div>
       {notificationData?.data?.map((notification, index) => (
@@ -37,6 +59,11 @@ export default function ViewNotices() {
           <p className="text-sm text-gray-400">
             <span className="text-purple-400">{formatTime(notification.created_at)}</span>
           </p>
+          <input
+            type="checkbox"
+            checked={selectedIds.includes(notification._id.toString())}
+            onChange={() => handleToggleSelection(notification._id.toString())}
+          />
         </div>
       ))}
     </div>
