@@ -1,4 +1,4 @@
-import { useEsewaPaymentMutation } from "@/feature/userApiSlice";
+import { useEsewaPaymentMutation, useGetEnrollmentByIdQuery } from "@/feature/userApiSlice";
 import BackButton from "@/pages/component/BackButton";
 import axios from "axios";
 import React from "react";
@@ -9,6 +9,8 @@ import { toast } from "react-toastify";
 export default function Esewa() {
   const [esewa] = useEsewaPaymentMutation();
   const [searchParams] = useSearchParams();
+
+
   const step = searchParams.get("step");
   console.log(step);
 
@@ -19,6 +21,12 @@ export default function Esewa() {
   } = useForm();
   const course = JSON.parse(localStorage.getItem("course"));
   const user = localStorage.getItem("id");
+
+  const {data: enrollmentData} = useGetEnrollmentByIdQuery(user);
+
+
+
+
   const userData = localStorage.getItem("formData")
     ? JSON.parse(localStorage.getItem("formData"))
     : null;
@@ -28,7 +36,7 @@ export default function Esewa() {
       console.log("Data:", data);
       console.log("Course Data:", course);
       console.log("User Data:", user);
-      
+        
       
       var options = {
         method: "POST",
@@ -51,7 +59,7 @@ export default function Esewa() {
         }),
       };
       console.log("Options:", options);
-
+      const enrollment = enrollmentData;
       const headers = {
         Authorization: "key 3def120726f04186b1c6f274700bd12f",
         "Content-Type": "application/json",
@@ -88,6 +96,8 @@ export default function Esewa() {
           amount: data.amount,
           course: course,
           user: user,
+          enrollment: enrollment,
+         
          
         }).unwrap();
     } catch (error) {

@@ -4,7 +4,10 @@ import { useAddNotificationMutation } from "@/feature/adminApiSlice";
 import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
 import BackButton from "@/pages/component/BackButton";
+import { createEditor } from "slate";
 
+// Import the Slate components and React plugin.
+import { Slate, Editable, withReact } from "slate-react";
 export default function AddNotifications() {
   const {
     register,
@@ -44,6 +47,7 @@ export default function AddNotifications() {
             })}
             className="inputfields"
             type="date"
+            min = {new Date().toISOString().split("T")[0]}
           />
           <style>
             {`
@@ -75,6 +79,7 @@ export default function AddNotifications() {
         <div className="mt-5">
           <Button name="Save" />
         </div>
+
       </form>
     </div>
   );
