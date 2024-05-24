@@ -1,4 +1,4 @@
-import { useEsewaPaymentMutation } from "@/feature/userApiSlice";
+import { useEsewaPaymentMutation, useGetEnrollmentByIdQuery } from "@/feature/userApiSlice";
 import BackButton from "@/pages/component/BackButton";
 import axios from "axios";
 import React from "react";
@@ -8,10 +8,12 @@ import { toast } from "react-toastify";
 
 export default function Esewa() {
   const [esewa] = useEsewaPaymentMutation();
-  const[searchParams] = useSearchParams();
+  const [searchParams] = useSearchParams();
+
+
   const step = searchParams.get("step");
-  console.log(step)
-  
+  console.log(step);
+
   const {
     register,
     handleSubmit,
@@ -19,78 +21,90 @@ export default function Esewa() {
   } = useForm();
   const course = JSON.parse(localStorage.getItem("course"));
   const user = localStorage.getItem("id");
+
+  const {data: enrollmentData} = useGetEnrollmentByIdQuery(user);
+
+
+
+
   const userData = localStorage.getItem("formData")
     ? JSON.parse(localStorage.getItem("formData"))
     : null;
- 
+
   const SubmitHandler = async (data) => {
     try {
       console.log("Data:", data);
       console.log("Course Data:", course);
       console.log("User Data:", user);
-    
-     var options = {
-       method: "POST",
-       url: "https://a.khalti.com/api/v2/epayment/initiate/",
-       headers: {
-         Authorization: "key 3def120726f04186b1c6f274700bd12f",
-         "Content-Type": "application/json",
-       },
-       body: JSON.stringify({
-         return_url: "http://localhost:3000/return",
-         website_url: "http://localhost:3000/website",
-         amount: data.amount,
-         purchase_order_id: "Order01",
-         purchase_order_name: "test",
-         customer_info: {
-           name: userData.firstname + " " + userData.lastname,
-           email: userData.email,
-           phone: userData.phone,
-         },
-       }),
-     };
-     console.log("Options:", options);
-     
-
-     const headers = {  
-      Authorization: "key 3def120726f04186b1c6f274700bd12f",
-      "Content-Type": "application/json",
-    };
-  
-    const generatedId = Math.floor(Math.random() * 1000000);
-    
-    await axios
-      .post(
-        "https://a.khalti.com/api/v2/epayment/initiate/",
-        {
-          return_url: "http://localhost:3000/user/mycourses",
+        
+      
+      var options = {
+        method: "POST",
+        url: "https://a.khalti.com/api/v2/epayment/initiate/",
+        headers: {
+          Authorization: "key 3def120726f04186b1c6f274700bd12f",
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          return_url: "http://localhost:3000/return",
           website_url: "http://localhost:3000/website",
-          amount: data.amount * 100,
-          purchase_order_id: generatedId.toString(),
+          amount: data.amount,
+          purchase_order_id: "Order01",
           purchase_order_name: "test",
           customer_info: {
             name: userData.firstname + " " + userData.lastname,
             email: userData.email,
-            phone: userData.contactnumber,
+            phone: userData.phone,
           },
-        },
-        {
-          headers: headers,
-        },
-      )
-      .then(function (response) {
-        window.location.href = response.data.payment_url;
-      })
-      .catch(function (error) {
-        toast.error("Payment Failed");
-      });
-  
+        }),
+      };
+      console.log("Options:", options);
+      const enrollment = enrollmentData;
+      const headers = {
+        Authorization: "key 3def120726f04186b1c6f274700bd12f",
+        "Content-Type": "application/json",
+      };
+
+      const generatedId = Math.floor(Math.random() * 1000000);
+
+      await axios
+        .post(
+          "https://a.khalti.com/api/v2/epayment/initiate/",
+          {
+            return_url: "http://localhost:3000/user/mycourses",
+            website_url: "http://localhost:3000/website",
+            amount: data.amount * 100,
+            purchase_order_id: generatedId.toString(),
+            purchase_order_name: "test",
+            customer_info: {
+              name: userData.firstname + " " + userData.lastname,
+              email: userData.email,
+              phone: userData.contactnumber,
+            },
+          },
+          {
+            headers: headers,
+          },
+        )
+        .then(function (response) {
+          window.location.href = response.data.payment_url;
+        })
+        .catch(function (error) {
+          toast.error("Payment Failed");
+        });
+        const esewaData = await esewa({
+          amount: data.amount,
+          course: course,
+          user: user,
+          enrollment: enrollment,
+         
+         
+        }).unwrap();
     } catch (error) {
       console.log("Error:", error);
       toast.error("Payment Failed");
     }
   };
-
 
   return (
     <div className="h-full w-full flex items-center justify-center p-5">

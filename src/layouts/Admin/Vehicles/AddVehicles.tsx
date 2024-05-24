@@ -1,12 +1,15 @@
 import React from "react";
 import Button from "@/pages/component/Button";
+import { useEffect } from "react";
 
 import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
 import { useAddVehiclesMutation } from "@/feature/adminApiSlice";
+import { set } from "date-fns";
 
 export default function AddVehicles() {
   const [addVehicle] = useAddVehiclesMutation();
+  const [users, setUsers] = React.useState([]);
   const {
     handleSubmit,
     register,
@@ -14,10 +17,20 @@ export default function AddVehicles() {
     formState: { errors },
   } = useForm();
 
+  // useEffect(() => {
+  //   fetch("https://jsonplaceholder.typicode.com/users")
+  //     .then((res) => res.json())
+  //     .then((data) => {
+  //       setUsers(data);
+  //     })
+  //     .catch((error) => console.log(error));
+  // }, []);
+  // console.log(users)
+
   const SubmitHandler = async (data) => {
     try {
       const res = await addVehicle(data).unwrap();
-      console.log(res)
+      console.log(res);
       toast.success("Vehicle added successfully");
       reset(); // Reset form after successful submission
     } catch (err) {
