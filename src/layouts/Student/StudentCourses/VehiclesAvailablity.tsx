@@ -1,80 +1,69 @@
 import React from "react";
+import {
+  useGetVehicleQuery,
+  useUpdateVehicleStatusMutation,
+} from "@/feature/adminApiSlice";
 
 const VehiclesAvailability = () => {
-  const products = [
-    {
-      name: "Yaris L",
-      price: 16605,
-      mpg: 35,
-      leaseCost: 1174,
-      monthlyPayment: 338,
-      downPayment: 310,
-    },
-    {
-      name: "Yaris LE",
-      price: 17605,
-      mpg: 35,
-      leaseCost: 1174,
-      monthlyPayment: 338,
-      downPayment: 310,
-    },
-    {
-      name: "Yaris Hatchback LE",
-      price: 18605,
-      mpg: 35,
-      leaseCost: 1174,
-      monthlyPayment: 338,
-      downPayment: 310,
-    },
-    {
-      name: "Yaris Hatchback XLI",
-      price: 19605,
-      mpg: 35,
-      leaseCost: 1174,
-      monthlyPayment: 338,
-      downPayment: 310,
-    },
-  ];
+  const { data: vehicleData, refetch } = useGetVehicleQuery({});
+  const [updateVehicleStatus] = useUpdateVehicleStatusMutation();
+
+  const handleStatusChange = async (vehicleId, newStatus) => {
+    try {
+      const res = await updateVehicleStatus({
+        id: vehicleId,
+        status: newStatus,
+      }).unwrap();
+      refetch();
+      console.log(res);
+    } catch (error) {
+      console.error("Error updating vehicle status:", error);
+    }
+  };
 
   return (
-    <div className="container mx-auto p-4">
-      <div className="grid grid-cols-1 md:grid-cols-1 lg:grid-cols-2 gap-4">
-        {products.map((product, index) => (
-          <div key={index} className="bg-white shadow-md rounded-lg p-4">
-            <img
-              src={`https://via.placeholder.com/300x200?text=${encodeURIComponent(
-                product.name,
-              )}`}
-              alt={product.name}
-              className="w-full h-48 object-cover mb-4"
-            />
-            <h3 className="text-lg font-bold mb-2">{product.name}</h3>
-            <p className="text-gray-700 mb-2">Average price: ${product.price}</p>
-            <div className="flex items-center mb-2">
-              <div className="w-12 h-12 rounded-full bg-blue-100 flex items-center justify-center mr-2">
-                <span className="text-blue-500 font-bold">{product.mpg}</span>
-              </div>
-              <span className="text-gray-600">MPG</span>
-            </div>
-            <div className="flex justify-between">
-              <div>
-                <p className="text-gray-700 mb-1">Lease for:</p>
-                <p className="text-lg font-bold">${product.leaseCost}/mo</p>
-              </div>
-              <div>
-                <p className="text-gray-700 mb-1">Estimated payment:</p>
-                <p className="text-lg font-bold">${product.monthlyPayment}/mo</p>
-              </div>
-              <div>
-                <p className="text-gray-700 mb-1">Due at signing:</p>
-                <p className="text-lg font-bold">${product.downPayment}</p>
-              </div>
-            </div>
-            <button className="bg-blue-500 text-white py-2 px-4 rounded-md mt-4 hover:bg-blue-600">
-              Learn More
-            </button>
-          </div>
-        ))}
+    <div className="container mx-auto px-4 py-8">
+      <h2 className="text-2xl font-bold mb-4">Available Vehicles</h2>
+      <p className = "mb-5">Check the availability of the vehicles.</p>
+      <div className="overflow-x-auto ">
+        <table className="min-w-full bg-white border border-gray-200">
+          <thead>
+            <tr>
+              <th className="text-left py-3 px-4 uppercase font-semibold text-sm border-b border-gray-200">
+                Vehicle Number
+              </th>
+              <th className="text-left py-3 px-4 uppercase font-semibold text-sm border-b border-gray-200">
+                Category
+              </th>
+              <th className="text-left py-3 px-4 uppercase font-semibold text-sm border-b border-gray-200">
+                Status
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            {vehicleData?.vehicle?.map((vehicle) => (
+              <tr key={vehicle.id}>
+                <td className="text-left py-4 px-6 border-b border-gray-200">
+                  {vehicle.unique_id}
+                </td>
+                <td className="text-left py-4 px-6 border-b border-gray-200 text-purple-500">
+                  {vehicle.category.toUpperCase()}
+                </td>
+                <td className="text-left py-4 px-6 border-b border-gray-200">
+                  {vehicle.status === "free" ? (
+                    <span className="px-6 py-2 rounded-full  bg-green-300 text-green-900 bg-opacity-70">
+                      Free
+                    </span>
+                  ) : (
+                    <span className="px-4 py-2 rounded-full  bg-pink-300 text-pink-900 bg-opacity-70">
+                      In Use
+                    </span>
+                  )}
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
       </div>
     </div>
   );

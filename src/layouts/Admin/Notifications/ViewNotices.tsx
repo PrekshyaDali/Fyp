@@ -87,7 +87,7 @@ export default function ViewNotices() {
           className="shadow-sm bg-white h-fit flex flex-col p-3 mb-5 space-y-3 rounded"
         >
           <p className="font-semibold text-sm">
-            <span className="mr-2">&#x2022;</span> {notification.notification}
+            <span className="mr-2"></span> {notification.notification}
           </p>
           <p className="text-sm text-gray-400">
             <span className="text-purple-400">{formatTime(notification.created_at)}</span>
