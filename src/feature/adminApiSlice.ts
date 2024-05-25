@@ -75,6 +75,14 @@ export const adminApiSlice = apiSlice.injectEndpoints({
       invalidatesTags: [{ type: "notification", id: "LIST" }],
     }),
 
+    updateVehicleStatus: builder.mutation({
+      query: ({ id, status }) => ({
+        url: `/updateVehicle/${id}`,
+        method: "PATCH",
+        body: { status },
+      }),
+    }),
+
     getPaymentKhalti: builder.query({
       query: (userId) => ({
         url: `/Khalti/${userId}`,
@@ -88,7 +96,32 @@ export const adminApiSlice = apiSlice.injectEndpoints({
         method: "GET",
       }),
     }),
+
+    getFinanceData: builder.query({
+      query: () => ({
+        url: "/getFinanceData",
+        method: "GET",
+      }),
+    }),
+
+    getFilteredFinanceData: builder.query({
+      query: ({ filterType, startDate, endDate, paymentMethod }) => {
+        let queryString = `?filterType=${filterType}&paymentMethod=${paymentMethod}`;
+        if (startDate) queryString += `&startDate=${startDate}`;
+        if (endDate) queryString += `&endDate=${endDate}`;
+        return `/getFilteredFinances${queryString}`;
+      },
+    }),
+    exportFinanceDataPDF: builder.query({
+      query: ({ filterType, paymentMethod, startDate, endDate }) => ({
+        url: "/finances",
+        params: { filterType, paymentMethod, startDate, endDate, export: "pdf" },
+        responseHandler: (response) => response.blob(),
+      }),
+    }),
   }),
+
+  ///////////////
 });
 
 export const {
@@ -98,6 +131,7 @@ export const {
   useAddregularCustomerMutation,
   useAddVehiclesMutation,
   useDeleteNotificationMutation,
+  useUpdateVehicleStatusMutation,
 
   useGetNotificationsQuery,
   useGetRegularCustomerQuery,
@@ -105,4 +139,7 @@ export const {
   useShowNotificationToAdminQuery,
   useGetPaymentKhaltiQuery,
   useGetVehicleQuery,
+  useGetFinanceDataQuery,
+  useGetFilteredFinanceDataQuery,
+  useExportFinanceDataPDFQuery,
 } = adminApiSlice;

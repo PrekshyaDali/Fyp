@@ -23,6 +23,7 @@ export default function Esewa() {
   const user = localStorage.getItem("id");
 
   const {data: enrollmentData} = useGetEnrollmentByIdQuery(user);
+  console.log(enrollmentData)
 
 
 
@@ -60,6 +61,7 @@ export default function Esewa() {
       };
       console.log("Options:", options);
       const enrollment = enrollmentData;
+      {console.log(enrollment)}
       const headers = {
         Authorization: "key 3def120726f04186b1c6f274700bd12f",
         "Content-Type": "application/json",

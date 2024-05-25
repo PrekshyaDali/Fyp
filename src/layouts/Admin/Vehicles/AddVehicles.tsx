@@ -1,38 +1,23 @@
+// AddVehicles.js
 import React from "react";
 import Button from "@/pages/component/Button";
-import { useEffect } from "react";
-
 import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
 import { useAddVehiclesMutation } from "@/feature/adminApiSlice";
-import { set } from "date-fns";
 
 export default function AddVehicles() {
   const [addVehicle] = useAddVehiclesMutation();
-  const [users, setUsers] = React.useState([]);
   const {
     handleSubmit,
     register,
-    reset,
     formState: { errors },
   } = useForm();
-
-  // useEffect(() => {
-  //   fetch("https://jsonplaceholder.typicode.com/users")
-  //     .then((res) => res.json())
-  //     .then((data) => {
-  //       setUsers(data);
-  //     })
-  //     .catch((error) => console.log(error));
-  // }, []);
-  // console.log(users)
 
   const SubmitHandler = async (data) => {
     try {
       const res = await addVehicle(data).unwrap();
       console.log(res);
       toast.success("Vehicle added successfully");
-      reset(); // Reset form after successful submission
     } catch (err) {
       console.error("Error adding vehicle:", err);
       toast.error("Failed to add vehicle");
@@ -48,36 +33,36 @@ export default function AddVehicles() {
             <p>Add vehicles to your driving institute</p>
           </div>
           <div>
+            <label htmlFor="unique_id">Unique Id</label>
+            <input
+              {...register("unique_id", {
+                required: "Unique Id is required",
+                pattern: {
+                  value: /^[0-9]*$/,
+                  message: "Unique Id should be a valid number",
+                },
+              })}
+              type="text"
+              className={`inputfields ${errors.unique_id ? "input-error" : ""}`}
+            />
+            {errors.unique_id && (
+              <p className="text-red-500">{errors.unique_id.message}</p>
+            )}
+          </div>
+          <div>
             <label htmlFor="category">Category</label>
             <select
-              {...register("category", {
-                required: "Category is required ", // Corrected error message handling
-              })}
-              className="inputfields"
-              name="category"
-              id="category"
+              {...register("category", { required: "Category is required" })}
+              className={`inputfields ${errors.category ? "input-error" : ""}`}
             >
-              <option value="">Select a Category</option> {/* Default empty value */}
-              <option value="car">Car</option> {/* Corrected unique value */}
+              <option value="">Select a Category</option>
+              <option value="car">Car</option>
               <option value="bike">Bike</option>
               <option value="scooter">Scooter</option>
             </select>
             {errors.category && <p className="text-red-500">{errors.category.message}</p>}
           </div>
-          <div>
-            <label htmlFor="quantity">Quantity</label>
-            <input
-              {...register("quantity", {
-                required: "Quantity is required and should be a number",
-                min: { value: 1, message: "Quantity should be at least 1" }, // Corrected min value
-              })}
-              type="number"
-              className="inputfields"
-              placeholder="Enter quantity"
-            />
-            {errors.quantity && <p className="text-red-500">{errors.quantity.message}</p>}
-          </div>
-          <Button name="Save" type="submit" /> {/* Corrected button to submit */}
+          <Button name="Save" type="submit" />
         </div>
       </form>
     </div>
