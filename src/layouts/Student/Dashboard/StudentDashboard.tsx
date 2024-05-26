@@ -61,6 +61,23 @@ const StudentDashboard = () => {
             ))}
           </ul>
         </div>
+
+        <div className="flex justify-end">
+          <div >
+            <label className = "text-md font-semibold" htmlFor="Location">Location of our DriveSync</label>
+            <iframe
+              width="200"
+              height="200"
+              frameborder="0"
+              scrolling="no"
+              marginheight="0"
+              marginwidth="0"
+              src="https://maps.google.com/maps?width=200&amp;height=200&amp;hl=en&amp;q=Kathmandu,%20Dakshindhoka+(DriveSync)&amp;t=&amp;z=14&amp;ie=UTF8&amp;iwloc=B&amp;output=embed"
+            >
+              <a href="https://www.gps.ie/">gps systems</a>
+            </iframe>
+          </div>
+        </div>
       </div>
     </>
   );

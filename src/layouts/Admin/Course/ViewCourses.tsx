@@ -8,7 +8,7 @@ import { IAddCourse } from "@/index";
 
 export default function ViewCourses() {
   const { id } = useParams<{ id: string }>();
-  const { data } = useGetCourseQuery(id, { refetchOnMountOrArgChange: true });
+  const { data, refetch } = useGetCourseQuery(id, { refetchOnMountOrArgChange: true });
   const [img, setImg] = useState<any>(null);
 
   const [edit, setEdit] = useState(false);
@@ -19,17 +19,19 @@ export default function ViewCourses() {
     handleSubmit,
     formState: { errors },
     setValue,
+    
   } = useForm();
 
   useEffect(() => {
     if (data) {
       setValue("image", data?.image);
-      setValue("type", data?.type);
+      setValue("type", data?.type );
       setValue("courseOverview", data?.courseOverview);
       setValue("courseDescription", data?.courseDescription);
       setValue("certification", data?.certification);
       setValue("price", data?.price);
     }
+    console.log(data?.type)
   }, [data, setValue]);
 
   const fileHandler = () => {
@@ -44,6 +46,7 @@ export default function ViewCourses() {
   };
 
   const SubmitHandler = async (data1) => {
+    console.log(data1)
     try {
       const formData = new FormData();
       formData.append("type", data1.type);
@@ -54,11 +57,12 @@ export default function ViewCourses() {
       if (img) {
         formData.append("image", img);
       }
-
+      console.log(data1.type)
       const res = await editCourse({ id, body: formData }).unwrap();
       console.log(res);
       setEdit(false);
       toast.success("Course details updated successfully");
+   
     } catch (error) {
       console.error("Error editing course:", error);
       toast.error("Failed to update course details");
@@ -74,7 +78,11 @@ export default function ViewCourses() {
       <div className="flex justify-between relative">
         <div className="relative w-80">
           <div className="h-52 w-64 overflow-hidden ">
-            <img className="object-contain h-52 w-64" src={data?.image} alt="" />
+            <img
+              className="object-contain h-52 w-64"
+              src={img ? URL.createObjectURL(img) : data?.image}
+              alt=""
+            />
           </div>
           <div className="h-12 w-12 absolute rounded-md bg-gray-300 hover:bg-gray-400 active:bg-gray-300 flex justify-center items-center right-0 bottom-4">
             <input

@@ -102,10 +102,13 @@ export default function Esewa() {
          
          
         }).unwrap();
+            console.log(enrollment);
+      
     } catch (error) {
       console.log("Error:", error);
       toast.error("Payment Failed");
     }
+
   };
 
   return (

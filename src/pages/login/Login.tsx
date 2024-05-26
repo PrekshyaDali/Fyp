@@ -51,7 +51,7 @@ const Login = () => {
       } else if (res.role === "instructor" && res.isFirstLogin === false) {
         navigate("/Changepassword");
       } else if (res.isFirstLogin === true) {
-        navigate("/instructor");
+        navigate("/instructor/InstructorDashboard");
       }
 
       localStorage.removeItem("email");
