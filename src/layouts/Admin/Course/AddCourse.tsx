@@ -54,6 +54,7 @@ export default function AddCourse() {
       onSubmit={handleSubmit(SubmitHandler)}
     >
       <div className="m-5 border-2 p-3 rounded-md flex flex-col space-y-5">
+        <h1 className = "text-2xl font-semibold">Add Courses</h1>
         <div className="relative">
           <label htmlFor="CourseOverview">Course Overview</label>
           <textarea

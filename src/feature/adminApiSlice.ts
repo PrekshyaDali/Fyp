@@ -82,6 +82,25 @@ export const adminApiSlice = apiSlice.injectEndpoints({
         body: { status },
       }),
     }),
+    addCustomizeCourse: builder.mutation({
+      query: (body) => ({
+        url: "/customize",
+        method: "POST",
+        body: body,
+      }),
+    }),
+    getCustomizeData: builder.mutation({
+      query: ({category, duration}) => ({
+        url: "/getCustomizeData",
+        method: "POST",
+      }),
+    }),
+    getCustomizeDetail: builder.query({
+      query: () => ({
+        url: "/getCustomizeDetail",
+        method: "GET",
+      }),
+    }),
 
     getPaymentKhalti: builder.query({
       query: (userId) => ({
@@ -119,6 +138,8 @@ export const adminApiSlice = apiSlice.injectEndpoints({
         responseHandler: (response) => response.blob(),
       }),
     }),
+
+    ///////
   }),
 
   ///////////////
@@ -132,6 +153,8 @@ export const {
   useAddVehiclesMutation,
   useDeleteNotificationMutation,
   useUpdateVehicleStatusMutation,
+  useAddCustomizeCourseMutation,
+  useGetCustomizeDetailQuery,
 
   useGetNotificationsQuery,
   useGetRegularCustomerQuery,
@@ -142,4 +165,5 @@ export const {
   useGetFinanceDataQuery,
   useGetFilteredFinanceDataQuery,
   useExportFinanceDataPDFQuery,
+  useGetCustomizeDataMutation,
 } = adminApiSlice;

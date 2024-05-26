@@ -1,28 +1,32 @@
 import { Link, Outlet } from "react-router-dom";
-import React from "react";
+import React, { useState } from "react";
 import { logout } from "@/app/authSlice";
 import { useAppDispatch } from "@/app/store";
 import DriveSyncLogo from "@/pages/component/DriveSyncLogo";
-import Adminprofile from "../../../pages/component/ProfileLogo";
-import StudentDashboard from "./StudentDashboard";
-import Button from "@/pages/component/Button";
 import ProfileLogo from "../../../pages/component/ProfileLogo";
+
 const UserLayout = () => {
   const dispatch = useAppDispatch();
   const id = localStorage.getItem("id");
+  const [settingsOpen, setSettingsOpen] = useState(false);
+
+  const toggleSettings = () => {
+    setSettingsOpen(!settingsOpen);
+  };
+
   return (
     <div className="text-[#1E2749]">
       <div className="drawer drawer-mobile">
         <input id="my-drawer-2" type="checkbox" className="drawer-toggle" />
         <div className="drawer-content bg-[#F7FAFC] ">
-          <div className="h-16 bg-[#FAFAFF] border-b-2  relative flex justify-end">
+          <div className="h-16 bg-[#FAFAFF] border-b-2 relative flex justify-end">
             <ProfileLogo />
           </div>
 
           <div>
             <label
               htmlFor="my-drawer-2"
-              className="bg-[#CBE3EF] h-10 rounded-lg lg:hidden w-14  absolute top-3 flex justify-center items-center"
+              className="bg-[#CBE3EF] h-10 rounded-lg lg:hidden w-14 absolute top-3 flex justify-center items-center"
             >
               <span className="sr-only">Open sidebar</span>
               <svg
@@ -45,14 +49,14 @@ const UserLayout = () => {
             <Outlet />
           </main>
         </div>
-        <div className="drawer-side ">
-          <label htmlFor="my-drawer-2" className="drawer-overlay "></label>
-          <ul className="menu p-2 sm:p-4 w-56 sm:w-72  text-sm bg-[#5584B0]">
-            <div className="fixed z-10 ">
-              <DriveSyncLogo></DriveSyncLogo>
+        <div className="drawer-side">
+          <label htmlFor="my-drawer-2" className="drawer-overlay"></label>
+          <ul className="menu p-2 sm:p-4 w-56 sm:w-72 text-sm bg-[#5584B0]">
+            <div className="fixed z-10">
+              <DriveSyncLogo />
             </div>
 
-            <li className=" mt-16 text-sm sm:text-sm text-white space-y-2 font-bold">
+            <li className="mt-16 text-sm sm:text-sm text-white space-y-2 font-bold">
               <Link to="/user/StudentDashboard">
                 <img className="h-5" src="/img/home.png" alt="" />
                 Home
@@ -65,19 +69,46 @@ const UserLayout = () => {
                 <img className="h-5" src="/img/mycourses.png" alt="" />
                 My Courses
               </Link>
-
               <Link to="/user/Notifications">
                 <img className="h-5" src="/img/notification.png" alt="" />
                 Notices
               </Link>
               <Link to="/user/vehiclesAvailability">
-                <img className="h-5" src="/img/settings.png" alt="" />
+                <img className="h-5" src="/img/vehicles_availability.png" alt="" />
                 Vehicles Availability
               </Link>
-              <Link to="/user/">
-                <img className="h-5" src="/img/settings.png" alt="" />
+
+              <div className="relative" onClick={toggleSettings}>
+                <img className="h-6" src="/img/settings.png" alt="" />
                 Settings
-              </Link>
+                <img
+                  className="h-6 absolute top-3 right-3"
+                  src="/img/submenu.png"
+                  alt=""
+                />
+              </div>
+              {settingsOpen && (
+                <div className="flex flex-col">
+                  <li>
+                    <Link to="/user/profile">
+                      <img className="h-5" src="/img/profile.png" alt="" />
+                      Profile
+                    </Link>
+                  </li>
+                  <li className="">
+                    <Link to="/user/termsandcondition">
+                      <img className="h-5 " src="/img/TC.png" alt="" />
+                      Terms and condition
+                    </Link>
+                  </li>
+                  <li className="">
+                    <Link to="/user/contactUs">
+                      <img className="h-5 " src="/img/contactus.png" alt="" />
+                      Contact Us
+                    </Link>
+                  </li>
+                </div>
+              )}
             </li>
           </ul>
         </div>

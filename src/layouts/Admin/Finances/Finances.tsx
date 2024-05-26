@@ -1,10 +1,9 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import {
-  useExportFinanceDataCSVQuery,
   useExportFinanceDataPDFQuery,
   useGetFilteredFinanceDataQuery,
 } from "@/feature/adminApiSlice";
-
+import { useReactToPrint } from "react-to-print";
 const Finances = () => {
   const [filterType, setFilterType] = useState("all");
   const [paymentMethod, setPaymentMethod] = useState("all");
@@ -75,45 +74,14 @@ const Finances = () => {
     skip: false,
   });
 
-  const {
-    data: csvData,
-    refetch: exportFinanceData,
-    isFetching: isExportFetching,
-  } = useExportFinanceDataPDFQuery({ ...queryParams, export: "csv" }, { skip: true });
+//  generate the pdf
+  const componentPDF = useRef();
+  const generatePDF = useReactToPrint({
+    content: () => componentPDF.current,
+    documentTitle: "Finance Data",
+    onAfterPrint: ()=>alert("Data saved in PDF")
+  });
 
-const handleExport = async () => {
-  try {
-    // Fetch finance data for export
-    const { data: pdfBlob } = await exportFinanceData();
-
-    // Create a blob URL for the PDF data
-    const url = window.URL.createObjectURL(pdfBlob);
-
-    // Create an anchor element for download
-    const link = document.createElement("a");
-    link.href = url;
-    link.setAttribute("download", "finance_data.pdf");
-
-    // Simulate a click on the anchor element to trigger download
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
-
-    // Clean up by revoking the blob URL
-    window.URL.revokeObjectURL(url);
-  } catch (error) {
-    console.error("Error exporting data:", error);
-    if (error instanceof Error) {
-      console.log("Error message:", error.message);
-      console.log("Error stack:", error.stack);
-    } else if (error.data) {
-      console.log("Response status:", error.status);
-      console.log("Response data:", await error.data.text());
-    } else {
-      console.log("Unknown error:", error);
-    }
-  }
-};
   const handleFilterChange = (e) => {
     const selectedFilter = e.target.value;
     setFilterType(selectedFilter);
@@ -133,8 +101,7 @@ const handleExport = async () => {
       <div className="relative flex justify-end">
         <img className="w-5 absolute right-2.5 top-2" src="/img/export.png" alt="" />
         <button
-          onClick={handleExport}
-          disabled={isLoading || isExportFetching}
+          onClick={generatePDF}
           className="px-10 py-2 bg-red-700 text-white rounded-md hover:bg-red-600 active:bg-red-700"
         >
           Export
@@ -196,7 +163,7 @@ const handleExport = async () => {
           </select>
         </div>
       </div>
-      <div className="overflow-x-auto">
+      <div ref={componentPDF} className="overflow-x-auto w-full h-full m-5">
         <table className="min-w-full bg-white border border-gray-200">
           <thead>
             <tr>
@@ -221,7 +188,7 @@ const handleExport = async () => {
             </tr>
           </thead>
           <tbody>
-            {financeData?.data?.map((item) => (
+            {financeData?.filteredData?.map((item) => (
               <tr key={item._id}>
                 <td className="text-left py-4 px-6 border-b border-gray-200">
                   {item.source}
@@ -245,7 +212,20 @@ const handleExport = async () => {
             ))}
           </tbody>
         </table>
+
+        <div className="space-x-5 mt-5">
+          <label className="text-red-400 text-lg " htmlFor="">
+            {" "}
+            Total Income
+          </label>
+          <span className="bg-pink-300 px-4 py-2 rounded-full bg-opacity-90 text-pink-800">
+            {" "}
+            Rs 20,000
+          </span>
+        </div>
+        {console.log(financeData)}
       </div>
+
       {isLoading && <p>Loading...</p>}
       {error && <p>Error loading finance data: {error.message}</p>}
     </div>

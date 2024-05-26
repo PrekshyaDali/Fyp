@@ -57,6 +57,8 @@ import VehiclesAvailablity from "@/layouts/Student/StudentCourses/VehiclesAvaila
 import PaymentDashboard from "@/pages/component/demo";
 import ViewNotices from "@/layouts/Admin/Notifications/ViewNotices";
 import AddVehicles from "@/layouts/Admin/Vehicles/AddVehicles";
+import TermsAndConditions from "@/layouts/Student/StudentProfile/TermsAndConditions";
+import ContactUs from "@/layouts/Student/StudentProfile/ContactUs";
 
 // lazy import components
 // const PostList = lazy(() => import("@/pages/posts/list"));
@@ -142,6 +144,14 @@ const AppRouter = () => {
 
                 <Route path="/user/BikeDetails" element={<Details></Details>} />
                 <Route path="/user/Notifications" element={<Notifications />}></Route>
+                <Route
+                  path="/user/termsandcondition"
+                  element={<TermsAndConditions />}
+                ></Route>
+                <Route
+                  path="/user/contactUs"
+                  element={<ContactUs />}
+                ></Route>
               </Route>
             </Route>
 

@@ -74,7 +74,7 @@ const AdminLayout = () => {
                 Dashboard
               </Link>
               <div className="relative" onClick={toggleInstructorSubMenu}>
-                <img className="h-6" src="/img/student.png" alt="" />
+                <img className="h-6" src="/img/Instructor.png" alt="" />
                 Instructor
                 <img
                   className="h-6 absolute top-3 right-3"
@@ -99,7 +99,7 @@ const AdminLayout = () => {
                 </div>
               )}
               <div className="relative" onClick={toggleCoursesSubMenu}>
-                <img className="h-6" src="/img/student.png" alt="" />
+                <img className="h-6" src="/img/courses.png" alt="" />
                 Courses
                 <img
                   className="h-6 absolute top-3 right-3"
@@ -138,15 +138,15 @@ const AdminLayout = () => {
                 Regular Customers
               </Link>
               <Link to="/admin/viewNotices">
-                <img className="h-6 " src="/img/notification.png" alt="" />
+                <img className="h-6 " src="/img/notice.png" alt="" />
                 Notices
               </Link>
               <Link to="/admin/Vehicles">
-                <img className="h-6 " src="/img/notification.png" alt="" />
+                <img className="h-6 " src="/img/vehicles.png" alt="" />
                 Vehicles
               </Link>
               <Link to="/admin/Finances">
-                <img className="h-6 " src="/img/notification.png" alt="" />
+                <img className="h-6 " src="/img/Finance.png" alt="" />
                 Finances
               </Link>
             </li>

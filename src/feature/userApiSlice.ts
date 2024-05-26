@@ -270,6 +270,14 @@ export const userApiSlice = apiSlice.injectEndpoints({
         body: formData,
       }),
     }),
+
+    resetPasword: builder.mutation({
+      query: ({ email, newPassword }) => ({
+        url: `/resetpassword?email=${encodeURIComponent(email)}`,
+        method: "PATCH",
+        body: { newPassword },
+      }),
+    }),
   }),
 });
 
@@ -292,7 +300,7 @@ export const {
   usePaymentTrackingMutation,
   useAttendanceMutation,
   useEsewaPaymentMutation,
-
+  useResetPaswordMutation,
 
   useGetPaymentDataQuery,
 

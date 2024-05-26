@@ -30,6 +30,7 @@ export default function ChangePassword() {4
       if(localStorage.getItem("role") === "instructor"){
         navigate("/instructor");
       }
+      navigate(-1)
     } catch (error) {
       console.log(error, "err");
       const { data } = error as { data: { error: string } };

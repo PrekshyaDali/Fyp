@@ -85,8 +85,10 @@ const ViewStudent = () => {
                     <label htmlFor={`Payment${index}`} className="mr-2 text-sm">
                       Payment Method :
                     </label>
-                    <span className="text-green-500">
-                      {enrollment.payment.toUpperCase()}
+                    <span className="text-purple-500">
+                      {enrollment.payment === "Esewa" ?  "Khalti" : enrollment.payment}
+                      {/* {enrollment.payment.toUpperCase()} */}
+                    
                     </span>
                   </div>
 
