@@ -10,6 +10,14 @@ const baseQuery = fetchBaseQuery({
   baseUrl: "http://localhost:3001",
   prepareHeaders: (headers) => {
     // if you need to add global headers, do it here
+
+    const token = localStorage.getItem("accessToken");
+
+    if (token) {
+      // Add the Authorization header if the token is present
+      headers.set("Authorization", `Bearer ${token}`);
+    }
+
     return headers;
   },
 });
@@ -31,5 +39,5 @@ export const apiSlice = createApi({
   baseQuery: baseQueryWithInterceptor,
   reducerPath: "api",
   endpoints: () => ({}),
-  tagTypes: ["Posts"],
+  tagTypes: ["Instructor","Course","Student","Payment", "Attendance", "regularCustomer", 'notification'],
 });
