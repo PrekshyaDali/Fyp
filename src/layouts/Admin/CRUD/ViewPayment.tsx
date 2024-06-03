@@ -18,7 +18,7 @@ export default function ViewPayment() {
   const { enrollmentId } = useParams<{ enrollmentId: string }>();
   const { id } = useParams<{ id: string }>();
   const { data: enrollmentData } = useOneEnrollmentUserQuery(enrollmentId);
-  console.log(enrollmentData)
+  console.log(enrollmentData);
   const { data: paymentData } = useGetPaymentDataQuery(enrollmentId);
   console.log(paymentData, "paymentData");
   const [paymentTracking, isLoading] = usePaymentTrackingMutation();
@@ -34,53 +34,51 @@ export default function ViewPayment() {
   console.log(KhaltiData, "KhaltiData");
 
   // State to hold the due amount
-React.useEffect(() => {
-  let totalDueAmount = 0;
+  React.useEffect(() => {
+    let totalDueAmount = 0;
 
-  if (paymentData && paymentData.payments && KhaltiData && KhaltiData.payment) {
-    const allPayments = [...paymentData.payments, ...KhaltiData.payment];
+    if (paymentData && paymentData.payments && KhaltiData && KhaltiData.payment) {
+      const allPayments = [...paymentData.payments, ...KhaltiData.payment];
 
-    // Find the latest payment with the highest _id
-    const latestPayment = allPayments.reduce((latest, payment) =>
-      latest._id > payment._id ? latest : payment,
-    );
+      // Find the latest payment with the highest _id
+      const latestPayment = allPayments.reduce((latest, payment) =>
+        latest._id > payment._id ? latest : payment,
+      );
 
-    totalDueAmount = latestPayment.dueAmount;
-  }
-
-  setDueAmount(totalDueAmount);
-
-  const paymentType = totalDueAmount === 0 ? "complete" : "incomplete";
-  setPaymentType(paymentType);
-}, [paymentData, KhaltiData]);
-
-
-const SubmitHandler = async (data) => {
-  try {
-    let paidAmount = data.paidAmount; // Default to the paid amount entered by the user
-
-    // Check if the payment data is from Khalti
-    if (paymentType === "Khalti") {
-      // Use KhaltiData.amount as paid amount for Khalti payments
-      paidAmount = KhaltiData?.amount;
+      totalDueAmount = latestPayment.dueAmount;
     }
 
-    const payload = {
-      paymentType: data.paymentType,
-      paidAmount: paidAmount,
-      enrollmentId: enrollmentId,
-    };
+    setDueAmount(totalDueAmount);
 
-    const res = await paymentTracking(payload).unwrap();
-    console.log(res);
-    // Update the due amount after successful payment tracking
-    reset();
-    toast.success("Payment tracked successfully");
-  } catch (error) {
-    toast.error("Error tracking payment");
-  }
-};
+    const paymentType = totalDueAmount === 0 ? "complete" : "incomplete";
+    setPaymentType(paymentType);
+  }, [paymentData, KhaltiData]);
 
+  const SubmitHandler = async (data) => {
+    try {
+      let paidAmount = data.paidAmount; // Default to the paid amount entered by the user
+
+      // Check if the payment data is from Khalti
+      if (paymentType === "Khalti") {
+        // Use KhaltiData.amount as paid amount for Khalti payments
+        paidAmount = KhaltiData?.amount;
+      }
+
+      const payload = {
+        paymentType: data.paymentType,
+        paidAmount: paidAmount,
+        enrollmentId: enrollmentId,
+      };
+
+      const res = await paymentTracking(payload).unwrap();
+      console.log(res);
+      // Update the due amount after successful payment tracking
+      reset();
+      toast.success("Payment tracked successfully");
+    } catch (error) {
+      toast.error("Error tracking payment");
+    }
+  };
 
   console.log(dueAmount, "dueAmount");
 
@@ -129,19 +127,19 @@ const SubmitHandler = async (data) => {
   }
 
   // Add Khalti payment data
- if (KhaltiData && KhaltiData.payment) {
-   KhaltiData.payment.forEach((payment, index) => {
-     if (payment.course === enrollmentData?.data?.course) {
-       data.push({
-         sn: index + 1,
-         date: new Date(payment.date).toDateString(),
-         paidAmount: payment.amount,
-         dueAmount: payment.dueAmount,
-         paymentMethod: "Khalti",
-       });
-     }
-   });
- }
+  if (KhaltiData && KhaltiData.payment) {
+    KhaltiData.payment.forEach((payment, index) => {
+      if (payment.course === enrollmentData?.data?.course) {
+        data.push({
+          sn: index + 1,
+          date: new Date(payment.date).toDateString(),
+          paidAmount: payment.amount,
+          dueAmount: payment.dueAmount,
+          paymentMethod: "Khalti",
+        });
+      }
+    });
+  }
 
   return (
     <form onSubmit={handleSubmit(SubmitHandler)} encType="multipart/form-data">
@@ -176,17 +174,21 @@ const SubmitHandler = async (data) => {
           </div>
 
           {/* Paid amount */}
-          <div className="w-full md:w-1/2  items-center mb-3">
-            <label htmlFor="" className="mr-2 text-sm">
+          <div className="w-full md:w-1/2 items-center mb-3">
+            <label htmlFor="paidAmount" className="mr-2 text-sm">
               Paid Amount <span className="text-sm text-pink-500">(in Rs)</span>
             </label>
             <input
-              {...register("paidAmount", { required: "This field is required" })}
+              {...register("paidAmount", {
+                required: "This field is required",
+                validate: (value) =>
+                  parseFloat(value) > 0 || "Amount must be greater than 0",
+              })}
               type="text"
               className="bg-white border-2 text-sm p-1 w-full"
             />
             {errors.paidAmount && (
-              <span className="text-red-500 text-sm">{"This field is required"}</span>
+              <span className="text-red-500 text-sm">{errors.paidAmount.message}</span>
             )}
           </div>
 

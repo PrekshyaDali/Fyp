@@ -2,7 +2,6 @@ import { useGetInstructorsQuery } from "@/feature/userApiSlice";
 import StudentDetails from "@/pages/component/StudentDetails";
 import React, { useEffect, useState } from "react";
 
-
 export default function InstructorTable() {
   const { data, isLoading } = useGetInstructorsQuery({});
   const [input, setInput] = useState<string>("");
@@ -22,6 +21,9 @@ export default function InstructorTable() {
 
   return (
     <>
+    <div>
+     
+    </div>
       <StudentDetails
         data={filteredData}
         setInput={setInput}

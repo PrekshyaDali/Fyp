@@ -82,7 +82,7 @@ export default function CustomizeCourse() {
         </div>
 
         <div>
-          <label htmlFor="basePrice">Maximum discount</label>
+          <label htmlFor="basePrice">Maximum discount (Rs)</label>
           <input
           {...register("maxDiscount",{
             required: "This field is required",
